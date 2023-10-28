@@ -1,0 +1,37 @@
+{
+  "name": "voicehub",
+  "version": "0.1.0",
+  "private": true,
+  "scripts": {
+    "dev": "next dev -p 8000",
+    "build": "next build",
+    "start": "next start",
+    "lint": "next lint"
+  },
+  "dependencies": {
+    "@tabler/icons-react": "^2.39.0",
+    "axios": "^1.5.1",
+    "dotenv": "^16.3.1",
+    "lodash": "^4.17.21",
+    "next": "13.5.4",
+    "react": "^18",
+    "react-dom": "^18",
+    "react-select": "^5.7.7",
+    "react-slick": "^0.29.0",
+    "recoil": "^0.7.7",
+    "recoil-persist": "^5.1.0",
+    "slick-carousel": "^1.8.1",
+    "styled-components": "^6.1.0",
+    "styled-reset": "^4.5.1",
+    "wavesurfer.js": "^7.3.8"
+  },
+  "devDependencies": {
+    "@types/lodash": "^4.14.199",
+    "@types/node": "^20",
+    "@types/react": "^18.2.31",
+    "@types/react-dom": "^18",
+    "@types/react-slick": "^0.23.10",
+    "@types/styled-components": "^5.1.28",
+    "typescript": "^5.2.2"
+  }
+}

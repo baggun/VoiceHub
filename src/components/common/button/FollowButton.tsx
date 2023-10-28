@@ -1,0 +1,64 @@
+"use client";
+
+import React from "react";
+// import { useSelector } from "react-redux";
+// import { useNavigate } from "react-router-dom";
+// import { RootState } from "@modules/index";
+
+import { setFollow } from "@apis/api/follow";
+import { Button } from ".";
+import { useRecoilState } from "recoil";
+import { userState } from "@/recoil/user/atom";
+import { useRouter } from "next/navigation";
+
+/**
+ * 팔로우 버튼
+ */
+type FollowButtonProps = {
+  target: string;
+  isFollowed: boolean;
+  followSuccessEvent?: (e: boolean) => void;
+};
+const FollowButton = ({
+  target,
+  isFollowed,
+  followSuccessEvent,
+}: FollowButtonProps) => {
+  const router = useRouter();
+  // const navigate = useNavigate();
+  // const user = useSelector((state: RootState) => state.users);
+  const [user, setUser] = useRecoilState(userState);
+  const [isFollowing, setFollowing] = React.useState<boolean>(isFollowed);
+
+  React.useEffect(() => {
+    setFollowing(isFollowed);
+  }, [isFollowed]);
+
+  const onClickHandler = async (
+    e: React.MouseEvent<HTMLButtonElement, MouseEvent>
+  ) => {
+    e.preventDefault();
+
+    if (!!!user.id) {
+      router.push("/auth/login");
+
+      return;
+    }
+
+    const res = await setFollow(target);
+    if (res && res.success) {
+      if (followSuccessEvent) followSuccessEvent(res.result);
+      else setFollowing(res.result);
+    }
+  };
+
+  if (!!user.id && user.id === target) return <></>;
+
+  return (
+    <Button className="btn-follow" onClick={onClickHandler}>
+      {isFollowing ? "팔로우 중" : "팔로우 하기"}
+    </Button>
+  );
+};
+
+export default FollowButton;
