@@ -19,7 +19,7 @@ type LikeProps = {
 };
 
 const ButtonStyle: CustomButtonProps = {
-  variant: "secondary",
+  variant: "primary",
   $borderRadius: "0.75rem",
   $withIcon: true,
 };

@@ -19,15 +19,15 @@ export type FontSizeTypes = typeof fonts;
 
 // 색상
 const colors = {
-    primary: "#953D93",
-    secondary: "#EA884C",
+    primary: "#676AF9",
+    secondary: "#71CDFB",
     warning: "#FF383C",
     grey: "#b3b3b3",
     black: "#222222",
     bg: "#F5F5F5",
     dark_bg: "#1e1e1e", // cover bg 로 사용
     grey_bg: "#404040", // script bg, wave bg 로 사용
-    lightPrimary: "#f0daee",
+    lightPrimary: "#c8c8ec",
     lightGrey: "#dbdbdb",
     hover: "#f7f7f7",
     light_bg: "#faf8fa",
@@ -58,6 +58,7 @@ export type DevicesTypes = typeof devices;
 
 const zIndex = {
     background_img: -1,
+    footerPlayer: 99,
     modalBG: 100,
     modal: 101,
 };

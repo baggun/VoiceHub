@@ -44,25 +44,15 @@ const SafetyLink = ({
 };
 
 const FooterPlayer = () => {
-    const audio = useRecoilValue(audioState);
-  // const [audio, setAudio] = useRecoilState(audioState);
+  const audio = useRecoilValue(audioState);
   const audioInfo = useRecoilValue(audioInfoState);
   const [play, setPlay] = useRecoilState(audioPlayState);
-//   console.log('111111111111111111', audioInfo, play);
-  // const dispatch = useDispatch();
-  // const { info, audioIsPlay } = useSelector(
-  //     (state: RootState) => ({
-  //         info: state.audioInfo,
-  //         audioIsPlay: state.audio.isPlay,
-  //     }),
-  //     shallowEqual
-  // );
 
-  if (audio.audio === "") return <></>
+  if (audio.audio === "") return <></>;
   return (
     <PlayerBlock>
       <AudioInfoDiv>
-        <Profile profileID={audioInfo.ownerID} $marginRight="0.5rem"></Profile>
+        <Profile profileID={audioInfo.ownerID} $marginRight="1rem"></Profile>
         <div className="d-flex f-column">
           <SafetyLink to={audioInfo.ownerID} className="audio-username">
             {audioInfo.ownerName}
@@ -100,18 +90,13 @@ const FooterPlayer = () => {
 export default React.memo(FooterPlayer);
 
 const PlayerBlock = styled.div`
-  // display: flex;
   position: fixed;
   height: 4rem;
   width: 100%;
   bottom: 0px;
   background: rgb(149, 61, 147);
-  background: linear-gradient(
-    125deg,
-    rgba(149, 61, 147, 1) 0%,
-    rgba(234, 136, 76, 1) 100%
-  );
-  // justify-content: space-between;
+  background: linear-gradient(125deg, #1e1e1e 0%, #1e1e1e 100%);
+  z-index: ${({ theme }) => theme.zIndex.footerPlayer};
 `;
 
 const AudioInfoDiv = styled.div`
@@ -145,6 +130,6 @@ const ControllerDiv = styled.div`
   display: flex;
   justify-content: center;
   .icon {
-    color: white;
+    color: ${({ theme }) => theme.colors.primary};
   }
 `;

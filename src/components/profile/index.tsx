@@ -22,7 +22,7 @@ export type ProfileProps = ProfileLinkProps & {
 const Profile = ({
   profileID,
   nickname,
-  size = 2,
+  size = 2.5,
   $marginRight = "0px",
   $nicknameMargin = "0.5rem",
 }: ProfileProps) => {

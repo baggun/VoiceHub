@@ -44,7 +44,7 @@ export const MobileWrapper = styled.div`
     justify-content: center;
     align-items: center;
     min-height: 100vh;
-    background-color: #efece8;
+    background-color: #f1f3f7;
     ${({ theme }) => theme.devices.max_only_mobile} {
         background-color: white;
     }

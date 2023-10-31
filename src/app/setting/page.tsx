@@ -1,11 +1,11 @@
+"use client";
+
 import React from "react";
 import styled, { css } from "styled-components";
 import { Card } from "@common/card";
 import { DefaultLayout } from "@components/layout";
 import { Button } from "@common/button";
 import { IconBell, IconKey, IconUser, IconSettings } from "@tabler/icons-react";
-import { AuthInput } from "@common/input";
-import SubmitButton from "@common/button/SubmitButton";
 import SettingPassword from "@components/setting/SettingPassword";
 import SettingAccount from "@components/setting/SettingAccount";
 import SettingProfile from "@components/setting/SettingProfile";

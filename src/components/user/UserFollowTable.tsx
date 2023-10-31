@@ -1,18 +1,16 @@
-import styled, { css } from "styled-components";
-// import { Link, useSearchParams } from "react-router-dom";
 import { digitK } from "@utils/format";
 import { TabType } from "@type/tab";
-import { useSearchParams } from "next/navigation";
-import Link from "next/link";
+import { FollowTable, InfoLink } from './UserFollowTable.styled';
 
 type UserFollowTableProps = {
+  tab: string;
   followers: number;
   followings: number;
 };
 
-const UserFollowTable = ({ followers, followings }: UserFollowTableProps) => {
-  const searchParams = useSearchParams();
-  const tab: string | null = searchParams.get("tab");
+const UserFollowTable = ({ tab, followers, followings }: UserFollowTableProps) => {
+  // const searchParams = useSearchParams();
+  // const tab: string | null = searchParams.get("tab");
   const tables: TabType[] = [
     {
       tab: "followers",
@@ -53,39 +51,3 @@ const UserFollowTable = ({ followers, followings }: UserFollowTableProps) => {
 };
 
 export default UserFollowTable;
-
-const FollowTable = styled.table`
-  position: relative;
-  display: inline-table;
-  // width: 10rem;
-  margin-left: 6rem;
-  // border-spacing: 1rem 0px;
-  border-spacing: 2rem 0px;
-  border-collapse: separate;
-  z-index: 1;
-  td {
-    // width: 33.33%;
-    // width: 50%;
-  }
-`;
-const InfoLink = styled(Link)<{ $active: boolean }>`
-  text-align: center;
-  &:hover {
-    color: ${({ theme }) => theme.colors.primary};
-  }
-  .infolink-head {
-    font-weight: 400;
-    font-size: 1rem;
-  }
-  .infolink-count {
-    font-weight: 500;
-  }
-  ${(props) =>
-    props.$active &&
-    css`
-      .infolink-head {
-        font-weight: 500;
-      }
-      color: ${props.theme.colors.primary};
-    `}
-`;

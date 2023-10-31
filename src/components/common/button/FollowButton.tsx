@@ -55,7 +55,7 @@ const FollowButton = ({
   if (!!user.id && user.id === target) return <></>;
 
   return (
-    <Button className="btn-follow" onClick={onClickHandler}>
+    <Button variant={isFollowing ? "grey" : "primary"} className="btn-follow" $borderRadius="0.5rem" onClick={onClickHandler}>
       {isFollowing ? "팔로우 중" : "팔로우 하기"}
     </Button>
   );

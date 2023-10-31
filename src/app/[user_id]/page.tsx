@@ -1,4 +1,4 @@
-"use client";
+// "use client";
 
 import React from "react";
 import styled, { css } from "styled-components";
@@ -39,6 +39,14 @@ import { GetServerSideProps } from "next";
 import { useSearchParams } from "next/navigation";
 import Link from "next/link";
 
+import {
+  ProfileBG,
+  ProfileContents,
+  ProfileName,
+  ProfileInfo,
+} from "./page.styled";
+import UserWorks from "@/components/user/UserWorks";
+
 interface PageProps {
   user_id: string;
 }
@@ -51,119 +59,75 @@ interface PageProps {
 //   };
 // };
 
-const User = ({ params }: { params: PageProps }) => {
+const User = async ({
+  params,
+  searchParams,
+}: {
+  params: PageProps;
+  searchParams: { tab: string   };
+}) => {
   const { user_id } = params;
   //   const { user_id } = useParams();
-  const searchParams = useSearchParams();
-  const tab: string | null = searchParams.get("tab");
+  // const searchParams = useSearchParams();
+  const tab: string = searchParams.tab || "voices";
 
-  const [profileData, setProfileData] = React.useState<UserProfileData>({
-    user_desc: "",
-    isFollowed: false,
-    user_email: "",
-    user_id: "",
-    user_nickname: "",
-    user_profile: "",
-    followers: 0,
-    followings: 0,
-  });
-  const [tracks, setTracks] = React.useState<VoiceInfo[]>([]);
+  const res = await getUser(user_id);
+  const profileData: UserProfileData = res.user;
 
-  const [associatedTags, setAssociatedTags] = React.useState<string[]>([]);
+  const associatedTags: string[] = [];
+  // const [profileData, setProfileData] = React.useState<UserProfileData>({
+  //   user_desc: "",
+  //   isFollowed: false,
+  //   user_email: "",
+  //   user_id: "",
+  //   user_nickname: "",
+  //   user_profile: "",
+  //   followers: 0,
+  //   followings: 0,
+  // });
 
-  const [posts, setPosts] = React.useState<PostType[]>([]);
-  const [scripts, setScripts] = React.useState<ScriptType[]>([]);
-  const [followers, setFollowers] = React.useState<UserData[]>([]);
+  // const [associatedTags, setAssociatedTags] = React.useState<string[]>([]);
 
-  const tabList: TabObjType = {
-    voices: {
-      tab: "voices",
-      title: "녹음",
-      api: async (user_id: string) => {
-        await getUserVoices(user_id)
-          .then((res) => getVoicesProcess(res.data))
-          .then((res) => setTracks(res));
-      },
-    },
-    posts: {
-      tab: "posts",
-      title: "게시글",
-      api: async (user_id: string) => {
-        await getUserPosts(user_id)
-          .then((res) => getPostsProcess(res.data))
-          .then((res) => setPosts(res));
-      },
-    },
-    like_scripts: {
-      tab: "like_scripts",
-      title: "관심 대사",
-      api: async (user_id: string) => {
-        await getUserLikeScripts(user_id)
-          .then((res) => getScriptsProcess(res.data))
-          .then((res) => {
-            setScripts(res);
-            console.log(res);
-          });
-      },
-    },
-    like_voices: {
-      tab: "like_voices",
-      title: "관심 녹음",
-      api: async (user_id: string) => {
-        await getUserLikeVoices(user_id)
-          .then((res) => getVoicesProcess(res.data))
-          .then((res) => setTracks(res));
-      },
-    },
-    like_posts: {
-      tab: "like_posts",
-      title: "관심 게시글",
-      api: async (user_id: string) => {
-        await getUserLikePosts(user_id)
-          .then((res) => getPostsProcess(res.data))
-          .then((res) => setPosts(res));
-      },
-    },
-  };
+  // const [followers, setFollowers] = React.useState<UserData[]>([]);
 
-  const refreshTabData = async () => {
-    if (!user_id) return;
+  // const refreshTabData = async () => {
+  //   if (!user_id) return;
 
-    const curTab = tab || "voices";
-    if (!Object.keys(tabList).includes(curTab)) {
-      await (curTab === "followers"
-        ? getUserFollowers(user_id)
-        : getUserFollowings(user_id)
-      )
-        .then((res) => getUsersProcess(res.data))
-        .then((res) => setFollowers(res));
-      return;
-    }
+  //   const curTab = tab || "voices";
+  //   if (!Object.keys(tabList).includes(curTab)) {
+  //     await (curTab === "followers"
+  //       ? getUserFollowers(user_id)
+  //       : getUserFollowings(user_id)
+  //     )
+  //       .then((res) => getUsersProcess(res.data))
+  //       .then((res) => setFollowers(res));
+  //     return;
+  //   }
 
-    tabList[curTab].api(user_id);
-  };
+  //   tabList[curTab].api(user_id);
+  // };
 
-  const initUserData = async () => {
-    if (!user_id) return;
-    const res = await getUser(user_id);
-    setProfileData(res.user);
-  };
+  // const initUserData = async () => {
+  //   if (!user_id) return;
+  //   const res = await getUser(user_id);
+  //   setProfileData(res.user);
+  // };
 
-  const followerCntHandler = (isFollowed: boolean) => {
-    setProfileData({
-      ...profileData,
-      isFollowed,
-      followers: profileData.followers + (isFollowed ? 1 : -1),
-    });
-  };
+  // const followerCntHandler = (isFollowed: boolean) => {
+  //   setProfileData({
+  //     ...profileData,
+  //     isFollowed,
+  //     followers: profileData.followers + (isFollowed ? 1 : -1),
+  //   });
+  // };
 
-  React.useEffect(() => {
-    initUserData();
-  }, []);
+  // React.useEffect(() => {
+  //   initUserData();
+  // }, []);
 
-  React.useEffect(() => {
-    refreshTabData();
-  }, [tab, user_id]);
+  // React.useEffect(() => {
+  //   refreshTabData();
+  // }, [tab, user_id]);
 
   return (
     <MainLayout>
@@ -181,17 +145,17 @@ const User = ({ params }: { params: PageProps }) => {
               <ProfileInfo>
                 <div className="d-flex align-content-center">
                   <ProfileName>{profileData.user_nickname} 성우</ProfileName>
-                  <FollowButton
+                  {/* <FollowButton
                     target={profileData.user_id}
                     isFollowed={profileData.isFollowed}
                     followSuccessEvent={followerCntHandler}
-                  />
+                  /> */}
                 </div>
               </ProfileInfo>
             </ProfileContents>
           )}
           {/* 상단 유저의 팔로워 및 팔로윙 테이블 */}
-          <UserFollowTable {...profileData} />
+          <UserFollowTable tab={tab} {...profileData} />
         </Container>
       </ContainerFluid>
 
@@ -207,98 +171,7 @@ const User = ({ params }: { params: PageProps }) => {
             associatedTags={associatedTags}
           />
 
-          {/* 동적 페이지 (작업물, 팔로워, 좋아요 목록 등등..) */}
-          <div className="col-md-7">
-            <ProfileNavCollapse>
-              {Object.values(tabList).map((t) => (
-                <ProfileNavLink
-                  key={t.tab}
-                  href={{
-                    pathname: `/${user_id}`,
-                    query: { tab: t.tab },
-                  }}
-                  $active={(tab ?? Object.values(tabList)[0].tab) === t.tab}
-                >
-                  {t.title}
-                </ProfileNavLink>
-              ))}
-            </ProfileNavCollapse>
-            {
-              {
-                followers: (
-                  <div>
-                    {followers.map((follower) => (
-                      <ProfileCard
-                        key={`follower-${follower.id}`}
-                        {...follower}
-                        isFollowed={true}
-                      />
-                    ))}
-                  </div>
-                ),
-                following: (
-                  <div>
-                    {followers.map((following) => (
-                      <ProfileCard
-                        key={`following-${following.id}`}
-                        {...following}
-                        isFollowed={true}
-                      />
-                    ))}
-                  </div>
-                ),
-                voices: (
-                  <>
-                    {tracks.map((track) => (
-                      <AudioFileBar
-                        key={`track-${track.id}`}
-                        audioSrc={track.url}
-                        userId={track.ownerID}
-                        audioId={track.id}
-                        likes={3}
-                        info={{ ...track }}
-                      />
-                    ))}
-                  </>
-                ),
-                posts: (
-                  <>
-                    {posts.map((post) => (
-                      <Post key={`post-${post.id}`} post={post} />
-                    ))}
-                  </>
-                ),
-                like_script: (
-                  <>
-                    {scripts.map((sc) => (
-                      <ScriptCard key={`script-${sc.id}`} script={sc} />
-                    ))}
-                  </>
-                ),
-                like_voices: (
-                  <>
-                    {tracks.map((track) => (
-                      <AudioFileBar
-                        key={`like-track-${track.id}`}
-                        audioSrc={track.url}
-                        userId={track.ownerID}
-                        audioId={track.id}
-                        likes={3}
-                        info={{ ...track }}
-                      />
-                    ))}
-                  </>
-                ),
-                like_posts: (
-                  <>
-                    {posts.map((post) => (
-                      <Post key={`like-post-${post.id}`} post={post} />
-                    ))}
-                  </>
-                ),
-              }[tab ?? "voices"]
-            }
-          </div>
+          <UserWorks tab={tab} user_id={user_id} />
         </div>
       </Container>
     </MainLayout>
@@ -306,75 +179,3 @@ const User = ({ params }: { params: PageProps }) => {
 };
 
 export default User;
-
-const ProfileBG = styled.div`
-  position: relative;
-  width: 100%;
-  height: 300px;
-  background-image: url(https://kyechan99.github.io/assets/img/head-img/2021-12-01-Threejs-Draw.jpg);
-  background-position: center center;
-  background-repeat: no-repeat;
-  background-size: cover;
-  filter: brightness(0.2);
-  z-index: ${({ theme }) => theme.zIndex.background_img};
-`;
-const ProfileContents = styled.div`
-  display: flex;
-  -webkit-box-align: center;
-  position: absolute;
-  margin-top: -3rem;
-`;
-const ProfileName = styled.h2`
-  display: inline;
-  margin-left: 1rem;
-  margin-right: 2rem;
-  color: white;
-`;
-const ProfileInfo = styled.div`
-  display: flex;
-  flex-direction: column;
-  margin-left: 1rem;
-`;
-
-const ProfileNavCollapse = styled.div`
-  display: flex;
-  gap: 1rem;
-  border-bottom: 1px solid ${({ theme }) => theme.colors.lightGrey};
-  margin-bottom: 1.25rem;
-  padding-bottom: 0.75rem;
-  ${({ theme }) => theme.devices.max_desktop} {
-    gap: 0.75rem;
-  }
-`;
-const ProfileNavLink = styled(Link)<{ $active: boolean }>`
-  position: relative;
-  font-size: 1em;
-  font-weight: ${(props) => (props.$active ? 500 : 400)};
-  line-height: 1.2;
-  padding: 0rem 0.5rem;
-  ${(props) =>
-    props.$active &&
-    css`
-      &::after {
-        content: "";
-        position: absolute;
-        width: 100%;
-        height: 3px;
-        right: 50%;
-        bottom: calc(50% - 1.5rem);
-        background: ${props.theme.colors.secondary};
-        transform: translate(50%, -50%);
-        z-index: 1;
-      }
-    `}
-`;
-
-// const LikesNavCollapse = styled(ProfileNavCollapse)``;
-// const LikesNavLink = styled(ProfileNavLink).attrs({ as: "button" })`
-//     font-size: 1rem;
-//     border: none;
-//     background: none;
-//     &::after {
-//         bottom: calc(50% - 1.5rem);
-//     }
-// `;

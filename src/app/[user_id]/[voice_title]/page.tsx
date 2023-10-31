@@ -17,7 +17,7 @@ import ProfileCard from "@components/profile/ProfileCard";
 import Like from "@/components/common/like";
 import { IconHeart, IconHeartFilled } from "@tabler/icons-react";
 
-import { getVoice, voiceLike } from "@apis/api/voice";
+// import { getVoice, voiceLike } from "@apis/api/voice";
 import { getUsersProcess } from "@apis/services/user";
 import { getVoiceProcess } from "@apis/services/voice";
 import { getCommentProcess } from "@apis/services/comment";
@@ -25,7 +25,8 @@ import { UserData } from "@type/user";
 import { VoiceInfo } from "@type/voice";
 import { CommentType } from "@type/comment";
 
-import { VoiceTitle, VoiceBG, VoiceFooter, Commet } from './page.styled';
+import { VoiceTitle, VoiceBG, VoiceFooter, Commet } from "./page.styled";
+import { cookies } from "next/headers";
 
 interface PageProps {
   user_id: string;
@@ -40,26 +41,41 @@ interface PageProps {
 //     props: { user_id, voice_title },
 //   };
 // };
+export const dynamic = 'force-dynamic';
+// export const revalidate = 0;
+async function getVoice(user_id: string, title: string) {
+  const myCookie = cookies().get("connect.sid")?.value;
+  // console.log('111111');
+
+  const res = await fetch(
+    "http://localhost:3000/api" + `/voice/${user_id}/${title}`,
+    {
+      headers: {
+        Cookie: `connect.sid=${myCookie}`,
+      },
+      cache: 'no-store',
+      next: { revalidate: 0 }
+    }
+  );
+
+  if (!res.ok) {
+    throw new Error("Failed to fetch data");
+  }
+
+  return res.json();
+}
 
 // type VoiceProps = {};
 const Voice = async ({ params }: { params: PageProps }) => {
+  console.log('111111');
   const { user_id, voice_title } = params;
-  // const router = useRouter();
-  // const user = useRecoilValue(userState);
 
   const res = await getVoice(user_id, voice_title);
+  console.log(res);
   const voiceData: VoiceInfo = getVoiceProcess(res.data);
   const comments: CommentType[] = getCommentProcess(res.data.comments);
   let likers: UserData[] = getUsersProcess(res.likes);
-
-  let fRes;
-  let isOwnerFollowed: boolean = false;
-
-  // 로그인 중이라면, 글 작성자도 팔로우 중인지 확인하기
-  // if (!!user.id) {
-  //   fRes = await getFollow(user.id, res.data.author.user_id);
-  //   isOwnerFollowed = fRes.isFollowing;
-  // }
+  let isOwnerFollowed: boolean = res.isFollow;
 
   const tracks: VoiceInfo[] = [
     {
@@ -91,7 +107,11 @@ const Voice = async ({ params }: { params: PageProps }) => {
         <VoiceBG>
           <Container>
             <div className="row">
-              <div className="col-md-7 audio-info">
+              <div
+                className={`${
+                  voiceData.script !== "" ? "col-md-7" : "col-12"
+                } audio-info`}
+              >
                 <VoiceTitle>{voiceData.title}</VoiceTitle>
                 {voiceData.url && (
                   <AudioWave audioSrc={voiceData.url} info={{ ...voiceData }} />
@@ -103,9 +123,11 @@ const Voice = async ({ params }: { params: PageProps }) => {
                   <Like type="Voice" target_id={voiceData.id} likers={likers} />
                 </VoiceFooter>
               </div>
-              <div className="col-md-5">
-                <ScriptBlock>{voiceData?.script}</ScriptBlock>
-              </div>
+              {voiceData.script !== "" && (
+                <div className="col-md-5">
+                  <ScriptBlock>{voiceData?.script}</ScriptBlock>
+                </div>
+              )}
             </div>
           </Container>
         </VoiceBG>

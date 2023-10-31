@@ -1,41 +1,19 @@
 import React from "react";
-// import { Link, userouter.push, useParams } from "react-router-dom";
-import styled from "styled-components";
 
 import { MainLayout } from "@components/layout";
-import {
-  IconHeartPlus,
-  IconArrowNarrowLeft,
-  IconHeartFilled,
-} from "@tabler/icons-react";
+import { IconArrowNarrowLeft } from "@tabler/icons-react";
 import ProfileInfo from "@components/profile/ProfileInfo";
-import { PostH1, RecommendH2 } from "@common/Heading";
-import { Button } from "@common/button";
-import { Container, ContainerFluid } from "@common/Grid";
-import { AudioFileBar } from "@components/audio/AudioFile";
-import SubmitButton from "@common/button/SubmitButton";
-import {
-  deletePost,
-  getPost,
-  postLike,
-  postPostComment,
-  postUnLike,
-} from "@apis/api/post";
-import { PostType } from "@type/post";
+import { PostH1 } from "@common/Heading";
+import { Container } from "@common/Grid";
+import { getPost } from "@apis/api/post";
 import { getPostProcess } from "@apis/services/post";
 import { dateFormat } from "@utils/format";
-// import { useSelector } from "react-redux";
-// import { RootState } from "@modules/index";
 import { getCommentProcess } from "@apis/services/comment";
 import { CommentType } from "@type/comment";
 import { UserData } from "@type/user";
 import { getUsersProcess } from "@apis/services/user";
 import Tag from "@/components/common/tag";
-import { useRouter } from "next/navigation";
-import { GetServerSideProps } from "next";
 import Link from "next/link";
-import { useRecoilValue } from "recoil";
-import { userState } from "@/recoil/user/atom";
 
 import {
   ViewContainer,

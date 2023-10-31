@@ -14,18 +14,14 @@ import { ProfileImg } from "./ProfileImg";
 import { ModalBackground } from "@common/modal";
 import { Nav, NavItem, NavItemDivider } from "@common/nav";
 import { NavBarDropdown } from "@common/navbar/NavBarDropdown";
-import profile_temp from "@assets/img/profile_temp.png";
+// import profile_temp from "@assets/img/profile_temp.png";
 import { useRecoilState } from "recoil";
 import { useRouter } from "next/navigation";
 import { userState } from "@/recoil/user/atom";
 
 const ProfileNav = () => {
-  const router = useRouter();
+  // const router = useRouter();
   const [user, setUser] = useRecoilState(userState);
-  // const navigate = useNavigate();
-  // const dispatch = useDispatch();
-  // const user_id = useSelector((state: RootState) => state.users.id);
-
   const [openDropdown, setOpenDropdown] = React.useState<boolean>(false);
 
   const logoutHandler = async (e: React.MouseEvent<HTMLButtonElement>) => {
@@ -37,6 +33,7 @@ const ProfileNav = () => {
         // 일단은 메인으로, 나중에는 이전 페이지로 간다거나 할 수 있음
         clearUserStorage();
 
+        
         // dispatch(resetUser());
         setUser({
           _id: "",

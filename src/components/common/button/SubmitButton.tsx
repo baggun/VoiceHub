@@ -30,7 +30,7 @@ const SubmitButton = ({
     return (
         <Button
             type="submit"
-            variant="secondary"
+            variant="primary"
             width={width}
             $borderRadius="0.25rem"
             disabled={disabled}

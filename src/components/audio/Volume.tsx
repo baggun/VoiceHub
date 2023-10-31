@@ -20,6 +20,7 @@ const Volume = () => {
     const newVolume = +e.target.value;
 
     if (newVolume) {
+      changeVolume(newVolume)
       // dispatch(changeVolume(newVolume));
     }
   };
@@ -28,6 +29,7 @@ const Volume = () => {
     if (audio.waveRef) audio.waveRef.setVolume(newVolume);
     // if (audio.ref) audio.ref.volume = newVolume;
     // setAudio({ ...audio, volume: newVolume });
+
     setVolume(newVolume);
   };
 
@@ -84,6 +86,7 @@ const VolumeController = styled.input.attrs({
     border: 0px solid #000000;
   }
   &::-webkit-slider-thumb {
+    /* display: none;
     box-shadow: 0px 0px 5px #0000008f;
     border: 0px solid #000000;
     height: 16px;
@@ -92,7 +95,8 @@ const VolumeController = styled.input.attrs({
     background: #ffffff;
     cursor: pointer;
     -webkit-appearance: none;
-    margin-top: -4.5px;
+    margin-top: -4.5px; */
+    opacity:0;
   }
   &:focus::-webkit-slider-runnable-track {
     // background: #FFFFFF;
@@ -108,13 +112,14 @@ const VolumeController = styled.input.attrs({
     border: 0px solid #000000;
   }
   &::-moz-range-thumb {
-    box-shadow: 0px 0px 5px #0000008f;
+    /* box-shadow: 0px 0px 5px #0000008f;
     border: 0px solid #000000;
     height: 16px;
     width: 16px;
     border-radius: 16px;
     background: #ffffff;
-    cursor: pointer;
+    cursor: pointer; */
+    opacity:0;
   }
   &::-ms-track {
     width: 100%;
@@ -138,14 +143,15 @@ const VolumeController = styled.input.attrs({
     box-shadow: 0px 0px 1px #ffffff;
   }
   &::-ms-thumb {
-    margin-top: 1px;
+    /* margin-top: 1px;
     box-shadow: 0px 0px 5px #0000008f;
     border: 0px solid #000000;
     height: 16px;
     width: 16px;
     border-radius: 16px;
     background: #ffffff;
-    cursor: pointer;
+    cursor: pointer; */
+    opacity:0;
   }
   &:focus::-ms-fill-lower {
     background: #ffffff;

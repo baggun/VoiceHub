@@ -6,10 +6,7 @@ import styled, { css } from "styled-components";
 // import { Link, useNavigate } from "react-router-dom";
 
 // import { RootState } from "@modules/index";
-import { clearUserStorage, isLoggedIn } from "@utils/storage";
-import { logout } from "@apis/api/users";
 import { Container } from "@common/Grid";
-import ProfileNav from "@components/profile/ProfileNav";
 import {
   NavBar,
   NavBarCollapse,
@@ -17,14 +14,9 @@ import {
   NavBarNav,
   NavLinkItemStyled,
 } from "@components/common/navbar";
-import { IconBell, IconPlus } from "@tabler/icons-react";
 import Search from "@components/search";
 import { IconSearch } from "@tabler/icons-react";
 import { ModalBackground } from "@common/modal";
-import { useRecoilValue } from "recoil";
-import { userState } from "@/recoil/user/atom";
-import { useRouter } from "next/navigation";
-import Link from "next/link";
 import NavBarLogged from "../common/navbar/NavBarLogged";
 
 type HeaderProps = {
@@ -32,7 +24,7 @@ type HeaderProps = {
 };
 
 const Header = ({ hideNavItems }: HeaderProps) => {
-  const router = useRouter();
+  // const router = useRouter();
   // const user = useRecoilValue(userState);
   // const navigate = useNavigate();
   // const dispatch = useDispatch();
@@ -56,21 +48,6 @@ const Header = ({ hideNavItems }: HeaderProps) => {
       link: "/community",
     },
   ];
-
-  const logoutHandler = async (e: React.MouseEvent<HTMLButtonElement>) => {
-    e.preventDefault();
-    try {
-      const res = await logout();
-      console.log(res);
-      if (res.success) {
-        // 일단은 메인으로, 나중에는 이전 페이지로 간다거나 할 수 있음
-        clearUserStorage();
-        router.push("/");
-      }
-    } catch (err) {
-      console.error(err);
-    }
-  };
 
   return (
     <HeaderStyled className="App-header">
@@ -96,27 +73,12 @@ const Header = ({ hideNavItems }: HeaderProps) => {
               <IconSearch strokeWidth={1.5} />
             </ActButton>
             <NavBarLogged/>
-            {/* {user && user.id !== '' && isLoggedIn() ? ( */}
-            {/* {(user && user.id !== '') ? (
-              // <button onClick={logoutHandler}>로그아웃</button>
-              <>
-                <ActLink href="/notifications">
-                  <IconBell strokeWidth={1.5} />
-                </ActLink>
-                <ActLink href="/voice/upload">
-                  <IconPlus strokeWidth={1.5} />
-                </ActLink>
-                <ProfileNav />
-              </>
-            ) : (
-              <NavBarNavLink to="/auth/login">로그인</NavBarNavLink>
-            )} */}
           </div>
         </NavBar>
 
         {openSearchModal && (
           <>
-            <Search></Search>
+            <Search/>
             <ModalBackground onClick={setOpenSearchModal} />
           </>
         )}

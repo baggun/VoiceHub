@@ -124,7 +124,7 @@ const ProgressBar = () => {
   };
 
   const drawProgress = (per: number) => {
-    inputRef.current.style.background = `linear-gradient(to right, #953D93 0%, #953D93 ${per}%, #2e2e2e ${per}%, #2e2e2e 100%)`;
+    inputRef.current.style.background = `linear-gradient(to right, #676AF9 0%, #676AF9 ${per}%, #404040 ${per}%, #404040 100%)`;
   };
 
   return (
@@ -161,6 +161,7 @@ const ProgressController = styled.input.attrs({
   position: absolute;
   top: -6px;
   left: 0px;
+  z-index: ${({ theme }) => theme.zIndex.footerPlayer};
 
   height: 6px;
   -webkit-appearance: none;
@@ -170,7 +171,7 @@ const ProgressController = styled.input.attrs({
   transition: 450ms ease-in, top 0.1s linear, height 0.1s linear;
   // transition: all 0.1s linear;
   // transition-property: height, top;
-  background: linear-gradient(to right, #2e2e2e 0%, #2e2e2e 100%);
+  background: linear-gradient(to right, #404040 0%, #404040 100%);
   &:focus {
     outline: none;
   }
@@ -182,7 +183,7 @@ const ProgressController = styled.input.attrs({
     width: 100%;
     height: 7px;
     cursor: pointer;
-    animate: 0.2s;
+    /* animate: 0.2s; */
     // box-shadow: 0px 0px 1px #2e2e2e;
     // background: #2e2e2e;
     border-radius: 50px;
@@ -198,7 +199,7 @@ const ProgressController = styled.input.attrs({
     width: 100%;
     height: 7px;
     cursor: pointer;
-    animate: 0.2s;
+    /* animate: 0.2s; */
     box-shadow: 0px 0px 5x #0000007f;
     background: #2e2e2e;
     border-radius: 50px;
@@ -211,7 +212,7 @@ const ProgressController = styled.input.attrs({
     width: 100%;
     height: 7px;
     cursor: pointer;
-    animate: 0.2s;
+    /* animate: 0.2s; */
     background: transparent;
     border-color: transparent;
     color: transparent;

@@ -1,7 +1,9 @@
-import SwitchCheckbox from "@common/checkbox/SwitchCheckbox";
-import { InputGroup } from "@common/input";
+"use client";
+
 import React from "react";
 import styled from "styled-components";
+import { InputGroup } from "@common/input";
+import SwitchCheckbox from "@common/checkbox/SwitchCheckbox";
 
 const SettingNotification = () => {
 

@@ -28,5 +28,5 @@ export const Commet = styled.div`
   display: flex;
   -webkit-box-align: center;
   align-items: center;
-  margin: 1rem 0rem;
+  margin: 1.5rem 0rem;
 `;

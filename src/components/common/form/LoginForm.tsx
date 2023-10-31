@@ -43,7 +43,7 @@ const LoginForm = () => {
             profile: res.user.user_profile,
           });
 
-          router.back();
+          router.push('/');
         } else {
           interpretMessage(res);
         }

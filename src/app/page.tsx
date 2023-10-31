@@ -24,11 +24,12 @@ import Image from "next/image";
  
 //   return res.json()
 // }
- 
+import { cookies } from "next/headers";
 
 const Home = async () => {  
   const res =  await getVoices()
   const tracks : VoiceInfo[] = getVoicesProcess(res.data);
+
   // .then((res) => getVoicesProcess(res.data))
   // .then((res) => setTracks(res))
   // .catch((err) => {

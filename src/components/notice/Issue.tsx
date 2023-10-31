@@ -58,7 +58,7 @@ const Issue = ({
                     outline
                     variant="primary"
                     $withIcon
-                    padding="0.25rem 0.5rem"
+                    $padding="0.25rem 0.5rem"
                     $borderRadius="0.5rem"
                     onClick={() => removeIssue([issue.id])}
                 >

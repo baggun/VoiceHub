@@ -104,9 +104,9 @@ export default function AudioWave({
       if (waveformRef.current) {
         wavesurfer.current = WaveSurfer.create({
           container: waveformRef.current,
-          waveColor: "#a5a5a5",
-          progressColor: "#EA884C",
-          cursorColor: "#953D93",
+          waveColor: "#646464",
+          progressColor: "#c8c8ec",
+          cursorColor: "#676AF9",
           barWidth: 5,
           barRadius: 5,
           // responsive: true,
