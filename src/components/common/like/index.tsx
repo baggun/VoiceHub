@@ -11,6 +11,7 @@ import { Button, CustomButtonProps } from "../button";
 import { voiceLike } from "@/apis/api/voice";
 import { setScriptLike } from "@/apis/api/script_like";
 import { postLike } from "@/apis/api/post";
+import { useSession } from "next-auth/react";
 
 type LikeProps = {
   target_id: string;
@@ -46,20 +47,20 @@ const Type = (type: string) => {
 
 const Like = ({ target_id, likers, type }: LikeProps) => {
   const router = useRouter();
-  const user = useRecoilValue(userState);
+  // const user = useRecoilValue(userState);
+  const { data: session } = useSession();
 
   const [curLikers, setLikers] = React.useState<number>(likers.length);
   const [isLike, setIsLike] = React.useState<boolean>(() => {
-    if (likers.some((item) => item.id === user.id)) return true;
+    if (likers.some((item) => item.id === session?.user.id)) return true;
     return false;
   });
-
   const { Wrapper, likeController, styled } = Type(type);
 
   const likeHandler = async (e: React.MouseEvent<HTMLSpanElement>) => {
     e.preventDefault();
 
-    if (user.id === "") {
+    if (session?.user.id === "") {
       router.push("/auth/login");
       return;
     }
@@ -80,7 +81,7 @@ const Like = ({ target_id, likers, type }: LikeProps) => {
 
   return (
     <Wrapper onClick={likeHandler} {...styled}>
-      {user.id !== "" && isLike ? (
+      {session?.user.id !== "" && isLike ? (
         <IconHeartFilled className="icon icon-sm" />
       ) : (
         <IconHeart className="icon icon-sm" />

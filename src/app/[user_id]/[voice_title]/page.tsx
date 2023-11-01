@@ -1,5 +1,3 @@
-// "use client";
-
 import React from "react";
 import Link from "next/link";
 
@@ -15,7 +13,6 @@ import ProfileInfo from "@components/profile/ProfileInfo";
 import ScriptBlock from "@components/script/ScriptBlock";
 import ProfileCard from "@components/profile/ProfileCard";
 import Like from "@/components/common/like";
-import { IconHeart, IconHeartFilled } from "@tabler/icons-react";
 
 // import { getVoice, voiceLike } from "@apis/api/voice";
 import { getUsersProcess } from "@apis/services/user";
@@ -26,35 +23,28 @@ import { VoiceInfo } from "@type/voice";
 import { CommentType } from "@type/comment";
 
 import { VoiceTitle, VoiceBG, VoiceFooter, Commet } from "./page.styled";
-import { cookies } from "next/headers";
+import { headers } from "next/headers";
 
 interface PageProps {
   user_id: string;
   voice_title: string;
 }
-// export const getServerSideProps: GetServerSideProps<PageProps> = async ({
-//   params,
-// }) => {
-//   const user_id = params?.user_id as string;
-//   const voice_title = params?.voice_title as string;
-//   return {
-//     props: { user_id, voice_title },
-//   };
-// };
-export const dynamic = 'force-dynamic';
+
+export const dynamic = "force-dynamic";
 // export const revalidate = 0;
 async function getVoice(user_id: string, title: string) {
-  const myCookie = cookies().get("connect.sid")?.value;
+  // const myCookie = cookies().get("connect.sid")?.value;
   // console.log('111111');
 
   const res = await fetch(
     "http://localhost:3000/api" + `/voice/${user_id}/${title}`,
     {
-      headers: {
-        Cookie: `connect.sid=${myCookie}`,
-      },
-      cache: 'no-store',
-      next: { revalidate: 0 }
+      headers: headers(),
+      // headers: {
+      //   Cookie: `connect.sid=${myCookie}`,
+      // },
+      // cache: 'no-store',
+      // next: { revalidate: 0 }
     }
   );
 
@@ -65,13 +55,11 @@ async function getVoice(user_id: string, title: string) {
   return res.json();
 }
 
-// type VoiceProps = {};
 const Voice = async ({ params }: { params: PageProps }) => {
-  console.log('111111');
   const { user_id, voice_title } = params;
 
   const res = await getVoice(user_id, voice_title);
-  console.log(res);
+
   const voiceData: VoiceInfo = getVoiceProcess(res.data);
   const comments: CommentType[] = getCommentProcess(res.data.comments);
   let likers: UserData[] = getUsersProcess(res.likes);

@@ -13,10 +13,16 @@ import { useRouter } from "next/navigation";
 import { useSetRecoilState } from "recoil";
 import { userState } from "@/recoil/user/atom";
 import Link from "next/link";
+import { signIn, useSession } from "next-auth/react";
 
 const LoginForm = () => {
+  const session = useSession();
   const router = useRouter();
   const setUser = useSetRecoilState(userState);
+
+  // if (session.status === "authenticated") {
+  //   router?.back();
+  // }
 
   const {
     values,
@@ -29,9 +35,21 @@ const LoginForm = () => {
     initValues: { id: "", password: "" },
     onSubmit: async (values: UserLoginData) => {
       try {
-        const res = await login(values);
+        // const res = await login(values);
 
-        console.log("로그인", res);
+        console.log("__________", values);
+        const res = await signIn("credentials", { ...values, redirect: false });
+        if (res?.error) {
+          console.error("!!!!!!!! 로그인 에러", res);
+          // interpretMessage(res);
+        } else {
+          router.back();
+        }
+        // router.push("/");
+        // router.back();
+
+        /* 
+        // console.log("로그인", res);
         if (res.success) {
           // 일단은 메인으로, 나중에는 이전 페이지로 간다거나 할 수 있음
           saveUserStorage(res.user.user_nickname);
@@ -43,10 +61,11 @@ const LoginForm = () => {
             profile: res.user.user_profile,
           });
 
-          router.push('/');
+          router.push("/");
         } else {
           interpretMessage(res);
         }
+        */
       } catch (err) {
         console.error(err);
       }

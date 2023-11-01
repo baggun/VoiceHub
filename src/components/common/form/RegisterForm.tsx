@@ -25,13 +25,25 @@ const RegisterForm = () => {
     initValues: { id: "", nickname: "", email: "", password: "" },
     onSubmit: async (values: UserRegisterData) => {
       try {
-        const res = await register(values);
 
-        if (res.success) {
+
+        const res = await fetch("/api/auth/register", {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify(values),
+        });
+        res.status === 201 &&
           router.push("/auth/login");
-        } else {
-          interpretMessage(res);
-        }
+
+        // const res = await register(values);
+
+        // if (res.success) {
+        //   router.push("/auth/login");
+        // } else {
+        //   interpretMessage(res);
+        // }
       } catch (err) {
         console.error(err);
       }

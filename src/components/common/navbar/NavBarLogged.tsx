@@ -8,20 +8,23 @@ import { IconBell, IconPlus } from "@tabler/icons-react";
 import { useRecoilValue } from "recoil";
 import { userState } from "@/recoil/user/atom";
 import React from "react";
+import { useSession } from "next-auth/react";
 
 const NavBarLogged = () => {
-  const user = useRecoilValue(userState);
+  const { data: session } = useSession();
+  // const user = useRecoilValue(userState);
   const [mounted, setMounted] = React.useState<boolean>(false);
 
   React.useEffect(() => {
     setMounted(true);
   }, []);
 
-  if (!mounted) return <></>
+  if (!mounted) return <></>;
 
   return (
     <>
-      {user && user.id !== "" ? (
+      {/* {user && user.id !== "" ? ( */}
+      {session && session.user ? (
         <>
           <ActLink href="/notifications">
             <IconBell strokeWidth={1.5} />

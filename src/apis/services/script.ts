@@ -2,7 +2,7 @@ import { ScriptResponseData } from "@type/response/res_script";
 import { ScriptBaseType, ScriptType } from "@type/scripts";
 
 export const getScriptsProcess = (data: ScriptResponseData[]): ScriptType[] => {
-    console.log(data);
+    // console.log(data);
     return data.map(
         ({
             _id,

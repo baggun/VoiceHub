@@ -52,6 +52,7 @@ const Script = async ({ params }: { params: PageProps }) => {
   if (script_id) {
     const res = await getScript(script_id);
     curScript = getScriptProcess(res.script);
+    // console.log(res);
 
     if (res.likes) likers = getUsersProcess(res.likes);
   }
@@ -178,6 +179,7 @@ const Script = async ({ params }: { params: PageProps }) => {
       )}
       <Container>
         <div className="row">
+          { JSON.stringify(scripts)}
           {scripts.map((sc) => (
             <ScriptCard
               key={`script-${sc.id}`}

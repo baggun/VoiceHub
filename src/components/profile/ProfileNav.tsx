@@ -18,33 +18,39 @@ import { NavBarDropdown } from "@common/navbar/NavBarDropdown";
 import { useRecoilState } from "recoil";
 import { useRouter } from "next/navigation";
 import { userState } from "@/recoil/user/atom";
+import { signOut, useSession } from "next-auth/react";
 
 const ProfileNav = () => {
+  const { data: session} = useSession();
   // const router = useRouter();
-  const [user, setUser] = useRecoilState(userState);
+  // const [user, setUser] = useRecoilState(userState);
   const [openDropdown, setOpenDropdown] = React.useState<boolean>(false);
 
   const logoutHandler = async (e: React.MouseEvent<HTMLButtonElement>) => {
     e.preventDefault();
     try {
-      const res = await logout();
-      console.log(res);
-      if (res.success) {
-        // 일단은 메인으로, 나중에는 이전 페이지로 간다거나 할 수 있음
-        clearUserStorage();
+      signOut();
+        // window.location.reload();
+      // const res = await logout();
+      // console.log(res);
+      // if (res.success) {
+      //   // 일단은 메인으로, 나중에는 이전 페이지로 간다거나 할 수 있음
+      //   // clearUserStorage();
 
         
-        // dispatch(resetUser());
-        setUser({
-          _id: "",
-          id: "",
-          nickname: "",
-          profile: "",
-        });
+      //   signOut();
 
-        // navigate("/");
-        window.location.reload();
-      }
+      //   // dispatch(resetUser());
+      //   // setUser({
+      //   //   _id: "",
+      //   //   id: "",
+      //   //   nickname: "",
+      //   //   profile: "",
+      //   // });
+
+      //   // navigate("/");
+      //   window.location.reload();
+      // }
     } catch (err) {
       console.error(err);
     }
@@ -59,7 +65,8 @@ const ProfileNav = () => {
         <>
           <NavBarDropdown>
             <Nav $direction="column">
-              <NavItem to={`/${user.id}`}>내 프로필</NavItem>
+              {/* <NavItem to={`/${user.id}`}>내 프로필</NavItem> */}
+              <NavItem to={`/${session?.user?.id}`}>내 프로필</NavItem>
               <NavItem to="/">작업물</NavItem>
               <NavItem to="/">게시글 목록</NavItem>
               <NavItem to="/">좋아요 목록</NavItem>
