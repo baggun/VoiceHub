@@ -44,6 +44,12 @@
       ],
       "@recoil/*": [
         "./src/recoil/*"
+      ],
+      "@models/*": [
+        "./src/models/*"
+      ],
+      "@lib/*": [
+        "./src/lib/*"
       ]
     },
     "plugins": [
