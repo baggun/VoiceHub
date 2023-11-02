@@ -16,7 +16,7 @@ export async function PATCH(request: NextRequest) {
       },
       {
         status: 403,
-      }
+      },
     );
   }
 
@@ -27,7 +27,7 @@ export async function PATCH(request: NextRequest) {
       { _id: session.user.oid, password: password },
       {
         user_pw: repassword,
-      }
+      },
     );
 
     if (!user || !user.acknowledged) throw new Error("사용자 검색 실패");
@@ -44,7 +44,7 @@ export async function PATCH(request: NextRequest) {
       },
       {
         status: 500,
-      }
+      },
     );
   }
 }

@@ -9,17 +9,10 @@ import Volume from "./Volume";
 // import { RootState } from "@modules/index";
 // import { setPlay } from "@modules/audio";
 import { Button } from "@components/common/button";
-import {
-  IconPlayerPlayFilled,
-  IconPlayerPauseFilled,
-} from "@tabler/icons-react";
+import { IconPlayerPlayFilled, IconPlayerPauseFilled } from "@tabler/icons-react";
 import Link from "next/link";
 import { useRecoilState, useRecoilValue } from "recoil";
-import {
-  audioInfoState,
-  audioPlayState,
-  audioState,
-} from "@/recoil/audio/atom";
+import { audioInfoState, audioPlayState, audioState } from "@/recoil/audio/atom";
 import React from "react";
 
 type SafetyLinkProps = {
@@ -28,14 +21,8 @@ type SafetyLinkProps = {
   className?: string;
   children?: React.ReactNode;
 };
-const SafetyLink = ({
-  to,
-  active = true,
-  className,
-  children,
-}: SafetyLinkProps) => {
-  if (to === "" || !active)
-    return <span className={className}>{children}</span>;
+const SafetyLink = ({ to, active = true, className, children }: SafetyLinkProps) => {
+  if (to === "" || !active) return <span className={className}>{children}</span>;
   return (
     <Link href={to} className={className}>
       {children}
@@ -75,11 +62,7 @@ const FooterPlayer = () => {
             setPlay(!play);
           }}
         >
-          {play ? (
-            <IconPlayerPauseFilled className="icon" />
-          ) : (
-            <IconPlayerPlayFilled className="icon" />
-          )}
+          {play ? <IconPlayerPauseFilled className="icon" /> : <IconPlayerPlayFilled className="icon" />}
         </Button>
       </ControllerDiv>
       <Volume />

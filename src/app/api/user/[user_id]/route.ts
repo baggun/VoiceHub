@@ -6,10 +6,7 @@ import Follow from "@models/follow.model";
 import { getServerSession } from "next-auth";
 import { authOptions } from "@/app/api/auth/[...nextauth]/route";
 
-export async function GET(
-  request: NextRequest,
-  { params }: { params: { user_id: string } }
-) {
+export async function GET(request: NextRequest, { params }: { params: { user_id: string } }) {
   const { user_id } = params;
   const session = await getServerSession(authOptions);
 
@@ -24,7 +21,7 @@ export async function GET(
         user_email: true,
         user_desc: true,
         user_profile: true,
-      }
+      },
     ).lean();
 
     if (!user || !user._id) {
@@ -35,7 +32,7 @@ export async function GET(
         },
         {
           status: 404,
-        }
+        },
       );
     }
 
@@ -67,7 +64,7 @@ export async function GET(
       },
       {
         status: 500,
-      }
+      },
     );
   }
 }

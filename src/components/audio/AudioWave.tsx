@@ -7,20 +7,12 @@ import WaveSurfer from "wavesurfer.js";
 // import CursorPlugin from "wavesurfer.js/src/plugin/cursor";
 // import { RootState } from "@modules/index";
 // import { changeAudio, setPlay, setTime, setWaveRef } from "@modules/audio";
-import {
-  IconPlayerPauseFilled,
-  IconPlayerPlayFilled,
-} from "@tabler/icons-react";
+import { IconPlayerPauseFilled, IconPlayerPlayFilled } from "@tabler/icons-react";
 import { timeFormat } from "@utils/format";
 import PlayButton from "@components/common/button/PlayButton";
 import { AudioInfo } from "@type/voice";
 import { useRecoilState, useSetRecoilState } from "recoil";
-import {
-  audioCurTimeState,
-  audioInfoState,
-  audioPlayState,
-  audioState,
-} from "@/recoil/audio/atom";
+import { audioCurTimeState, audioInfoState, audioPlayState, audioState } from "@/recoil/audio/atom";
 
 export default function AudioWave({
   audioSrc,
@@ -34,7 +26,7 @@ export default function AudioWave({
   const [audio, setAudio] = useRecoilState(audioState);
   const [audioPlay, setAudioPlay] = useRecoilState(audioPlayState);
   const setAudioInfo = useSetRecoilState(audioInfoState);
-  const setAudioCurTime= useSetRecoilState(audioCurTimeState);
+  const setAudioCurTime = useSetRecoilState(audioCurTimeState);
   // const dispatch = useDispatch();
   // const { audio.audio, audio.isPlay, audio.isControlWave } = useSelector(
   //     (state: RootState) => ({
@@ -62,11 +54,7 @@ export default function AudioWave({
     // });
   };
 
-  const changeAudio = (
-    src: string,
-    info: AudioInfo,
-    isWave: boolean = false
-  ) => {
+  const changeAudio = (src: string, info: AudioInfo, isWave: boolean = false) => {
     if (info.title === "") info.title = "(알수없음)";
     setAudio({
       ...audio,
@@ -79,7 +67,7 @@ export default function AudioWave({
   };
 
   const setPlay = (isPlay: boolean, isWave: boolean = false) => {
-    console.log('s p');
+    console.log("s p");
     setAudio({
       ...audio,
       isControlWave: isWave || audio.isControlWave,
@@ -92,7 +80,7 @@ export default function AudioWave({
       // 일시정지 중이었는데 플레이 요청이 들어오면 wavesurfer 도 플레이 시작
       if (audioPlay && audio.isControlWave) {
         wavesurfer.current?.play();
-        console.log('시작2222');
+        console.log("시작2222");
       } else if (wavesurfer && wavesurfer.current) wavesurfer.current.pause();
     } catch (e) {
       console.error("개발중 AudioPlayer 재렌더링시 생기는 에러", e);
@@ -186,7 +174,7 @@ export default function AudioWave({
   const handlePlay = (e: React.MouseEvent<HTMLButtonElement>) => {
     e.preventDefault();
 
-    console.log('1111111', audio.audio, '222222', audioSrc);
+    console.log("1111111", audio.audio, "222222", audioSrc);
     if (audio.audio !== audioSrc) {
       changeAudio(audioSrc, info, true);
       //   dispatch(changeAudio(audioSrc, info, true));
@@ -225,8 +213,7 @@ const WaveForm = styled.div<{ $darkmode?: boolean }>`
   display: inline-flex;
   flex-direction: row;
   align-items: center;
-  background: ${(props) =>
-    props.$darkmode ? props.theme.colors.grey_bg : props.theme.colors.bg};
+  background: ${props => (props.$darkmode ? props.theme.colors.grey_bg : props.theme.colors.bg)};
   ${({ theme }) => theme.devices.max_tablet} {
     padding: 1rem;
   }

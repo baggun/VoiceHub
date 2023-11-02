@@ -39,12 +39,7 @@ import { GetServerSideProps } from "next";
 import { useSearchParams } from "next/navigation";
 import Link from "next/link";
 
-import {
-  ProfileBG,
-  ProfileContents,
-  ProfileName,
-  ProfileInfo,
-} from "./page.styled";
+import { ProfileBG, ProfileContents, ProfileName, ProfileInfo } from "./page.styled";
 import UserWorks from "@/components/user/UserWorks";
 
 interface PageProps {
@@ -59,13 +54,7 @@ interface PageProps {
 //   };
 // };
 
-const User = async ({
-  params,
-  searchParams,
-}: {
-  params: PageProps;
-  searchParams: { tab: string   };
-}) => {
+const User = async ({ params, searchParams }: { params: PageProps; searchParams: { tab: string } }) => {
   const { user_id } = params;
   //   const { user_id } = useParams();
   // const searchParams = useSearchParams();
@@ -165,11 +154,7 @@ const User = async ({
       <Container className="mg-t-2">
         <div className="row">
           {/* 유저 기본 정보 */}
-          <UserInfo
-            profieData={profileData}
-            className="col-md-5"
-            associatedTags={associatedTags}
-          />
+          <UserInfo profieData={profileData} className="col-md-5" associatedTags={associatedTags} />
 
           <UserWorks tab={tab} user_id={user_id} />
         </div>

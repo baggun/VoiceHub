@@ -3,10 +3,7 @@ import { NextRequest } from "next/server";
 import Contest from "@models/contest.model";
 import Tag from "@models/tag.model";
 
-export async function GET(
-  request: NextRequest,
-  { params }: { params: { tag_name: string } }
-) {
+export async function GET(request: NextRequest, { params }: { params: { tag_name: string } }) {
   try {
     await dbConnect();
 
@@ -40,7 +37,7 @@ export async function GET(
       },
       {
         status: 500,
-      }
+      },
     );
   }
 }

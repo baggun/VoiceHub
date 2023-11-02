@@ -13,7 +13,7 @@ export async function GET(request: NextRequest) {
         _id: false,
         tag: true,
         weighting: true,
-      }
+      },
     )
       .sort("-weighting")
       .limit(10)
@@ -32,7 +32,7 @@ export async function GET(request: NextRequest) {
       },
       {
         status: 500,
-      }
+      },
     );
   }
 }
@@ -41,7 +41,7 @@ export async function createTags(tags: string[]) {
   if (!tags) return;
   if (!Array.isArray(tags) || tags.length === 0) return false;
 
-  const objTags = tags.map((t) => {
+  const objTags = tags.map(t => {
     return { tag: t };
   });
   /*

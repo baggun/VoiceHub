@@ -3,10 +3,7 @@ import { NextRequest } from "next/server";
 import User from "@models/user.model";
 import Voice from "@models/voice.model";
 
-export async function GET(
-  request: NextRequest,
-  { params }: { params: { user_id: string } }
-) {
+export async function GET(request: NextRequest, { params }: { params: { user_id: string } }) {
   const { user_id } = params;
 
   try {
@@ -22,14 +19,11 @@ export async function GET(
         },
         {
           status: 400,
-        }
+        },
       );
     }
 
-    const voices = await Voice.find(
-      { author: user._id },
-      "title tags voice_src createdAt"
-    ).populate({
+    const voices = await Voice.find({ author: user._id }, "title tags voice_src createdAt").populate({
       path: "author",
       select: ["user_id", "user_nickname"],
     });
@@ -47,7 +41,7 @@ export async function GET(
       },
       {
         status: 500,
-      }
+      },
     );
   }
 }

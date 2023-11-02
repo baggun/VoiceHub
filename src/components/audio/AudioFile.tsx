@@ -5,18 +5,10 @@ import styled, { css } from "styled-components";
 // import { useDispatch, useSelector, shallowEqual } from "react-redux";
 // import { RootState } from "@modules/index";
 // import { changeAudio, setPlay } from "@modules/audio";
-import {
-  IconPlayerPauseFilled,
-  IconPlayerPlayFilled,
-} from "@tabler/icons-react";
+import { IconPlayerPauseFilled, IconPlayerPlayFilled } from "@tabler/icons-react";
 import { AudioInfo } from "@type/voice";
 import { useRecoilState, useSetRecoilState } from "recoil";
-import {
-  audioCurTimeState,
-  audioInfoState,
-  audioPlayState,
-  audioState,
-} from "@/recoil/audio/atom";
+import { audioCurTimeState, audioInfoState, audioPlayState, audioState } from "@/recoil/audio/atom";
 import Link from "next/link";
 
 type AudioFileType = {
@@ -24,11 +16,7 @@ type AudioFileType = {
   info: AudioInfo;
   $darkmode?: boolean;
 };
-export const AudioFileButton = ({
-  audioSrc,
-  info,
-  $darkmode = false,
-}: AudioFileType) => {
+export const AudioFileButton = ({ audioSrc, info, $darkmode = false }: AudioFileType) => {
   const [audio, setAudio] = useRecoilState(audioState);
   const [play, setPlay] = useRecoilState(audioPlayState);
   const setAudioInfo = useSetRecoilState(audioInfoState);
@@ -48,8 +36,8 @@ export const AudioFileButton = ({
     // console.log(play);
 
     if (audio.audio !== audioSrc) {
-    // console.log(audioSrc, audio.audio);
-      setAudio((prev) => {
+      // console.log(audioSrc, audio.audio);
+      setAudio(prev => {
         return {
           ...prev,
           // ref: prev.ref ? prev.ref : new Audio(),
@@ -93,14 +81,7 @@ type AudioFileBarType = AudioFileType & {
   audioId: string;
   likes?: number;
 };
-export const AudioFileBar = ({
-  audioSrc,
-  info,
-  userId,
-  audioId,
-  likes,
-  $darkmode = false,
-}: AudioFileBarType) => {
+export const AudioFileBar = ({ audioSrc, info, userId, audioId, likes, $darkmode = false }: AudioFileBarType) => {
   return (
     <AudioFileBarStyle $darkmode={$darkmode}>
       <AudioFileButton audioSrc={audioSrc} info={info} $darkmode={$darkmode} />
@@ -121,13 +102,13 @@ const AudioName = styled(Link)<{ $darkmode: boolean }>`
   min-width: 0px;
   flex: 1 1 auto;
   padding-right: 1rem;
-  color: ${(props) => (props.$darkmode ? "#d5d5d5" : "black")};
+  color: ${props => (props.$darkmode ? "#d5d5d5" : "black")};
 `;
 
 const AudioFileBarStyle = styled.div<{ $darkmode: boolean }>`
   display: flex;
   background-color: ${({ theme }) => theme.colors.minute_bg};
-  ${(props) =>
+  ${props =>
     props.$darkmode &&
     css`
       background-color: #2a2a2a;
@@ -156,7 +137,7 @@ const AudioPlayButton = styled.button<{ $darkmode: boolean }>`
   justify-content: center;
   color: black;
   background-color: #efefef;
-  ${(props) =>
+  ${props =>
     props.$darkmode &&
     css`
       color: white;

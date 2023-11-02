@@ -40,43 +40,32 @@ const SettingProfile = () => {
     nickname: "",
     desc: "",
   });
-  const {
-    values,
-    setValues,
-    errors,
-    isLoading,
-    handleChange,
-    handleSubmit,
-    interpretMessage,
-  } = useForm<SettingProfileData>({
-    initValues: { email: "", nickname: "", desc: "" },
-    onSubmit: async (values: SettingProfileData) => {
-      // if (!values.password) return;
+  const { values, setValues, errors, isLoading, handleChange, handleSubmit, interpretMessage } =
+    useForm<SettingProfileData>({
+      initValues: { email: "", nickname: "", desc: "" },
+      onSubmit: async (values: SettingProfileData) => {
+        // if (!values.password) return;
 
-      const res = await changeProfile(
-        values.email,
-        values.nickname,
-        values.desc
-      );
-      if (res && res.success) {
-        setUser({
-          ...user,
-          nickname: values.nickname,
-        });
-        // dispatch(changeNickname(values.nickname));
-        setPrevProfile({ ...values });
-        return;
-      }
+        const res = await changeProfile(values.email, values.nickname, values.desc);
+        if (res && res.success) {
+          setUser({
+            ...user,
+            nickname: values.nickname,
+          });
+          // dispatch(changeNickname(values.nickname));
+          setPrevProfile({ ...values });
+          return;
+        }
 
-      interpretMessage(res);
-    },
-    validate: null,
-  });
+        interpretMessage(res);
+      },
+      validate: null,
+    });
 
   const initUserData = async () => {
     if (!user.id) return;
     await getUser(user.id)
-      .then((res) => {
+      .then(res => {
         const prf = {
           nickname: res.user.user_nickname,
           email: res.user.user_email,
@@ -85,16 +74,14 @@ const SettingProfile = () => {
         setPrevProfile(prf);
         setValues(prf);
       })
-      .catch((err) => router.replace("/"));
+      .catch(err => router.replace("/"));
   };
 
   React.useEffect(() => {
     initUserData();
   }, []);
 
-  const handleAddImages = async (
-    event: React.ChangeEvent<HTMLInputElement>
-  ) => {
+  const handleAddImages = async (event: React.ChangeEvent<HTMLInputElement>) => {
     const imageLists = event.target.files;
 
     if (imageLists == null || imageLists.length !== 1) {
@@ -149,35 +136,17 @@ const SettingProfile = () => {
         <Label htmlFor="nickname" $require>
           이름
         </Label>
-        <Input
-          id="nickname"
-          placeholder="닉네임"
-          name="nickname"
-          value={values.nickname}
-          onChange={handleChange}
-        />
+        <Input id="nickname" placeholder="닉네임" name="nickname" value={values.nickname} onChange={handleChange} />
       </InputGroup>
       <InputGroup>
         <Label htmlFor="email" $require>
           이메일
         </Label>
-        <Input
-          id="email"
-          placeholder="이메일"
-          name="email"
-          value={values.email}
-          onChange={handleChange}
-        />
+        <Input id="email" placeholder="이메일" name="email" value={values.email} onChange={handleChange} />
       </InputGroup>
       <InputGroup>
         <Label htmlFor="desc">소개</Label>
-        <Textarea
-          id="desc"
-          placeholder="자기소개"
-          name="desc"
-          value={values.desc}
-          onChange={handleChange}
-        />
+        <Textarea id="desc" placeholder="자기소개" name="desc" value={values.desc} onChange={handleChange} />
       </InputGroup>
       <InputGroup>
         <Label htmlFor="phone">번호</Label>

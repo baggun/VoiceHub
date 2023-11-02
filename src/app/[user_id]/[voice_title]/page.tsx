@@ -36,17 +36,14 @@ async function getVoice(user_id: string, title: string) {
   // const myCookie = cookies().get("connect.sid")?.value;
   // console.log('111111');
 
-  const res = await fetch(
-    "http://localhost:3000/api" + `/voice/${user_id}/${title}`,
-    {
-      headers: headers(),
-      // headers: {
-      //   Cookie: `connect.sid=${myCookie}`,
-      // },
-      // cache: 'no-store',
-      // next: { revalidate: 0 }
-    }
-  );
+  const res = await fetch("http://localhost:3000/api" + `/voice/${user_id}/${title}`, {
+    headers: headers(),
+    // headers: {
+    //   Cookie: `connect.sid=${myCookie}`,
+    // },
+    // cache: 'no-store',
+    // next: { revalidate: 0 }
+  });
 
   if (!res.ok) {
     throw new Error("Failed to fetch data");
@@ -95,19 +92,11 @@ const Voice = async ({ params }: { params: PageProps }) => {
         <VoiceBG>
           <Container>
             <div className="row">
-              <div
-                className={`${
-                  voiceData.script !== "" ? "col-md-7" : "col-12"
-                } audio-info`}
-              >
+              <div className={`${voiceData.script !== "" ? "col-md-7" : "col-12"} audio-info`}>
                 <VoiceTitle>{voiceData.title}</VoiceTitle>
-                {voiceData.url && (
-                  <AudioWave audioSrc={voiceData.url} info={{ ...voiceData }} />
-                )}
+                {voiceData.url && <AudioWave audioSrc={voiceData.url} info={{ ...voiceData }} />}
                 <VoiceFooter>
-                  {voiceData.tags?.map((tag) => (
-                    <Tag key={tag} tag={tag} $darkmode />
-                  ))}
+                  {voiceData.tags?.map(tag => <Tag key={tag} tag={tag} $darkmode />)}
                   <Like type="Voice" target_id={voiceData.id} likers={likers} />
                 </VoiceFooter>
               </div>
@@ -137,11 +126,7 @@ const Voice = async ({ params }: { params: PageProps }) => {
               {comments.map((comment, idx) => {
                 return (
                   <Commet key={`comment_${idx}`}>
-                    <ProfileInfo
-                      profileID={comment.user.id}
-                      nickname={comment.user.nickname}
-                      size={3}
-                    >
+                    <ProfileInfo profileID={comment.user.id} nickname={comment.user.nickname} size={3}>
                       <p>{comment.content}</p>
                     </ProfileInfo>
                   </Commet>
@@ -154,7 +139,7 @@ const Voice = async ({ params }: { params: PageProps }) => {
               <RecommendH2 $marginBottom="1rem">
                 <Link href={`/${tracks[0].ownerID}`}>성우의 다른 목소리</Link>
               </RecommendH2>
-              {tracks.map((track) => (
+              {tracks.map(track => (
                 <AudioFileBar
                   key={track.id}
                   audioSrc={track.url}
@@ -166,21 +151,15 @@ const Voice = async ({ params }: { params: PageProps }) => {
             </>
             {likers.length > 0 && (
               <>
-                <RecommendH2 $marginBottom="1rem">
-                  관심을 남긴 사람들
-                </RecommendH2>
-                {likers.map((user) => (
-                  <Profile
-                    profileID={user.id}
-                    key={`likers-${user.id}`}
-                    size={3}
-                  ></Profile>
+                <RecommendH2 $marginBottom="1rem">관심을 남긴 사람들</RecommendH2>
+                {likers.map(user => (
+                  <Profile profileID={user.id} key={`likers-${user.id}`} size={3}></Profile>
                 ))}
               </>
             )}
             <>
               <RecommendH2 $marginBottom="1rem">이 목소리와 비슷한</RecommendH2>
-              {tracks.map((track) => (
+              {tracks.map(track => (
                 <AudioFileBar
                   audioSrc={track.url}
                   key={track.id}

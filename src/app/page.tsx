@@ -1,4 +1,3 @@
-
 import React from "react";
 import Carousel from "@components/carousel";
 import { MainLayout } from "@components/layout";
@@ -16,19 +15,19 @@ import Image from "next/image";
 //   const res = await fetch('http://localhost:3000/api/voice')
 //   // The return value is *not* serialized
 //   // You can return Date, Map, Set, etc.
- 
+
 //   if (!res.ok) {
 //     // This will activate the closest `error.js` Error Boundary
 //     throw new Error('Failed to fetch data')
 //   }
- 
+
 //   return res.json()
 // }
 import { cookies } from "next/headers";
 
-const Home = async () => {  
-  const res =  await getVoices()
-  const tracks : VoiceInfo[] = getVoicesProcess(res.data);
+const Home = async () => {
+  const res = await getVoices();
+  const tracks: VoiceInfo[] = getVoicesProcess(res.data);
 
   // .then((res) => getVoicesProcess(res.data))
   // .then((res) => setTracks(res))
@@ -58,7 +57,7 @@ const Home = async () => {
       <Container>
         <RecommendH2 $marginTop="4rem">오늘의 대사</RecommendH2>
         {tracks &&
-          tracks.map((track) => (
+          tracks.map(track => (
             <AudioFileBar
               key={track.id}
               audioSrc={track.url}
@@ -80,9 +79,7 @@ const Home = async () => {
 
         <br />
 
-        {tracks && (
-          <AudioWave audioSrc={tracks[0].url} info={{ ...tracks[0] }} />
-        )}
+        {tracks && <AudioWave audioSrc={tracks[0].url} info={{ ...tracks[0] }} />}
         <RecommendH2 $marginTop="4rem">지금 있기 있는 성우</RecommendH2>
         {tracks && (
           <AudioFileBar
@@ -95,5 +92,5 @@ const Home = async () => {
       </Container>
     </MainLayout>
   );
-}
+};
 export default Home;

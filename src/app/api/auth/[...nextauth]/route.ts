@@ -31,8 +31,7 @@ export const authOptions: NextAuthOptions = {
       async authorize(credentials, req) {
         await dbConnect();
 
-        if (!credentials)
-          throw new Error("잘못된 입력값으로 인한 오류가 발생했습니다.");
+        if (!credentials) throw new Error("잘못된 입력값으로 인한 오류가 발생했습니다.");
 
         try {
           const { id, password } = credentials;
@@ -56,8 +55,7 @@ export const authOptions: NextAuthOptions = {
     }),
   ],
   pages: {
-    signIn: '/auth/login',
-    
+    signIn: "/auth/login",
   },
   callbacks: {
     async jwt({ token, user }: any) {

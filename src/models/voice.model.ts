@@ -1,4 +1,4 @@
-import mongoose, { Schema, models } from "mongoose";
+import mongoose, { Schema } from "mongoose";
 
 const {
   Types: { ObjectId },
@@ -18,7 +18,7 @@ const voiceSchema = new Schema({
   // script - schema
   script: {
     type: ObjectId,
-    ref: "Scr",
+    ref: "Script",
   },
 
   comments: {

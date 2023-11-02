@@ -1,4 +1,4 @@
-import NextAuth from "next-auth"
+import NextAuth from "next-auth";
 
 declare module "next-auth" {
   /**
@@ -7,9 +7,9 @@ declare module "next-auth" {
   interface Session {
     user: {
       /** The user's postal address. */
-      oid: string,
-      id: string,
-      nickname: string,
-    }
+      oid: string;
+      id: string;
+      nickname: string;
+    };
   }
 }

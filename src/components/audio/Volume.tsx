@@ -20,7 +20,7 @@ const Volume = () => {
     const newVolume = +e.target.value;
 
     if (newVolume) {
-      changeVolume(newVolume)
+      changeVolume(newVolume);
       // dispatch(changeVolume(newVolume));
     }
   };
@@ -96,7 +96,7 @@ const VolumeController = styled.input.attrs({
     cursor: pointer;
     -webkit-appearance: none;
     margin-top: -4.5px; */
-    opacity:0;
+    opacity: 0;
   }
   &:focus::-webkit-slider-runnable-track {
     // background: #FFFFFF;
@@ -119,7 +119,7 @@ const VolumeController = styled.input.attrs({
     border-radius: 16px;
     background: #ffffff;
     cursor: pointer; */
-    opacity:0;
+    opacity: 0;
   }
   &::-ms-track {
     width: 100%;
@@ -151,7 +151,7 @@ const VolumeController = styled.input.attrs({
     border-radius: 16px;
     background: #ffffff;
     cursor: pointer; */
-    opacity:0;
+    opacity: 0;
   }
   &:focus::-ms-fill-lower {
     background: #ffffff;

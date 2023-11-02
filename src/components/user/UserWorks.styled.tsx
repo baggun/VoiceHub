@@ -17,10 +17,10 @@ export const ProfileNavCollapse = styled.div`
 export const ProfileNavLink = styled(Link)<{ $active: boolean }>`
   position: relative;
   font-size: 1em;
-  font-weight: ${(props) => (props.$active ? 500 : 400)};
+  font-weight: ${props => (props.$active ? 500 : 400)};
   line-height: 1.2;
   padding: 0rem 0.5rem;
-  ${(props) =>
+  ${props =>
     props.$active &&
     css`
       &::after {

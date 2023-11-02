@@ -4,10 +4,7 @@ import ScriptLike from "@models/script_like.model";
 import { getServerSession } from "next-auth";
 import { authOptions } from "@/app/api/auth/[...nextauth]/route";
 
-export async function GET(
-  request: NextRequest,
-  { params }: { params: { id: string } }
-) {
+export async function GET(request: NextRequest, { params }: { params: { id: string } }) {
   const { id } = params;
   const session = await getServerSession(authOptions);
 
@@ -38,15 +35,12 @@ export async function GET(
       },
       {
         status: 500,
-      }
+      },
     );
   }
 }
 
-export async function POST(
-  request: NextRequest,
-  { params }: { params: { id: string } }
-) {
+export async function POST(request: NextRequest, { params }: { params: { id: string } }) {
   const { id } = params;
   const session = await getServerSession(authOptions);
 
@@ -58,7 +52,7 @@ export async function POST(
       },
       {
         status: 403,
-      }
+      },
     );
   }
 
@@ -105,7 +99,7 @@ export async function POST(
       },
       {
         status: 500,
-      }
+      },
     );
   }
 }

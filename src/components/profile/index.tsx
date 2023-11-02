@@ -6,7 +6,7 @@ import { ProfileImg } from "./ProfileImg";
 import React from "react";
 import Link from "next/link";
 
-import { ProfileLink, ProfileName } from './Profile.styled';
+import { ProfileLink, ProfileName } from "./Profile.styled";
 
 export type ProfileLinkProps = {
   size?: number;
@@ -33,13 +33,10 @@ const Profile = ({
       //   size={size}
       $marginRight={$marginRight}
     >
-        {/* <img src={profile_temp} /> */}
-      <ProfileImg src={'/img/profile_temp.png'} alt="profile" size={size} />
+      {/* <img src={profile_temp} /> */}
+      <ProfileImg src={"/img/profile_temp.png"} alt="profile" size={size} />
       {nickname && (
-        <ProfileName
-          className="profile-nickname"
-          $nicknameMargin={$nicknameMargin}
-        >
+        <ProfileName className="profile-nickname" $nicknameMargin={$nicknameMargin}>
           {nickname}
         </ProfileName>
       )}

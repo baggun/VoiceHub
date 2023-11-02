@@ -9,7 +9,7 @@ import { login } from "@apis/api/users";
 import { UserLoginData } from "@type/user";
 import { saveUserStorage } from "@utils/storage";
 import { LoginValidation } from "@utils/validate";
-import { useRouter } from "next/navigation";
+import { useRouter, useSearchParams } from "next/navigation";
 import { useSetRecoilState } from "recoil";
 import { userState } from "@/recoil/user/atom";
 import Link from "next/link";
@@ -20,30 +20,25 @@ const LoginForm = () => {
   const router = useRouter();
   const setUser = useSetRecoilState(userState);
 
+  const searchParams = useSearchParams();
+  const redirect_to: string = decodeURIComponent(searchParams.get("redirect_to") || "/");
+
   // if (session.status === "authenticated") {
   //   router?.back();
   // }
 
-  const {
-    values,
-    errors,
-    isLoading,
-    handleChange,
-    handleSubmit,
-    interpretMessage,
-  } = useForm<UserLoginData>({
+  const { values, errors, isLoading, handleChange, handleSubmit, interpretMessage } = useForm<UserLoginData>({
     initValues: { id: "", password: "" },
     onSubmit: async (values: UserLoginData) => {
       try {
         // const res = await login(values);
 
-        console.log("__________", values);
         const res = await signIn("credentials", { ...values, redirect: false });
         if (res?.error) {
           console.error("!!!!!!!! 로그인 에러", res);
           // interpretMessage(res);
         } else {
-          router.back();
+          router.push(redirect_to);
         }
         // router.push("/");
         // router.back();
@@ -80,15 +75,8 @@ const LoginForm = () => {
       {JSON.stringify(errors)}
       <AuthForm onSubmit={handleSubmit}>
         <div className="form-group">
-          <AuthInput
-            placeholder="ID"
-            name="id"
-            value={values.id}
-            onChange={handleChange}
-          />
-          {errors.id && (
-            <ErrorMsg className="errorMessage">{errors.id}</ErrorMsg>
-          )}
+          <AuthInput placeholder="ID" name="id" value={values.id} onChange={handleChange} />
+          {errors.id && <ErrorMsg className="errorMessage">{errors.id}</ErrorMsg>}
         </div>
         <div className="form-group">
           <AuthInput
@@ -100,14 +88,20 @@ const LoginForm = () => {
           />
           {errors.password && <ErrorMsg>{errors.password}</ErrorMsg>}
         </div>
-        <SubmitButton
-          disabled={isLoading || values.id === "" || values.password === ""}
-        >
-          로그인
-        </SubmitButton>
+        <SubmitButton disabled={isLoading || values.id === "" || values.password === ""}>로그인</SubmitButton>
       </AuthForm>
       <span className="lead-msg">
-        계정이 없으신가요? <Link href="/auth/register">회원가입</Link>
+        계정이 없으신가요?{" "}
+        <Link
+          href={{
+            pathname: "/auth/register",
+            query: {
+              redirect_to,
+            },
+          }}
+        >
+          회원가입
+        </Link>
       </span>
     </>
   );

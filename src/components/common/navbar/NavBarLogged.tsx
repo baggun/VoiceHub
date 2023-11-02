@@ -7,10 +7,12 @@ import ProfileNav from "@/components/profile/ProfileNav";
 import { IconBell, IconPlus } from "@tabler/icons-react";
 import { useRecoilValue } from "recoil";
 import { userState } from "@/recoil/user/atom";
+import { usePathname } from "next/navigation";
 import React from "react";
 import { useSession } from "next-auth/react";
 
 const NavBarLogged = () => {
+  const pathname = usePathname();
   const { data: session } = useSession();
   // const user = useRecoilValue(userState);
   const [mounted, setMounted] = React.useState<boolean>(false);
@@ -35,7 +37,17 @@ const NavBarLogged = () => {
           <ProfileNav />
         </>
       ) : (
-        <NavBarNavLink to="/auth/login">로그인</NavBarNavLink>
+        <NavBarNavLink
+          to={{
+            pathname: "/auth/login",
+            query: {
+              redirect_to: encodeURIComponent(pathname),
+            },
+          }}
+        >
+          {" "}
+          로그인
+        </NavBarNavLink>
       )}
     </>
   );

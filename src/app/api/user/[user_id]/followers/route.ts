@@ -3,10 +3,7 @@ import { NextRequest } from "next/server";
 import User from "@models/user.model";
 import Follow from "@models/follow.model";
 
-export async function GET(
-  request: NextRequest,
-  { params }: { params: { user_id: string } }
-) {
+export async function GET(request: NextRequest, { params }: { params: { user_id: string } }) {
   const { user_id } = params;
 
   try {
@@ -22,7 +19,7 @@ export async function GET(
         },
         {
           status: 400,
-        }
+        },
       );
     }
 
@@ -46,7 +43,7 @@ export async function GET(
       },
       {
         status: 500,
-      }
+      },
     );
   }
 }

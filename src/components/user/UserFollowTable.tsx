@@ -1,6 +1,6 @@
 import { digitK } from "@utils/format";
 import { TabType } from "@type/tab";
-import { FollowTable, InfoLink } from './UserFollowTable.styled';
+import { FollowTable, InfoLink } from "./UserFollowTable.styled";
 
 type UserFollowTableProps = {
   tab: string;
@@ -31,16 +31,11 @@ const UserFollowTable = ({ tab, followers, followings }: UserFollowTableProps) =
     <FollowTable>
       <tbody>
         <tr>
-          {tables.map((t) => (
+          {tables.map(t => (
             <td key={t.tab}>
-              <InfoLink
-                href={{ search: `tab=${t.tab}` }}
-                $active={tab === t.tab}
-              >
+              <InfoLink href={{ search: `tab=${t.tab}` }} $active={tab === t.tab}>
                 <h3 className="infolink-head">{t.title}</h3>
-                <p className="infolink-count">
-                  {digitK(getNumber(t.tab) || 0)}
-                </p>
+                <p className="infolink-count">{digitK(getNumber(t.tab) || 0)}</p>
               </InfoLink>
             </td>
           ))}

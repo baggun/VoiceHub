@@ -7,11 +7,7 @@ import { DefaultLayout } from "@components/layout";
 import { dateFormat } from "@utils/format";
 import { ContestData } from "@type/contest";
 import ContestThumbnail from "@components/contest/ContestThumbnail";
-import {
-  isDeadline,
-  remainingDeadline,
-  calculateRemainingDeadline,
-} from "@utils/deadline";
+import { isDeadline, remainingDeadline, calculateRemainingDeadline } from "@utils/deadline";
 import ContestDeadline from "@components/contest/ContestDeadline";
 import { Button } from "@common/button";
 import { getContest } from "@apis/api/contest";
@@ -78,21 +74,14 @@ const Contest = async ({ params }: { params: PageProps }) => {
             <ContestTitle>{contestData.contest}</ContestTitle>
             <ContestDetail>주최/주관 : {contestData.company}</ContestDetail>
             <ContestDetail>
-              접수기간 : {dateFormat(contestData.startDate)} ~{" "}
-              {dateFormat(contestData.endDate)}
+              접수기간 : {dateFormat(contestData.startDate)} ~ {dateFormat(contestData.endDate)}
             </ContestDetail>
             <ContestDetail>조회수 : {contestData.hit}</ContestDetail>
           </ContestInfoBlock>
         </div>
         <ContestFocusBlock>
-          <ContestDeadline
-            deadline={calculateRemainingDeadline(contestData.endDate)}
-          />
-          <Button
-            variant="primary"
-            $padding="0.5rem 3rem"
-            $borderRadius="0.5rem"
-          >
+          <ContestDeadline deadline={calculateRemainingDeadline(contestData.endDate)} />
+          <Button variant="primary" $padding="0.5rem 3rem" $borderRadius="0.5rem">
             응모하기
           </Button>
         </ContestFocusBlock>

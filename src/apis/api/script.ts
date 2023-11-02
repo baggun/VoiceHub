@@ -8,17 +8,13 @@ import { ErrorMsg } from "@apis/utils/error";
  * @param {number} limit 한계
  * @returns 성공 여부
  */
-export const getScripts = async (
-    tag: string = "",
-    skip: number = 0,
-    limit: number = 0
-) => {
-    try {
-        const res = await client.get(`/script?tag=${tag}&skip=${skip}&limit=${limit}`);
-        return res.data;
-    } catch (err) {
-        throw ErrorMsg(err);
-    }
+export const getScripts = async (tag: string = "", skip: number = 0, limit: number = 0) => {
+  try {
+    const res = await client.get(`/script?tag=${tag}&skip=${skip}&limit=${limit}`);
+    return res.data;
+  } catch (err) {
+    throw ErrorMsg(err);
+  }
 };
 
 /**
@@ -27,12 +23,12 @@ export const getScripts = async (
  * @returns 성공 여부
  */
 export const getScript = async (script_oid: string) => {
-    try {
-        const res = await client.get(`/script/${script_oid}`);
-        return res.data;
-    } catch (err) {
-        throw ErrorMsg(err);
-    }
+  try {
+    const res = await client.get(`/script/${script_oid}`);
+    return res.data;
+  } catch (err) {
+    throw ErrorMsg(err);
+  }
 };
 
 /**
@@ -43,12 +39,12 @@ export const getScript = async (script_oid: string) => {
  * @returns 성공 여부
  */
 export const postScript = async (title: string, script: string, tags: string[]) => {
-    try {
-        const res = await client.post(`/script`, { title, script, tags });
-        return res.data;
-    } catch (err) {
-        throw ErrorMsg(err);
-    }
+  try {
+    const res = await client.post(`/script`, { title, script, tags });
+    return res.data;
+  } catch (err) {
+    throw ErrorMsg(err);
+  }
 };
 
 /**
@@ -58,10 +54,10 @@ export const postScript = async (title: string, script: string, tags: string[]) 
  * @returns 성공 여부
  */
 export const deleteScript = async (user_oid: string, script_oid: string) => {
-    try {
-        const res = await client.delete(`/script`, { data: { user_oid, script_oid } });
-        return res.data;
-    } catch (err) {
-        throw ErrorMsg(err);
-    }
+  try {
+    const res = await client.delete(`/script`, { data: { user_oid, script_oid } });
+    return res.data;
+  } catch (err) {
+    throw ErrorMsg(err);
+  }
 };

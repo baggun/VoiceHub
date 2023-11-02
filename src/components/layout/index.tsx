@@ -16,13 +16,7 @@ import auth_bg_2 from "/public/img/auth_bg_2.png";
 import styled from "styled-components";
 import Image from "next/image";
 
-export const DefaultLayout = ({
-  children,
-  className,
-}: {
-  children: React.ReactNode;
-  className?: string;
-}) => {
+export const DefaultLayout = ({ children, className }: { children: React.ReactNode; className?: string }) => {
   return (
     <div className="default-layout">
       <Header />

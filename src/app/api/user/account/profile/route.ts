@@ -16,7 +16,7 @@ export async function PATCH(request: NextRequest) {
       },
       {
         status: 403,
-      }
+      },
     );
   }
 
@@ -29,7 +29,7 @@ export async function PATCH(request: NextRequest) {
         user_nickname: nickname,
         user_email: email,
         user_desc: desc,
-      }
+      },
     );
 
     if (!user) throw new Error("사용자 검색 실패");
@@ -46,7 +46,7 @@ export async function PATCH(request: NextRequest) {
       },
       {
         status: 500,
-      }
+      },
     );
   }
 }

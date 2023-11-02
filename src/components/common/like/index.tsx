@@ -52,7 +52,7 @@ const Like = ({ target_id, likers, type }: LikeProps) => {
 
   const [curLikers, setLikers] = React.useState<number>(likers.length);
   const [isLike, setIsLike] = React.useState<boolean>(() => {
-    if (likers.some((item) => item.id === session?.user.id)) return true;
+    if (likers.some(item => item.id === session?.user.id)) return true;
     return false;
   });
   const { Wrapper, likeController, styled } = Type(type);

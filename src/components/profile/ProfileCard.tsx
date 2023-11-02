@@ -3,12 +3,7 @@ import Link from "next/link";
 
 import FollowButton from "@common/button/FollowButton";
 import Profile from ".";
-import {
-  ProfileCardStyled,
-  ProfileInfo,
-  ProfileNameLink,
-  ProfileAboutMe
-} from "./Profile.styled";
+import { ProfileCardStyled, ProfileInfo, ProfileNameLink, ProfileAboutMe } from "./Profile.styled";
 
 type ProfileCardProps = {
   id: string;
@@ -45,29 +40,17 @@ const sizeGroup = {
   },
 };
 
-const ProfileCard = ({
-  id,
-  nickname,
-  size = "md",
-  aboutMe,
-  isFollowed,
-}: ProfileCardProps) => {
+const ProfileCard = ({ id, nickname, size = "md", aboutMe, isFollowed }: ProfileCardProps) => {
   return (
     <ProfileCardStyled $margin={sizeGroup[size].margin}>
       <Profile profileID={id} size={sizeGroup[size].profileSize}></Profile>
       <ProfileInfo>
         <span>
-          <ProfileNameLink
-            href={`/${nickname}`}
-            className="profile-name"
-            size={sizeGroup[size].nameSize}
-          >
+          <ProfileNameLink href={`/${nickname}`} className="profile-name" size={sizeGroup[size].nameSize}>
             {nickname} 성우
           </ProfileNameLink>
         </span>
-        <ProfileAboutMe size={sizeGroup[size].aboutMeSize}>
-          {aboutMe}
-        </ProfileAboutMe>
+        <ProfileAboutMe size={sizeGroup[size].aboutMeSize}>{aboutMe}</ProfileAboutMe>
       </ProfileInfo>
       <FollowButton target={id} isFollowed={isFollowed} />
     </ProfileCardStyled>

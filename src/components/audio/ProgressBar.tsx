@@ -6,18 +6,11 @@ import styled from "styled-components";
 // import { RootState } from "@modules/index";
 // import { setDuration, setPlay, setTime } from "@modules/audio";
 import { timeFormat } from "@utils/format";
-import {
-  audioCurTimeState,
-  audioDurationState,
-  audioPlayState,
-  audioState,
-} from "@/recoil/audio/atom";
+import { audioCurTimeState, audioDurationState, audioPlayState, audioState } from "@/recoil/audio/atom";
 import { useRecoilState, useRecoilValue } from "recoil";
 
 const ProgressBar = () => {
-  const _audio = useRef<HTMLAudioElement | undefined>(
-    typeof Audio !== "undefined" ? new Audio("") : undefined
-  );
+  const _audio = useRef<HTMLAudioElement | undefined>(typeof Audio !== "undefined" ? new Audio("") : undefined);
 
   // const {
   //     audioAudio,
@@ -53,9 +46,7 @@ const ProgressBar = () => {
       // _audio.current.src = audio.audio;
       if (play) {
         // 10초 이하의 오디오는 currentTime 조절시 자동으로 0으로 가는 문제 있음
-        if (audioDuration > 10)
-          _audio.current.currentTime =
-            audioCurTime >= audioDuration ? 0 : audioCurTime;
+        if (audioDuration > 10) _audio.current.currentTime = audioCurTime >= audioDuration ? 0 : audioCurTime;
         _audio.current.play();
       } else {
         _audio.current.pause();
@@ -80,11 +71,9 @@ const ProgressBar = () => {
     const timeUpdate = () => {
       if (!_audio.current) return;
 
-      if (_audio.current?.currentTime !== 0)
-        setAudioCurTime(_audio.current?.currentTime);
+      if (_audio.current?.currentTime !== 0) setAudioCurTime(_audio.current?.currentTime);
 
-      const per =
-        (_audio.current?.currentTime / _audio.current?.duration) * 100;
+      const per = (_audio.current?.currentTime / _audio.current?.duration) * 100;
 
       drawProgress(per);
       //     setAudio({
@@ -117,9 +106,7 @@ const ProgressBar = () => {
     if (_audio.current) _audio.current.currentTime = +e.target.value;
 
     if (audio.isControlWave) {
-      audio.waveRef?.seekTo(
-        (_audio.current ? _audio.current.currentTime : 0) / audioDuration
-      );
+      audio.waveRef?.seekTo((_audio.current ? _audio.current.currentTime : 0) / audioDuration);
     }
   };
 
@@ -140,9 +127,7 @@ const ProgressBar = () => {
       <Timer>
         {_audio.current && (
           <>
-            <span className="time current">
-              {timeFormat(_audio.current?.currentTime)}
-            </span>
+            <span className="time current">{timeFormat(_audio.current?.currentTime)}</span>
             <span> / </span>
             <span className="time">{timeFormat(_audio.current?.duration)}</span>
           </>
@@ -168,7 +153,10 @@ const ProgressController = styled.input.attrs({
   // margin: 10px 0;
   margin: 0px;
   width: 100%;
-  transition: 450ms ease-in, top 0.1s linear, height 0.1s linear;
+  transition:
+    450ms ease-in,
+    top 0.1s linear,
+    height 0.1s linear;
   // transition: all 0.1s linear;
   // transition-property: height, top;
   background: linear-gradient(to right, #404040 0%, #404040 100%);

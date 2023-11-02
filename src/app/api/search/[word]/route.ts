@@ -1,13 +1,10 @@
 import dbConnect from "@lib/db/dbConnect";
 import { NextRequest } from "next/server";
 import Voice from "@models/voice.model";
-import Script from "@models/script.model";
+import Script from "@/models/script.model";
 import User from "@models/user.model";
 
-export async function GET(
-  request: NextRequest,
-  { params }: { params: { word: string } }
-) {
+export async function GET(request: NextRequest, { params }: { params: { word: string } }) {
   const { word } = params;
   const decodedWord = decodeURIComponent(word);
   const RegWord = new RegExp(decodedWord);
@@ -34,10 +31,7 @@ export async function GET(
       .skip(skip * limit)
       .lean();
 
-    const users = await User.find(
-      { user_nickname: RegWord },
-      "user_id user_nickname user_email user_profile"
-    )
+    const users = await User.find({ user_nickname: RegWord }, "user_id user_nickname user_email user_profile")
       .sort("user_updatedAt")
       .limit(10)
       .skip(skip * limit)
@@ -58,7 +52,7 @@ export async function GET(
       },
       {
         status: 500,
-      }
+      },
     );
   }
 }

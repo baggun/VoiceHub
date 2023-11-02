@@ -1,4 +1,4 @@
-import mongoose, { Schema, models } from "mongoose";
+import mongoose, { Schema } from "mongoose";
 
 const contestSchema = new Schema(
   {
@@ -36,8 +36,7 @@ const contestSchema = new Schema(
       required: true,
     },
   },
-  {}
+  {},
 );
 
-export default mongoose.models.Contest ||
-  mongoose.model("Contest", contestSchema);
+export default mongoose.models.Contest || mongoose.model("Contest", contestSchema);

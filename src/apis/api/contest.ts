@@ -7,16 +7,13 @@ import { ErrorMsg } from "@apis/utils/error";
  * @param {number} limit 한계
  * @returns 성공 여부
  */
-export const getContestList = async (
-    skip: number = 0,
-    limit: number = 0
-) => {
-    try {
-        const res = await client.get(`/contest?skip=${skip}&limit=${limit}`);
-        return res.data;
-    } catch (err) {
-        throw ErrorMsg(err);
-    }
+export const getContestList = async (skip: number = 0, limit: number = 0) => {
+  try {
+    const res = await client.get(`/contest?skip=${skip}&limit=${limit}`);
+    return res.data;
+  } catch (err) {
+    throw ErrorMsg(err);
+  }
 };
 
 /**
@@ -25,10 +22,10 @@ export const getContestList = async (
  * @returns 성공 여부
  */
 export const getContest = async (contest_id: string) => {
-    try {
-        const res = await client.get(`/contest/${contest_id}`);
-        return res.data;
-    } catch (err) {
-        throw ErrorMsg(err);
-    }
+  try {
+    const res = await client.get(`/contest/${contest_id}`);
+    return res.data;
+  } catch (err) {
+    throw ErrorMsg(err);
+  }
 };

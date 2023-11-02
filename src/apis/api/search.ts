@@ -7,10 +7,10 @@ import { ErrorMsg } from "@apis/utils/error";
  * @returns 성공 여부
  */
 export const search = async (word: string) => {
-    try {
-        const res = await client.get(`/search/${word}`);
-        return res.data;
-    } catch (err) {
-        throw ErrorMsg(err);
-    }
+  try {
+    const res = await client.get(`/search/${word}`);
+    return res.data;
+  } catch (err) {
+    throw ErrorMsg(err);
+  }
 };

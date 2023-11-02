@@ -3,10 +3,7 @@ import { NextRequest } from "next/server";
 import User from "@models/user.model";
 import VoiceLike from "@models/voice_like.model";
 
-export async function GET(
-  request: NextRequest,
-  { params }: { params: { user_id: string } }
-) {
+export async function GET(request: NextRequest, { params }: { params: { user_id: string } }) {
   const { user_id } = params;
 
   try {
@@ -22,7 +19,7 @@ export async function GET(
         },
         {
           status: 400,
-        }
+        },
       );
     }
 
@@ -40,7 +37,7 @@ export async function GET(
     return Response.json({
       success: true,
       message: `${user.user_id}'s like voices`,
-      data: voices.map((item) => {
+      data: voices.map(item => {
         return { ...item.voice };
       }),
     });
@@ -52,7 +49,7 @@ export async function GET(
       },
       {
         status: 500,
-      }
+      },
     );
   }
 }

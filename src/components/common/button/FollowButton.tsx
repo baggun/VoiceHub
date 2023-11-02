@@ -19,11 +19,7 @@ type FollowButtonProps = {
   isFollowed: boolean;
   followSuccessEvent?: (e: boolean) => void;
 };
-const FollowButton = ({
-  target,
-  isFollowed,
-  followSuccessEvent,
-}: FollowButtonProps) => {
+const FollowButton = ({ target, isFollowed, followSuccessEvent }: FollowButtonProps) => {
   const router = useRouter();
   // const navigate = useNavigate();
   // const user = useSelector((state: RootState) => state.users);
@@ -34,9 +30,7 @@ const FollowButton = ({
     setFollowing(isFollowed);
   }, [isFollowed]);
 
-  const onClickHandler = async (
-    e: React.MouseEvent<HTMLButtonElement, MouseEvent>
-  ) => {
+  const onClickHandler = async (e: React.MouseEvent<HTMLButtonElement, MouseEvent>) => {
     e.preventDefault();
 
     if (!!!user.id) {
@@ -55,7 +49,12 @@ const FollowButton = ({
   if (!!user.id && user.id === target) return <></>;
 
   return (
-    <Button variant={isFollowing ? "grey" : "primary"} className="btn-follow" $borderRadius="0.5rem" onClick={onClickHandler}>
+    <Button
+      variant={isFollowing ? "grey" : "primary"}
+      className="btn-follow"
+      $borderRadius="0.5rem"
+      onClick={onClickHandler}
+    >
       {isFollowing ? "팔로우 중" : "팔로우 하기"}
     </Button>
   );

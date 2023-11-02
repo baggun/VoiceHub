@@ -8,19 +8,13 @@ import { ErrorMsg } from "@apis/utils/error";
  * @param {number} limit 한계
  * @returns 성공 여부
  */
-export const getPosts = async (
-    tag: string = "",
-    skip: number = 0,
-    limit: number = 0
-) => {
-    try {
-        const res = await client.get(
-            `/post?tag=${tag}&skip=${skip}&limit=${limit}`
-        );
-        return res.data;
-    } catch (err) {
-        throw ErrorMsg(err);
-    }
+export const getPosts = async (tag: string = "", skip: number = 0, limit: number = 0) => {
+  try {
+    const res = await client.get(`/post?tag=${tag}&skip=${skip}&limit=${limit}`);
+    return res.data;
+  } catch (err) {
+    throw ErrorMsg(err);
+  }
 };
 
 /**
@@ -29,35 +23,28 @@ export const getPosts = async (
  * @returns 성공 여부
  */
 export const getPost = async (post_id: string) => {
-    try {
-        const res = await client.get(`/post/${post_id}`);
-        return res.data;
-    } catch (err) {
-        throw ErrorMsg(err);
-    }
+  try {
+    const res = await client.get(`/post/${post_id}`);
+    return res.data;
+  } catch (err) {
+    throw ErrorMsg(err);
+  }
 };
 
 /**
  * 글 작성
  * @param post post 정보
- * @returns 
+ * @returns
  */
-export const postPost = async (
-    post: {
-        title: string;
-        content: string;
-        type: string;
-        tags: string[];
-    }
-) => {
-    try {
-        const res = await client.post(`/post`, {
-            ...post,
-        });
-        return res.data;
-    } catch (err) {
-        throw ErrorMsg(err);
-    }
+export const postPost = async (post: { title: string; content: string; type: string; tags: string[] }) => {
+  try {
+    const res = await client.post(`/post`, {
+      ...post,
+    });
+    return res.data;
+  } catch (err) {
+    throw ErrorMsg(err);
+  }
 };
 
 /**
@@ -66,12 +53,12 @@ export const postPost = async (
  * @returns 성공 여부
  */
 export const deletePost = async (post_oid: string) => {
-    try {
-        const res = await client.delete(`/post/${post_oid}`);
-        return res.data;
-    } catch (err) {
-        throw ErrorMsg(err);
-    }
+  try {
+    const res = await client.delete(`/post/${post_oid}`);
+    return res.data;
+  } catch (err) {
+    throw ErrorMsg(err);
+  }
 };
 
 /**
@@ -81,18 +68,15 @@ export const deletePost = async (post_oid: string) => {
  * @param {string} comment 댓글 내용
  * @returns 성공 여부
  */
-export const postPostComment = async (
-    post_oid: string,
-    comment: string
-) => {
-    try {
-        const res = await client.post(`/post/${post_oid}/comment`, {
-            comment,
-        });
-        return res.data;
-    } catch (err) {
-        throw ErrorMsg(err);
-    }
+export const postPostComment = async (post_oid: string, comment: string) => {
+  try {
+    const res = await client.post(`/post/${post_oid}/comment`, {
+      comment,
+    });
+    return res.data;
+  } catch (err) {
+    throw ErrorMsg(err);
+  }
 };
 
 /**
@@ -104,21 +88,21 @@ export const postPostComment = async (
  * @returns 성공 여부
  */
 export const patchPostComment = async (
-    post_oid: string,
-    comment: {
-        user_oid: string;
-        comment_oid: string;
-        comment: string;
-    }
+  post_oid: string,
+  comment: {
+    user_oid: string;
+    comment_oid: string;
+    comment: string;
+  },
 ) => {
-    try {
-        const res = await client.patch(`/post/${post_oid}/comment`, {
-            ...comment,
-        });
-        return res.data;
-    } catch (err) {
-        throw ErrorMsg(err);
-    }
+  try {
+    const res = await client.patch(`/post/${post_oid}/comment`, {
+      ...comment,
+    });
+    return res.data;
+  } catch (err) {
+    throw ErrorMsg(err);
+  }
 };
 
 /**
@@ -129,20 +113,20 @@ export const patchPostComment = async (
  * @returns 성공 여부
  */
 export const deletePostComment = async (
-    post_oid: string,
-    comment: {
-        user_oid: string;
-        comment_oid: string;
-    }
+  post_oid: string,
+  comment: {
+    user_oid: string;
+    comment_oid: string;
+  },
 ) => {
-    try {
-        const res = await client.delete(`/post/${post_oid}/comment`, {
-            data: { ...comment },
-        });
-        return res.data;
-    } catch (err) {
-        throw ErrorMsg(err);
-    }
+  try {
+    const res = await client.delete(`/post/${post_oid}/comment`, {
+      data: { ...comment },
+    });
+    return res.data;
+  } catch (err) {
+    throw ErrorMsg(err);
+  }
 };
 
 /**
@@ -151,12 +135,12 @@ export const deletePostComment = async (
  * @returns 성공 여부
  */
 export const postLike = async (post_oid: string) => {
-    try {
-        const res = await client.post(`/post/${post_oid}/like`);
-        return res.data;
-    } catch (err) {
-        throw ErrorMsg(err);
-    }
+  try {
+    const res = await client.post(`/post/${post_oid}/like`);
+    return res.data;
+  } catch (err) {
+    throw ErrorMsg(err);
+  }
 };
 
 /**
@@ -165,10 +149,10 @@ export const postLike = async (post_oid: string) => {
  * @returns 성공 여부
  */
 export const postUnLike = async (post_oid: string) => {
-    try {
-        const res = await client.delete(`/post/${post_oid}/like`);
-        return res.data;
-    } catch (err) {
-        throw ErrorMsg(err);
-    }
+  try {
+    const res = await client.delete(`/post/${post_oid}/like`);
+    return res.data;
+  } catch (err) {
+    throw ErrorMsg(err);
+  }
 };

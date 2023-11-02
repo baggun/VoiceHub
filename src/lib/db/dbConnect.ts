@@ -2,8 +2,8 @@ import mongoose from "mongoose";
 
 const { MONGODB_URI, MONGODB_DB } = process.env;
 
-if (!MONGODB_URI) throw new Error('MONGODB_URI not defined');
-if (!MONGODB_DB) throw new Error('MONGODB_DB not defined');
+if (!MONGODB_URI) throw new Error("MONGODB_URI not defined");
+if (!MONGODB_DB) throw new Error("MONGODB_DB not defined");
 
 let cached = global.mongoose;
 
@@ -18,9 +18,9 @@ async function dbConnect() {
     cached.promise = mongoose
       .set({ debug: true, strictQuery: false })
       .connect(`${MONGODB_URI}`, {
-        dbName: MONGODB_DB
+        dbName: MONGODB_DB,
       })
-      .then((mongoose) => mongoose);
+      .then(mongoose => mongoose);
   }
 
   cached.conn = await cached.promise;

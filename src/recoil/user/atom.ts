@@ -2,8 +2,7 @@ import { DefaultValue, atom, atomFamily, selector } from "recoil";
 import { recoilPersist } from "recoil-persist";
 import { UserData } from "@/types/user";
 
-const localStorage = 
-      typeof window !== 'undefined' ? window.localStorage : undefined
+const localStorage = typeof window !== "undefined" ? window.localStorage : undefined;
 
 const { persistAtom } = recoilPersist({
   key: "useStorage", // 고유한 key 값
@@ -23,5 +22,5 @@ export const userState = atom<UserData>({
     nickname: "",
     profile: "",
   },
-  effects_UNSTABLE: [persistAtom]
+  effects_UNSTABLE: [persistAtom],
 });

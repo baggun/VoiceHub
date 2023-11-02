@@ -3,10 +3,7 @@ import { NextRequest } from "next/server";
 import User from "@models/user.model";
 import Follow from "@models/follow.model";
 
-export async function GET(
-  request: NextRequest,
-  { params }: { params: { user_id: string; target: string } }
-) {
+export async function GET(request: NextRequest, { params }: { params: { user_id: string; target: string } }) {
   const { user_id, target } = params;
   try {
     await dbConnect();
@@ -40,7 +37,7 @@ export async function GET(
       },
       {
         status: 500,
-      }
+      },
     );
   }
 }

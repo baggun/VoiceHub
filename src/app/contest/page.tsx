@@ -7,29 +7,28 @@ import { getContestList } from "@apis/api/contest";
 import { ContestData } from "@type/contest";
 
 const ContestList = async () => {
-    const res =  await getContestList()
-    const contestList : ContestData[] = getContestListProcess(res.contests);
+  const res = await getContestList();
+  const contestList: ContestData[] = getContestListProcess(res.contests);
 
+  // const [contestList, setContestList] = React.useState<ContestData[]>([]);
 
-    // const [contestList, setContestList] = React.useState<ContestData[]>([]);
+  // const initContestList = async () => {
+  //     await getContestList()
+  //         .then((res) => setContestList(getContestListProcess(res.contests)))
+  // }
 
-    // const initContestList = async () => {
-    //     await getContestList()
-    //         .then((res) => setContestList(getContestListProcess(res.contests)))
-    // }
+  // React.useEffect(() => {
+  //     initContestList();
+  // }, []);
 
-    // React.useEffect(() => {
-    //     initContestList();
-    // }, []);
-
-    return (
-        <DefaultLayout>
-            <div className="row">
-                {contestList.map((contest) => (
-                    <ContestCard key={contest.id} {...contest} />
-                ))}
-            </div>
-        </DefaultLayout>
-    );
+  return (
+    <DefaultLayout>
+      <div className="row">
+        {contestList.map(contest => (
+          <ContestCard key={contest.id} {...contest} />
+        ))}
+      </div>
+    </DefaultLayout>
+  );
 };
 export default ContestList;

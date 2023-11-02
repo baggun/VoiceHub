@@ -1,4 +1,4 @@
-import mongoose, { Schema, models } from "mongoose";
+import mongoose, { Schema } from "mongoose";
 
 const {
   Types: { ObjectId },
@@ -16,7 +16,7 @@ const scriptLikeSchema = new Schema({
   script: {
     type: ObjectId,
     required: true,
-    ref: "Scr",
+    ref: "Script",
   },
 
   // 알림설정

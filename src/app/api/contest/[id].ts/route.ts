@@ -2,10 +2,7 @@ import dbConnect from "@lib/db/dbConnect";
 import { NextRequest } from "next/server";
 import Contest from "@models/contest.model";
 
-export async function GET(
-  request: NextRequest,
-  { params }: { params: { id: string } }
-) {
+export async function GET(request: NextRequest, { params }: { params: { id: string } }) {
   const id = params.id;
 
   try {
@@ -31,7 +28,7 @@ export async function GET(
         },
         {
           status: 400,
-        }
+        },
       );
     }
   } catch (err: any) {
@@ -42,7 +39,7 @@ export async function GET(
       },
       {
         status: 500,
-      }
+      },
     );
   }
 }

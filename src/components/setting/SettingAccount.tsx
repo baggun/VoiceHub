@@ -22,20 +22,13 @@ const SettingAccount = () => {
   // const dispatch = useDispatch();
   const setUser = useSetRecoilState(userState);
 
-  const {
-    values,
-    errors,
-    isLoading,
-    handleChange,
-    handleSubmit,
-    interpretMessage,
-  } = useForm<UserPasswordData>({
+  const { values, errors, isLoading, handleChange, handleSubmit, interpretMessage } = useForm<UserPasswordData>({
     initValues: { password: "" },
     onSubmit: async (values: UserPasswordData) => {
       if (!values.password) return;
 
       await deleteAccount(values.password)
-        .then((res) => {
+        .then(res => {
           console.log(res);
           if (res && res.success) {
             clearUserStorage();
@@ -59,7 +52,7 @@ const SettingAccount = () => {
             });
           }
         })
-        .catch((err) => {
+        .catch(err => {
           interpretMessage({
             success: false,
             error: "password",
@@ -86,9 +79,7 @@ const SettingAccount = () => {
         />
         {errors.password && <ErrorMsg>{errors.password}</ErrorMsg>}
       </div>
-      <SubmitButton disabled={isLoading || values.password === ""}>
-        계정 탈퇴하기
-      </SubmitButton>
+      <SubmitButton disabled={isLoading || values.password === ""}>계정 탈퇴하기</SubmitButton>
     </AccountForm>
   );
 };

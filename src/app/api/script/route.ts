@@ -11,16 +11,16 @@ export async function GET(request: NextRequest) {
   const skip: number = parseInt(searchParams.get("skip") as string) || 0;
   const limit: number = parseInt(searchParams.get("limit") as string) || 10;
 
-  const session = await getServerSession(authOptions);
-  console.log("usss ossd", session);
-  let user_oid: any = session?.user.oid || "";
+  // const session = await getServerSession(authOptions);
+  // console.log("usss ossd", session);
+  // let user_oid: any = session?.user.oid || "";
 
-  console.log("usss ossd", user_oid);
-  user_oid = !mongoose.Types.ObjectId.isValid(user_oid)
-    ? null
-    : new mongoose.Types.ObjectId(user_oid);
+  // console.log("usss ossd", user_oid);
+  // user_oid = !mongoose.Types.ObjectId.isValid(user_oid)
+  //   ? null
+  //   : new mongoose.Types.ObjectId(user_oid);
 
-  console.log("usss od", user_oid);
+  // console.log("usss od", user_oid);
 
   let query: any = {};
   if (tag) {
@@ -32,7 +32,7 @@ export async function GET(request: NextRequest) {
 
     const scripts = await Script.aggregate([
       {
-        $match: query,
+        $match: {},
       },
       {
         $lookup: {
@@ -60,7 +60,7 @@ export async function GET(request: NextRequest) {
           voiceCount: { $size: "$voices" },
           _id: 1,
           likedByUser: {
-            $in: [user_oid, "$likes.user"],
+            $in: ["user_oid", "$likes.user"],
           },
         },
       },
@@ -95,7 +95,7 @@ export async function GET(request: NextRequest) {
       },
       {
         status: 500,
-      }
+      },
     );
   }
 }
@@ -129,7 +129,7 @@ export async function POST(request: NextRequest) {
       },
       {
         status: 500,
-      }
+      },
     );
   }
 }

@@ -6,10 +6,7 @@ import { getServerSession } from "next-auth";
 import { authOptions } from "@/app/api/auth/[...nextauth]/route";
 import { addNotification } from "../../notification/route";
 
-export async function POST(
-  request: NextRequest,
-  { params }: { params: { user_id: string } }
-) {
+export async function POST(request: NextRequest, { params }: { params: { user_id: string } }) {
   const { user_id } = params;
   const session = await getServerSession(authOptions);
 
@@ -21,7 +18,7 @@ export async function POST(
       },
       {
         status: 403,
-      }
+      },
     );
   }
 
@@ -44,12 +41,7 @@ export async function POST(
 
       if (!followStatus) throw new Error("실패");
 
-      await addNotification(
-        targetUser._id,
-        "follow",
-        "follow",
-        session.user.oid
-      );
+      await addNotification(targetUser._id, "follow", "follow", session.user.oid);
     } else {
       const followStatus = await Follow.deleteOne({
         user: session.user.oid,
@@ -72,7 +64,7 @@ export async function POST(
       },
       {
         status: 500,
-      }
+      },
     );
   }
 }

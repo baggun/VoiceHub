@@ -25,7 +25,7 @@ const PostSetting = ({ post, post_id }: PostSettingProps) => {
 
     const ok = window.confirm("정말 삭제하시겠습니까?");
     if (ok) {
-      await deletePost(post_id).then((res) => {
+      await deletePost(post_id).then(res => {
         if (res && res.success) router.push("/community");
       });
     }
@@ -35,9 +35,7 @@ const PostSetting = ({ post, post_id }: PostSettingProps) => {
     <>
       {user._id === post?.user_oid && (
         <OwnerSettingGroup>
-          <EditPostButton href={`/community/write?edit=${post_id}`}>
-            수정
-          </EditPostButton>
+          <EditPostButton href={`/community/write?edit=${post_id}`}>수정</EditPostButton>
           <RemovePostButton onClick={handleDeletePost}>삭제</RemovePostButton>
         </OwnerSettingGroup>
       )}

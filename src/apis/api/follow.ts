@@ -8,12 +8,12 @@ import { ErrorMsg } from "@apis/utils/error";
  * @returns 성공 여부
  */
 export const getFollow = async (user: string, target: string) => {
-    try {
-        const res = await client.get(`/follow/${user}/${target}`);
-        return res.data;
-    } catch (err) {
-        throw ErrorMsg(err);
-    }
+  try {
+    const res = await client.get(`/follow/${user}/${target}`);
+    return res.data;
+  } catch (err) {
+    throw ErrorMsg(err);
+  }
 };
 
 /**
@@ -22,10 +22,10 @@ export const getFollow = async (user: string, target: string) => {
  * @returns 성공 여부
  */
 export const setFollow = async (target_oid: string) => {
-    try {
-        const res = await client.post(`/follow/${target_oid}`);
-        return res.data;
-    } catch (err) {
-        throw ErrorMsg(err);
-    }
+  try {
+    const res = await client.post(`/follow/${target_oid}`);
+    return res.data;
+  } catch (err) {
+    throw ErrorMsg(err);
+  }
 };

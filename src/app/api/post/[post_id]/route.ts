@@ -5,10 +5,7 @@ import PostLike from "@models/post_like.model";
 import { getServerSession } from "next-auth";
 import { authOptions } from "../../auth/[...nextauth]/route";
 
-export async function GET(
-  request: NextRequest,
-  { params }: { params: { post_id: string } }
-) {
+export async function GET(request: NextRequest, { params }: { params: { post_id: string } }) {
   const { post_id } = params;
 
   try {
@@ -36,10 +33,7 @@ export async function GET(
       });
     }
 
-    const likes = await PostLike.find(
-      { post: post._id },
-      { user: true, _id: false }
-    )
+    const likes = await PostLike.find({ post: post._id }, { user: true, _id: false })
       .populate({
         path: "user",
         select: ["user_id", "user_nickname"],
@@ -60,15 +54,12 @@ export async function GET(
       },
       {
         status: 500,
-      }
+      },
     );
   }
 }
 
-export async function DELETE(
-  request: NextRequest,
-  { params }: { params: { post_id: string } }
-) {
+export async function DELETE(request: NextRequest, { params }: { params: { post_id: string } }) {
   const { post_id } = params;
   const session = await getServerSession(authOptions);
 
@@ -80,7 +71,7 @@ export async function DELETE(
       },
       {
         status: 403,
-      }
+      },
     );
   }
   try {
@@ -95,8 +86,7 @@ export async function DELETE(
       throw new Error("포스트를 찾을 수 없음");
     }
 
-    if (postStatus.deletedCount)
-      return Response.json({ success: true, message: "삭제 완료" });
+    if (postStatus.deletedCount) return Response.json({ success: true, message: "삭제 완료" });
 
     return Response.json({
       success: false,
@@ -110,7 +100,7 @@ export async function DELETE(
       },
       {
         status: 500,
-      }
+      },
     );
   }
 }

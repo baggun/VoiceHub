@@ -5,10 +5,7 @@ import { addNotification } from "@/app/api/notification/route";
 import { getServerSession } from "next-auth";
 import { authOptions } from "@/app/api/auth/[...nextauth]/route";
 
-export async function POST(
-  request: NextRequest,
-  { params }: { params: { post_id: string } }
-) {
+export async function POST(request: NextRequest, { params }: { params: { post_id: string } }) {
   const { post_id } = params;
   const { comment } = await request.json();
   const session = await getServerSession(authOptions);
@@ -21,7 +18,7 @@ export async function POST(
       },
       {
         status: 403,
-      }
+      },
     );
   }
   try {
@@ -37,7 +34,7 @@ export async function POST(
             content: comment,
           },
         },
-      }
+      },
     );
 
     if (!comments) {
@@ -47,18 +44,10 @@ export async function POST(
       });
     }
 
-    await addNotification(
-      comments.author,
-      "comment-post",
-      post_id,
-      session.user.oid
-    );
+    await addNotification(comments.author, "comment-post", post_id, session.user.oid);
     return Response.json({
       success: true,
-      message:
-        comments.modifiedCount && comments.matchedCount
-          ? `댓글 생성됨`
-          : "댓글 생성 안됨",
+      message: comments.modifiedCount && comments.matchedCount ? `댓글 생성됨` : "댓글 생성 안됨",
     });
   } catch (err: any) {
     return Response.json(
@@ -68,15 +57,12 @@ export async function POST(
       },
       {
         status: 500,
-      }
+      },
     );
   }
 }
 
-export async function PATCH(
-  request: NextRequest,
-  { params }: { params: { post_id: string } }
-) {
+export async function PATCH(request: NextRequest, { params }: { params: { post_id: string } }) {
   const { post_id } = params;
   const { user_oid, comment_oid, content } = await request.json();
   const session = await getServerSession(authOptions);
@@ -89,7 +75,7 @@ export async function PATCH(
       },
       {
         status: 403,
-      }
+      },
     );
   }
   try {
@@ -105,17 +91,14 @@ export async function PATCH(
         $set: {
           "comments.$.content": content,
         },
-      }
+      },
     );
 
     if (!comments) throw new Error("댓글 수정 실패");
 
     return Response.json({
       success: true,
-      message:
-        comments.acknowledged && comments.matchedCount
-          ? `댓글 수정`
-          : "댓글 수정 실패",
+      message: comments.acknowledged && comments.matchedCount ? `댓글 수정` : "댓글 수정 실패",
     });
   } catch (err: any) {
     return Response.json(
@@ -125,15 +108,12 @@ export async function PATCH(
       },
       {
         status: 500,
-      }
+      },
     );
   }
 }
 
-export async function DELETE(
-  request: NextRequest,
-  { params }: { params: { post_id: string } }
-) {
+export async function DELETE(request: NextRequest, { params }: { params: { post_id: string } }) {
   const { post_id } = params;
   const { user_oid, comment_oid } = await request.json();
   const session = await getServerSession(authOptions);
@@ -146,7 +126,7 @@ export async function DELETE(
       },
       {
         status: 403,
-      }
+      },
     );
   }
   try {
@@ -164,16 +144,13 @@ export async function DELETE(
             _id: comment_oid,
           },
         },
-      }
+      },
     );
     if (!comments) throw new Error("댓글 삭제 실패");
 
     return Response.json({
       success: true,
-      message:
-        comments.modifiedCount && comments.matchedCount
-          ? `알림 삭제`
-          : "알림 삭제 실패",
+      message: comments.modifiedCount && comments.matchedCount ? `알림 삭제` : "알림 삭제 실패",
     });
   } catch (err: any) {
     return Response.json(
@@ -183,7 +160,7 @@ export async function DELETE(
       },
       {
         status: 500,
-      }
+      },
     );
   }
 }

@@ -8,15 +8,9 @@ import { ErrorMsg } from "@apis/utils/error";
  * @param {number} limit 한계
  * @returns 성공 여부
  */
-export const getVoices = async (
-  tag: string = "",
-  skip: number = 0,
-  limit: number = 0
-) => {
+export const getVoices = async (tag: string = "", skip: number = 0, limit: number = 0) => {
   try {
-    const res = await client.get(
-      `/voice?tag=${tag}&skip=${skip}&limit=${limit}`
-    );
+    const res = await client.get(`/voice?tag=${tag}&skip=${skip}&limit=${limit}`);
     return res.data;
   } catch (err) {
     throw ErrorMsg(err);
@@ -49,12 +43,7 @@ export const getVoice = async (user_id: string, title: string) => {
  * @param {string[]} tags 관련 태그들
  * @returns 성공 여부
  */
-export const postVoice = async (
-  title: string,
-  voice_src: string,
-  script: string,
-  tags?: string[]
-) => {
+export const postVoice = async (title: string, voice_src: string, script: string, tags?: string[]) => {
   try {
     const res = await client.post(`/voice/${title}`, {
       voice_src,
@@ -109,12 +98,7 @@ export const postVoiceComment = async (voice_oid: string, comment: string) => {
  * @param {string} comment 댓글 내용
  * @returns 성공 여부
  */
-export const patchVoiceComment = async (
-  voice_oid: string,
-  user_oid: string,
-  comment_oid: string,
-  comment: string
-) => {
+export const patchVoiceComment = async (voice_oid: string, user_oid: string, comment_oid: string, comment: string) => {
   try {
     const res = await client.patch(`/voice/${voice_oid}/comment`, {
       user_oid,
@@ -134,11 +118,7 @@ export const patchVoiceComment = async (
  * @param {string} comment_oid comment _id
  * @returns 성공 여부
  */
-export const deleteVoiceComment = async (
-  voice_oid: string,
-  user_oid: string,
-  comment_oid: string
-) => {
+export const deleteVoiceComment = async (voice_oid: string, user_oid: string, comment_oid: string) => {
   try {
     const res = await client.delete(`/voice/${voice_oid}/comment`, {
       data: { user_oid, comment_oid },

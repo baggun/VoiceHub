@@ -3,22 +3,19 @@ import { NextRequest } from "next/server";
 import User from "@models/user.model";
 import Voice from "@models/voice.model";
 import VoiceLike from "@models/voice_like.model";
-import scr from "@/models/script.model";
+// import script from "@/models/script.model";
 import Follow from "@models/follow.model";
-import { getServerSession } from 'next-auth';
+import { getServerSession } from "next-auth";
 import { authOptions } from "@/app/api/auth/[...nextauth]/route";
 
-export async function GET(
-  request: NextRequest,
-  { params }: { params: { target: string; title: string } }
-) {
+export async function GET(request: NextRequest, { params }: { params: { target: string; title: string } }) {
   const { target, title } = params;
   const session = await getServerSession(authOptions);
-  
+
   try {
     await dbConnect();
 
-    const user = await User.findOne({ user_id: target }, { _id: true }); 
+    const user = await User.findOne({ user_id: target }, { _id: true });
 
     if (!user) {
       return Response.json({
@@ -27,7 +24,7 @@ export async function GET(
       });
     }
 
-    const voice : any = await Voice.findOne({ author: user._id, title: title })
+    const voice: any = await Voice.findOne({ author: user._id, title: title })
       .populate({
         path: "comments",
         populate: {
@@ -51,10 +48,7 @@ export async function GET(
       });
     }
 
-    const likes = await VoiceLike.find(
-      { voice: voice._id },
-      { user: true, _id: false }
-    )
+    const likes = await VoiceLike.find({ voice: voice._id }, { user: true, _id: false })
       .populate({
         path: "user",
         select: ["user_id", "user_nickname", "user_profile"],
@@ -69,14 +63,14 @@ export async function GET(
       });
       if (following) isFollow = true;
     }
-    
+
     return Response.json({
       success: true,
       message: `목소리`,
       data: voice,
       likes: likes,
       isFollow,
-      ddd: session
+      ddd: session,
     });
   } catch (err: any) {
     return Response.json(
@@ -86,7 +80,7 @@ export async function GET(
       },
       {
         status: 500,
-      }
+      },
     );
   }
 }

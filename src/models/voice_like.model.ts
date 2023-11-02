@@ -1,4 +1,4 @@
-import mongoose, { Schema, models } from "mongoose";
+import mongoose, { Schema } from "mongoose";
 
 const {
   Types: { ObjectId },
@@ -26,5 +26,4 @@ const voiceLikeSchema = new Schema({
   },
 });
 
-export default mongoose.models.VoiceLike ||
-  mongoose.model("VoiceLike", voiceLikeSchema);
+export default mongoose.models.VoiceLike || mongoose.model("VoiceLike", voiceLikeSchema);

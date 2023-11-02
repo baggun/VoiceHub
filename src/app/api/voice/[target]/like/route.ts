@@ -7,10 +7,7 @@ import { getServerSession } from "next-auth";
 import { authOptions } from "@/app/api/auth/[...nextauth]/route";
 import { addNotification } from "@/app/api/notification/route";
 
-export async function POST(
-  request: NextRequest,
-  { params }: { params: { target: string } }
-) {
+export async function POST(request: NextRequest, { params }: { params: { target: string } }) {
   const { target } = params;
   const session = await getServerSession(authOptions);
 
@@ -22,7 +19,7 @@ export async function POST(
       },
       {
         status: 403,
-      }
+      },
     );
   }
 
@@ -43,12 +40,7 @@ export async function POST(
       if (!likeStatus) throw new Error("like 실행 에러");
 
       const voice = await likeStatus.populate({ path: "voice" });
-      await addNotification(
-        voice.voice.author,
-        "like-voice",
-        voice.voice.title,
-        session.user.oid
-      );
+      await addNotification(voice.voice.author, "like-voice", voice.voice.title, session.user.oid);
     }
     // 이미 like 했었다면 삭제
     else {
@@ -72,7 +64,7 @@ export async function POST(
       },
       {
         status: 500,
-      }
+      },
     );
   }
 }

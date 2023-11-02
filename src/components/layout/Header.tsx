@@ -7,13 +7,7 @@ import styled, { css } from "styled-components";
 
 // import { RootState } from "@modules/index";
 import { Container } from "@common/Grid";
-import {
-  NavBar,
-  NavBarCollapse,
-  NavBarNavLink,
-  NavBarNav,
-  NavLinkItemStyled,
-} from "@components/common/navbar";
+import { NavBar, NavBarCollapse, NavBarNavLink, NavBarNav, NavLinkItemStyled } from "@components/common/navbar";
 import Search from "@components/search";
 import { IconSearch } from "@tabler/icons-react";
 import { ModalBackground } from "@common/modal";
@@ -56,7 +50,7 @@ const Header = ({ hideNavItems }: HeaderProps) => {
           <NavBarCollapse>
             <NavBarNav className="hide-lg">
               {!hideNavItems &&
-                menus.map((menu) => (
+                menus.map(menu => (
                   <NavBarNavLink to={menu.link} key={menu.link}>
                     {menu.name}
                   </NavBarNavLink>
@@ -72,13 +66,13 @@ const Header = ({ hideNavItems }: HeaderProps) => {
             >
               <IconSearch strokeWidth={1.5} />
             </ActButton>
-            <NavBarLogged/>
+            <NavBarLogged />
           </div>
         </NavBar>
 
         {openSearchModal && (
           <>
-            <Search/>
+            <Search />
             <ModalBackground onClick={setOpenSearchModal} />
           </>
         )}
@@ -88,7 +82,7 @@ const Header = ({ hideNavItems }: HeaderProps) => {
         <NavBarCollapse>
           <NavBarNav>
             {!hideNavItems &&
-              menus.map((menu) => (
+              menus.map(menu => (
                 <NavBarNavLink to={menu.link} key={menu.link}>
                   {menu.name}
                 </NavBarNavLink>
@@ -140,7 +134,6 @@ const ActStyled = css`
     opacity: 0.7;
   }
 `;
-
 
 const ActButton = styled.button`
   ${ActStyled}

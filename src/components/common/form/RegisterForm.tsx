@@ -1,32 +1,24 @@
 "use client";
 
-import useForm from "@hooks/useForm";
-
-import { RegisterValidation } from "@utils/validate";
-
-import { AuthInput } from "@components/common/input";
-import { AuthForm, ErrorMsg } from "./Form";
-import { register } from "@apis/api/users";
-import { UserRegisterData } from "@type/user";
-import SubmitButton from "../button/SubmitButton";
-import { useRouter } from "next/navigation";
 import Link from "next/link";
+import { useSearchParams, useRouter } from "next/navigation";
+
+import { AuthForm, ErrorMsg } from "./Form";
+import SubmitButton from "../button/SubmitButton";
+import { AuthInput } from "@components/common/input";
+import { RegisterValidation } from "@utils/validate";
+import { UserRegisterData } from "@type/user";
+import useForm from "@hooks/useForm";
 
 const RegisterForm = () => {
   const router = useRouter();
-  const {
-    values,
-    errors,
-    isLoading,
-    handleChange,
-    handleSubmit,
-    interpretMessage,
-  } = useForm<UserRegisterData>({
+  const searchParams = useSearchParams();
+  const redirect_to: string = searchParams.get("redirect_to") || "/";
+
+  const { values, errors, isLoading, handleChange, handleSubmit, interpretMessage } = useForm<UserRegisterData>({
     initValues: { id: "", nickname: "", email: "", password: "" },
     onSubmit: async (values: UserRegisterData) => {
       try {
-
-
         const res = await fetch("/api/auth/register", {
           method: "POST",
           headers: {
@@ -34,8 +26,7 @@ const RegisterForm = () => {
           },
           body: JSON.stringify(values),
         });
-        res.status === 201 &&
-          router.push("/auth/login");
+        res.status === 201 && router.push(`/auth/login?redirect_to=${redirect_to}`);
 
         // const res = await register(values);
 
@@ -57,31 +48,15 @@ const RegisterForm = () => {
 
       <AuthForm onSubmit={handleSubmit}>
         <div className="form-group">
-          <AuthInput
-            placeholder="ID"
-            name="id"
-            value={values.id}
-            onChange={handleChange}
-          />
+          <AuthInput placeholder="ID" name="id" value={values.id} onChange={handleChange} />
           {errors.id && <ErrorMsg>{errors.id}</ErrorMsg>}
         </div>
         <div className="form-group">
-          <AuthInput
-            type="email"
-            placeholder="Email"
-            name="email"
-            value={values.email}
-            onChange={handleChange}
-          />
+          <AuthInput type="email" placeholder="Email" name="email" value={values.email} onChange={handleChange} />
           {errors.email && <ErrorMsg>{errors.email}</ErrorMsg>}
         </div>
         <div className="form-group">
-          <AuthInput
-            placeholder="Nickname"
-            name="nickname"
-            value={values.nickname}
-            onChange={handleChange}
-          />
+          <AuthInput placeholder="Nickname" name="nickname" value={values.nickname} onChange={handleChange} />
           {errors.nickname && <ErrorMsg>{errors.nickname}</ErrorMsg>}
         </div>
         <div className="form-group">
@@ -94,19 +69,21 @@ const RegisterForm = () => {
           />
           {errors.password && <ErrorMsg>{errors.password}</ErrorMsg>}
         </div>
-        <SubmitButton
-          disabled={
-            isLoading ||
-            values.email === "" ||
-            values.nickname === "" ||
-            values.password === ""
-          }
-        >
+        <SubmitButton disabled={isLoading || values.email === "" || values.nickname === "" || values.password === ""}>
           회원가입
         </SubmitButton>
       </AuthForm>
       <span className="lead-msg">
-        <Link href="/auth/login">로그인</Link>
+        <Link
+          href={{
+            pathname: "/auth/login",
+            query: {
+              redirect_to,
+            },
+          }}
+        >
+          로그인
+        </Link>
       </span>
     </>
   );

@@ -21,7 +21,7 @@ import { userState } from "@/recoil/user/atom";
 import { signOut, useSession } from "next-auth/react";
 
 const ProfileNav = () => {
-  const { data: session} = useSession();
+  const { data: session } = useSession();
   // const router = useRouter();
   // const [user, setUser] = useRecoilState(userState);
   const [openDropdown, setOpenDropdown] = React.useState<boolean>(false);
@@ -30,14 +30,13 @@ const ProfileNav = () => {
     e.preventDefault();
     try {
       signOut();
-        // window.location.reload();
+      // window.location.reload();
       // const res = await logout();
       // console.log(res);
       // if (res.success) {
       //   // 일단은 메인으로, 나중에는 이전 페이지로 간다거나 할 수 있음
       //   // clearUserStorage();
 
-        
       //   signOut();
 
       //   // dispatch(resetUser());
@@ -58,7 +57,7 @@ const ProfileNav = () => {
   return (
     <div className="d-flex p-relative">
       <HeaderProfile onClick={() => setOpenDropdown(!openDropdown)}>
-        <ProfileImg src={'/img/profile_temp.png'} alt="profile" />
+        <ProfileImg src={"/img/profile_temp.png"} alt="profile" />
       </HeaderProfile>
       {/* <Profile profileID={"aa"}></Profile> */}
       {openDropdown && (

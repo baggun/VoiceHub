@@ -13,13 +13,7 @@ import { getScript, getScripts } from "@apis/api/script";
 import { getScriptProcess, getScriptsProcess } from "@apis/services/script";
 import { ScriptType } from "@type/scripts";
 import { UserData } from "@type/user";
-import {
-  AudioScroller,
-  ScriptBG,
-  ScriptBody,
-  ScriptHeader,
-  ScriptTitle,
-} from "./page.styled";
+import { AudioScroller, ScriptBG, ScriptBody, ScriptHeader, ScriptTitle } from "./page.styled";
 import Like from "@/components/common/like";
 
 interface PageProps {
@@ -129,15 +123,11 @@ const Script = async ({ params }: { params: PageProps }) => {
                 <div className="col-lg-6">
                   <ScriptTitle>{curScript.title}</ScriptTitle>
                   <ScriptBlock height="450px">{curScript.script}</ScriptBlock>
-                  {curScript.tags?.map((tag) => (
-                    <Tag key={tag} tag={tag} $darkmode />
-                  ))}
+                  {curScript.tags?.map(tag => <Tag key={tag} tag={tag} $darkmode />)}
                 </div>
                 <div className="col-lg-6">
                   <ScriptHeader>
-                    <Link href={`/voice/upload?script=${curScript.id}`}>
-                      이 대사로 업로드
-                    </Link>
+                    <Link href={`/voice/upload?script=${curScript.id}`}>이 대사로 업로드</Link>
                     <Like type="Script" target_id={script_id} likers={likers} />
                     {/* <Button
                       variant="primary"
@@ -160,7 +150,7 @@ const Script = async ({ params }: { params: PageProps }) => {
                   <ScriptBody>
                     <h2>관련 목소리</h2>
                     <AudioScroller className="scroll dark">
-                      {relationTracks.map((track) => (
+                      {relationTracks.map(track => (
                         <AudioFileBar
                           key={`track-${track.id}`}
                           audioSrc={track.url}
@@ -179,13 +169,9 @@ const Script = async ({ params }: { params: PageProps }) => {
       )}
       <Container>
         <div className="row">
-          { JSON.stringify(scripts)}
-          {scripts.map((sc) => (
-            <ScriptCard
-              key={`script-${sc.id}`}
-              className="col-md-6"
-              script={sc}
-            />
+          {JSON.stringify(scripts)}
+          {scripts.map(sc => (
+            <ScriptCard key={`script-${sc.id}`} className="col-md-6" script={sc} />
           ))}
         </div>
       </Container>

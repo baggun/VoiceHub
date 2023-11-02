@@ -29,7 +29,7 @@ export const InfoLink = styled(Link)<{ $active: boolean }>`
   .infolink-count {
     font-weight: 500;
   }
-  ${(props) =>
+  ${props =>
     props.$active &&
     css`
       .infolink-head {

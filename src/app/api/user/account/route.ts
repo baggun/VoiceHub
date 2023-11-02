@@ -16,7 +16,7 @@ export async function DELETE(request: NextRequest) {
       },
       {
         status: 403,
-      }
+      },
     );
   }
 
@@ -44,7 +44,7 @@ export async function DELETE(request: NextRequest) {
       },
       {
         status: 500,
-      }
+      },
     );
   }
 }

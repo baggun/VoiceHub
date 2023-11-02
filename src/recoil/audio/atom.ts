@@ -31,17 +31,15 @@ export const audioMuteState = atom<boolean>({
   default: false,
 });
 
-
 export const audioInfoState = atom<AudioInfo>({
   key: "audioInfoState",
   default: {
-    id: '',
+    id: "",
     ownerID: "",
     ownerName: "",
     title: "",
   },
 });
-
 
 export const audioCurTimeState = atom<number>({
   key: "audioCurTimeState",

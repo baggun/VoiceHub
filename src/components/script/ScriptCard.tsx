@@ -33,25 +33,17 @@ const ScriptCard = ({ script, className }: ScriptCardProps) => {
           </Link>
           {script.tags.length > 0 && (
             <div>
-              {script.tags.map((t) => (
+              {script.tags.map(t => (
                 <Tag key={t} tag={t}></Tag>
               ))}
             </div>
           )}
-          <ScriptContent
-            className="scroll"
-            onClick={scrollContentHandler}
-            $enableScroll={scrollContent}
-          >
+          <ScriptContent className="scroll" onClick={scrollContentHandler} $enableScroll={scrollContent}>
             {script.script}
           </ScriptContent>
           <ScriptFooter>
             <ScriptChallenge>
-              {script.likedByUser ? (
-                <IconHeartFilled className="icon" />
-              ) : (
-                <IconHeart className="icon" />
-              )}
+              {script.likedByUser ? <IconHeartFilled className="icon" /> : <IconHeart className="icon" />}
               {script.likeCount}
             </ScriptChallenge>
             <ScriptChallenge>
@@ -131,7 +123,7 @@ const ScriptContent = styled.div<{ $enableScroll: boolean }>`
     background-color: ${({ theme }) => theme.colors.hover};
   }
 
-  ${(props) => {
+  ${props => {
     if (props.$enableScroll)
       return css`
         -webkit-line-clamp: 12;

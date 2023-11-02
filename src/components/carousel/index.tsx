@@ -31,8 +31,7 @@ const Carousel = () => {
       id: 5,
       title: "KBS 방송국 성우 공채",
       content: "25번째 성우 공채 지금 지원하기",
-      image:
-        "https://grepp-programmers.s3.amazonaws.com/production/file_resource/1989/2022-SCHOOL-commulearning-7.png",
+      image: "https://grepp-programmers.s3.amazonaws.com/production/file_resource/1989/2022-SCHOOL-commulearning-7.png",
       color: "#3e4683",
     },
     {
@@ -64,7 +63,7 @@ const Carousel = () => {
 
   return (
     <CustomSlider {...settings}>
-      {slides.map((slide) => (
+      {slides.map(slide => (
         <SliderProvider
           key={slide.id}
           color={slide.color}
@@ -90,7 +89,7 @@ const Carousel = () => {
 };
 
 const SliderProvider = styled.div<{ color: string }>`
-  background-color: ${(props) => props.color};
+  background-color: ${props => props.color};
   cursor: pointer;
 `;
 const CustomSlider = styled(Slider)`

@@ -16,16 +16,13 @@ export async function GET(request: NextRequest) {
       },
       {
         status: 403,
-      }
+      },
     );
   }
 
   try {
     await dbConnect();
-    const notification: any = await User.findOne(
-      { _id: session.user.oid },
-      { user_notification: true }
-    )
+    const notification: any = await User.findOne({ _id: session.user.oid }, { user_notification: true })
       .populate({
         path: "user_notification",
         populate: {
@@ -56,7 +53,7 @@ export async function GET(request: NextRequest) {
       },
       {
         status: 500,
-      }
+      },
     );
   }
 }
@@ -73,7 +70,7 @@ export async function PATCH(request: NextRequest) {
       },
       {
         status: 403,
-      }
+      },
     );
   }
 
@@ -86,16 +83,13 @@ export async function PATCH(request: NextRequest) {
         $set: {
           "user_notification.$.isRead": true,
         },
-      }
+      },
     );
     if (!notification) throw new Error("알림 읽기 실패");
 
     return Response.json({
       success: true,
-      message:
-        notification.modifiedCount && notification.matchedCount
-          ? `알림 읽음`
-          : "알림 읽기 실패",
+      message: notification.modifiedCount && notification.matchedCount ? `알림 읽음` : "알림 읽기 실패",
     });
   } catch (err: any) {
     return Response.json(
@@ -105,7 +99,7 @@ export async function PATCH(request: NextRequest) {
       },
       {
         status: 500,
-      }
+      },
     );
   }
 }
@@ -122,7 +116,7 @@ export async function DELETE(request: NextRequest) {
       },
       {
         status: 403,
-      }
+      },
     );
   }
 
@@ -137,16 +131,13 @@ export async function DELETE(request: NextRequest) {
             _id: notification_id,
           },
         },
-      }
+      },
     );
     if (!notification) throw new Error("알림 삭제 실패");
 
     return Response.json({
       success: true,
-      message:
-        notification.modifiedCount && notification.matchedCount
-          ? `알림 삭제`
-          : "알림 삭제 실패",
+      message: notification.modifiedCount && notification.matchedCount ? `알림 삭제` : "알림 삭제 실패",
     });
   } catch (err: any) {
     return Response.json(
@@ -156,17 +147,12 @@ export async function DELETE(request: NextRequest) {
       },
       {
         status: 500,
-      }
+      },
     );
   }
 }
 
-export async function addNotification(
-  user_oid: string,
-  noticeType: string,
-  message: string,
-  target: string
-) {
+export async function addNotification(user_oid: string, noticeType: string, message: string, target: string) {
   try {
     const notification = await User.updateOne(
       { _id: user_oid },
@@ -178,7 +164,7 @@ export async function addNotification(
             target,
           },
         },
-      }
+      },
     );
     return notification;
   } catch (err) {

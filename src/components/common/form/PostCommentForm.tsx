@@ -42,14 +42,9 @@ const PostCommentForm = ({ post_id }: PostCommentForm) => {
         cols={33}
         spellCheck="false"
         value={commentContent}
-        onChange={(e) => setCommentContent(e.target.value)}
+        onChange={e => setCommentContent(e.target.value)}
       />
-      <SubmitButton
-        width="5rem"
-        $padding="0.5rem"
-        margin="0.5rem 0rem"
-        disabled={commentContent === ""}
-      >
+      <SubmitButton width="5rem" $padding="0.5rem" margin="0.5rem 0rem" disabled={commentContent === ""}>
         작성
       </SubmitButton>
     </CommentForm>

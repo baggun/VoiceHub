@@ -5,10 +5,7 @@ import { getServerSession } from "next-auth";
 import { authOptions } from "../../auth/[...nextauth]/route";
 import { createTags } from "../../tag/route";
 
-export async function POST(
-  request: NextRequest,
-  { params }: { params: { target: string } }
-) {
+export async function POST(request: NextRequest, { params }: { params: { target: string } }) {
   const session = await getServerSession(authOptions);
   const { target } = params;
   const { voice_src, script, tags } = await request.json();
@@ -21,7 +18,7 @@ export async function POST(
       },
       {
         status: 403,
-      }
+      },
     );
   }
 
@@ -42,7 +39,7 @@ export async function POST(
         },
         {
           status: 409,
-        }
+        },
       );
       // TODO : url 데이터를 따로 만들어서 저장하게 할지
     }
@@ -76,7 +73,7 @@ export async function POST(
       },
       {
         status: 500,
-      }
+      },
     );
   }
 }

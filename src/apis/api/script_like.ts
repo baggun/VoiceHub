@@ -7,12 +7,12 @@ import { ErrorMsg } from "@apis/utils/error";
  * @returns 성공 여부
  */
 export const getScriptLike = async (script_id: string) => {
-    try {
-        const res = await client.get(`/script/${script_id}/like`);
-        return res.data;
-    } catch (err) {
-        throw ErrorMsg(err);
-    }
+  try {
+    const res = await client.get(`/script/${script_id}/like`);
+    return res.data;
+  } catch (err) {
+    throw ErrorMsg(err);
+  }
 };
 
 /**
@@ -21,11 +21,10 @@ export const getScriptLike = async (script_id: string) => {
  * @returns 성공 여부
  */
 export const setScriptLike = async (script_id: string) => {
-    try {
-        const res = await client.post(`/script/${script_id}/like`);
-        return res.data;
-    } catch (err) {
-        throw ErrorMsg(err);
-    }
+  try {
+    const res = await client.post(`/script/${script_id}/like`);
+    return res.data;
+  } catch (err) {
+    throw ErrorMsg(err);
+  }
 };
-
