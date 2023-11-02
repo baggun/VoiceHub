@@ -1,5 +1,8 @@
+// "use client";
+
 import { client } from "../client";
 import { ErrorMsg } from "@apis/utils/error";
+// import { headers } from "next/headers";
 
 /**
  * 목소리 목록 가져오기
@@ -23,14 +26,36 @@ export const getVoices = async (tag: string = "", skip: number = 0, limit: numbe
  * @param {string} title voice 제목
  * @returns 성공 여부
  */
+// export const getVoice = async (user_id: string, title: string) => {
+//   try {
+//     const res = await client.get(`/voice/${user_id}/${title}`, {
+//       headers: {
+//         // Cookie: `connect.sid=${myCookie}`,
+//       },
+//     });
+//     return res.data;
+//   } catch (err) {
+//     throw ErrorMsg(err);
+//   }
+// };
+/**
+ * 목소리 찾기
+ * @param {string} user_id user 아이디
+ * @param {string} title voice 제목
+ * @returns 성공 여부
+ */
 export const getVoice = async (user_id: string, title: string) => {
   try {
-    const res = await client.get(`/voice/${user_id}/${title}`, {
-      headers: {
-        // Cookie: `connect.sid=${myCookie}`,
-      },
+    const res = await fetch(process.env.NEXT_PUBLIC_API_URL + `/voice/${user_id}/${title}`, {
+      // headers: headers(),
     });
-    return res.data;
+  
+    console.log(res);
+    if (!res.ok) {
+      throw new Error("Failed to fetch data");
+    }
+  
+    return res.json();
   } catch (err) {
     throw ErrorMsg(err);
   }

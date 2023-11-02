@@ -68,7 +68,7 @@ const Home = async () => {
           ))}
 
         <RecommendH2 $marginTop="4rem">현재 인기있는 목소리</RecommendH2>
-        {tracks && (
+        {tracks.length > 0 && (
           <AudioFileBar
             audioSrc={tracks[0].url}
             userId={tracks[0].ownerID}
@@ -79,9 +79,9 @@ const Home = async () => {
 
         <br />
 
-        {tracks && <AudioWave audioSrc={tracks[0].url} info={{ ...tracks[0] }} />}
+        {tracks.length > 0 && <AudioWave audioSrc={tracks[0].url} info={{ ...tracks[0] }} />}
         <RecommendH2 $marginTop="4rem">지금 있기 있는 성우</RecommendH2>
-        {tracks && (
+        {tracks.length > 0 && (
           <AudioFileBar
             audioSrc={tracks[0].url}
             userId={tracks[0].ownerID}

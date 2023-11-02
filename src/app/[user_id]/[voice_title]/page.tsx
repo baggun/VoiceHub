@@ -14,7 +14,7 @@ import ScriptBlock from "@components/script/ScriptBlock";
 import ProfileCard from "@components/profile/ProfileCard";
 import Like from "@/components/common/like";
 
-// import { getVoice, voiceLike } from "@apis/api/voice";
+import { getVoice } from "@apis/api/voice";
 import { getUsersProcess } from "@apis/services/user";
 import { getVoiceProcess } from "@apis/services/voice";
 import { getCommentProcess } from "@apis/services/comment";
@@ -31,26 +31,18 @@ interface PageProps {
 }
 
 export const dynamic = "force-dynamic";
-// export const revalidate = 0;
-async function getVoice(user_id: string, title: string) {
-  // const myCookie = cookies().get("connect.sid")?.value;
-  // console.log('111111');
 
-  const res = await fetch("http://localhost:3000/api" + `/voice/${user_id}/${title}`, {
-    headers: headers(),
-    // headers: {
-    //   Cookie: `connect.sid=${myCookie}`,
-    // },
-    // cache: 'no-store',
-    // next: { revalidate: 0 }
-  });
+// async function getVoice(user_id: string, title: string) {
+//   const res = await fetch(process.env.NEXT_PUBLIC_API_URL + `/voice/${user_id}/${title}`, {
+//     headers: headers(),
+//   });
 
-  if (!res.ok) {
-    throw new Error("Failed to fetch data");
-  }
+//   if (!res.ok) {
+//     throw new Error("Failed to fetch data");
+//   }
 
-  return res.json();
-}
+//   return res.json();
+// }
 
 const Voice = async ({ params }: { params: PageProps }) => {
   const { user_id, voice_title } = params;

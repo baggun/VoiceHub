@@ -63,7 +63,8 @@ export async function POST(request: NextRequest, { params }: { params: { target:
 
     return Response.json({
       success: true,
-      message: "",
+      message: "목소리 생성 완료",
+      data: `/${session.user.id}/${target}`
     });
   } catch (err: any) {
     return Response.json(
