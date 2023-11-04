@@ -64,7 +64,6 @@ postSchema.virtual("commentCount").get(function () {
 });
 postSchema.set("toJSON", {
   virtuals: true, // 가상 필드를 포함시킬지 여부
-});
-// export default mongoose.model("Post", postSchema);
+}); 
 
 export default mongoose.models.Post || mongoose.model("Post", postSchema);

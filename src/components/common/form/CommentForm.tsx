@@ -5,7 +5,7 @@ import styled from "styled-components";
 // import { useNavigate } from "react-router-dom";
 import { Button } from "@common/button";
 import { postVoiceComment } from "@apis/api/voice";
-import { useRouter } from "next/navigation";
+import { usePathname, useRouter } from "next/navigation";
 import { useRecoilValue } from "recoil";
 import { useSession } from "next-auth/react";
 // import { userState } from "@/recoil/user/atom";
@@ -16,6 +16,7 @@ type CommentFormProps = {
   voice_id: string;
 };
 const CommentForm = ({ voice_id }: CommentFormProps) => {
+  const pathname = usePathname();
   const router = useRouter();
   // const navigate = useNavigate();
   const [content, setContent] = React.useState<string>("");
@@ -26,9 +27,9 @@ const CommentForm = ({ voice_id }: CommentFormProps) => {
   const submitHandler = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
 
-    if (!session || session.user.id) {
-        router.push("/auth/login");
-        return;
+    if (!session || !session.user.id) {
+      router.push(`/auth/login?redirect_to=${encodeURIComponent(pathname)}`);
+      return;
     }
 
     if (content === "") {
@@ -38,13 +39,14 @@ const CommentForm = ({ voice_id }: CommentFormProps) => {
 
     await postVoiceComment(voice_id, content)
       .then(res => {
-        if (res.success) window.location.reload();
-        else setContent("");
+        // if (res.success) window.location.reload();
+        if (res.success) router.refresh();
+        setContent("");
       })
       .catch(err => {
         // 로그인 안되었음.
         if (err.response.status === 403 && err.response.data.success === false) {
-          router.push("/auth/login");
+          router.push(`/auth/login?redirect_to=${encodeURIComponent(pathname)}`);
         }
       });
   };
@@ -55,8 +57,8 @@ const CommentForm = ({ voice_id }: CommentFormProps) => {
 
   return (
     <CommentFormStyled onSubmit={submitHandler}>
-      <CommentInput className="input-comment" value={content} onChange={handleChange}></CommentInput>
-      <Button variant="black" type="submit" $borderRadius="0rem 0.5rem 0.5rem 0rem">
+      <CommentInput className="input-comment" value={content} onChange={handleChange} spellCheck={false}></CommentInput>
+      <Button variant="black" type="submit" $padding="0.75rem 1rem" $borderRadius="0rem 0.5rem 0.5rem 0rem">
         입력
       </Button>
     </CommentFormStyled>

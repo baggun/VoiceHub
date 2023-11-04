@@ -36,10 +36,10 @@ const VoiceUpload = () => {
   const searchParams = useSearchParams();
   const script: string | null = searchParams.get("script");
 
-  if (!session?.user || !session?.user.id) {
-    router.replace("/auth/login");
-    return;
-  }
+  // if (!session?.user || !session?.user.id) {
+  //   router.replace("/auth/login");
+  //   return;
+  // }
 
   const [voiceData, setVoiceData] = React.useState<VoiceInfo>({
     id: "",
@@ -131,7 +131,7 @@ const VoiceUpload = () => {
                       audioSrc={"https://www.mfiles.co.uk/mp3-downloads/franz-schubert-standchen-serenade.mp3"}
                       info={{
                         ...voiceData,
-                        ownerName: session.user.nickname,
+                        ownerName: session?.user.nickname || '',
                       }}
                       $darkmode={true}
                     />

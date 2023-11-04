@@ -43,7 +43,9 @@ async function dbConnect() {
   try {
     cached.conn = await cached.promise;
 
-    mongoose.model("User", voiceSchema);
+    console.log("Mongo connection successful")
+
+    mongoose.model("User", userSchema);
     mongoose.model("Voice", voiceSchema);
     mongoose.model("VoiceLike", voiceLikeSchema);
     mongoose.model("Tag", tagSchema);
@@ -55,6 +57,7 @@ async function dbConnect() {
     mongoose.model("Contest", contestSchema);
   } catch (e) {
     cached.promise = null;
+    console.log("Error in connecting to Mongo")
     throw e;
   }
 

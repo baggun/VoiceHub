@@ -33,6 +33,7 @@ router.get(async req => {
       .populate({
         path: "author",
         select: ["user_id", "user_nickname"],
+        model:"User"
       })
       .sort("createdAt")
       .limit(10)

@@ -17,11 +17,13 @@ export async function GET(request: NextRequest, { params }: { params: { post_id:
         populate: {
           path: "user",
           select: ["user_id", "user_nickname", "user_profile"],
+          model:"User"
         },
       })
       .populate({
         path: "author",
         select: ["user_id", "user_nickname"],
+        model:"User"
       })
       .lean();
 
@@ -37,6 +39,7 @@ export async function GET(request: NextRequest, { params }: { params: { post_id:
       .populate({
         path: "user",
         select: ["user_id", "user_nickname"],
+        model:"User"
       })
       .lean();
 

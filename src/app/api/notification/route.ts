@@ -28,6 +28,7 @@ export async function GET(request: NextRequest) {
         populate: {
           path: "target",
           select: ["user_id", "user_nickname", "user_profile"],
+          model:"User"
         },
       })
       .lean();

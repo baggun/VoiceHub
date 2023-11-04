@@ -55,10 +55,10 @@ const Notification = () => {
   const { data: session } = useSession();
   // const user = useSelector((state: RootState) => state.users);
 
-  if (!session?.user || session.user.id) {
-    router.replace("/auth/login");
-    return;
-  }
+  // if (!session  || !session.user.id) {
+  //   router.replace("/auth/login");
+  //   return;
+  // }
 
   const [issues, setIssues] = React.useState<IssueType[]>([]);
   const [filterType, setFilterType] = React.useState<IssueFilterType[]>(filterMenus[0].type);
@@ -66,9 +66,10 @@ const Notification = () => {
   const [isAllChecked, setIsAllChecked] = React.useState<boolean>(false);
 
   const initNotifications = async () => {
+    if (!session) return;
     const res = await getNotifications();
     console.log(res);
-    setIssues(getNotificationsProcess(session?.user?.id, res.notification));
+    setIssues(getNotificationsProcess(session.user?.id, res.notification));
   };
 
   React.useEffect(() => {
@@ -131,7 +132,6 @@ const Notification = () => {
 
   return (
     <DefaultLayout>
-      <h1>알림</h1>
       <Card>
         <div className="row">
           {/* 필터 메뉴 */}

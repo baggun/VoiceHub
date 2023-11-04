@@ -50,7 +50,7 @@ export const getVoice = async (user_id: string, title: string) => {
       // headers: headers(),
     });
   
-    console.log(res);
+    // console.log(res);
     if (!res.ok) {
       throw new Error("Failed to fetch data");
     }

@@ -31,6 +31,7 @@ const LoginForm = () => {
     initValues: { id: "", password: "" },
     onSubmit: async (values: UserLoginData) => {
       try {
+        console.log('로그인 ', values);
         const res = await signIn("credentials", { ...values, redirect: false });
 
         if (res?.error) {

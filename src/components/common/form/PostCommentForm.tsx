@@ -5,7 +5,7 @@ import styled from "styled-components";
 import SubmitButton from "../button/SubmitButton";
 import { useRecoilValue } from "recoil";
 // import { userState } from "@/recoil/user/atom";
-import { useRouter } from "next/navigation";
+import { usePathname, useRouter } from "next/navigation";
 import { postPostComment } from "@/apis/api/post";
 import { useSession } from "next-auth/react";
 
@@ -15,6 +15,7 @@ type PostCommentForm = {
 
 const PostCommentForm = ({ post_id }: PostCommentForm) => {
   const router = useRouter();
+  const pathname = usePathname();
   // const user = useRecoilValue(userState);
   const { data: session } = useSession();
   const [commentContent, setCommentContent] = React.useState<string>("");
@@ -27,7 +28,7 @@ const PostCommentForm = ({ post_id }: PostCommentForm) => {
     if (commentContent === "") return;
 
     if (!session || !session.user.id) {
-      router.push("/auth/login");
+      router.push(`/auth/login?redirect_to=${encodeURIComponent(pathname)}`);
       return;
     }
 

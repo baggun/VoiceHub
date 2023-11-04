@@ -31,22 +31,11 @@ export const authOptions: NextAuthOptions = {
 
           const user = await User.findOne({ user_id: id });
 
-          // if (!user) throw new Error("존재하지 않는 아이디입니다.");
           if (!user) throw JSON.stringify({ success: false, message: `일치하는 아이디가 없습니다.`, error: "id" });
 
           const result = await bcrypt.compare(password, user.user_pw);
           if (!result)
             throw JSON.stringify({ success: false, message: "비밀번호가 옳지 않습니다.", error: "password" });
-
-          // const data = await User.findOne({ user_id: id });
-
-          // if (!data)
-          //   return done(null, false, { message: `일치하는 아이디가 없습니다.`, error: 'id' });
-
-          // if (data.user_pw !== password)
-          //   return done(null, false, { message: "비밀번호가 옳지 않습니다.", error: 'password' });
-
-          // return done(null, data);
 
           return user;
         } catch (err: any) {
@@ -59,7 +48,7 @@ export const authOptions: NextAuthOptions = {
     signIn: "/auth/login",
   },
   callbacks: {
-    async jwt({ token, user }: any) {
+    async jwt({ token, trigger, user, session }: any) {
       if (user) {
         token.user = {
           oid: user._id,
@@ -68,21 +57,21 @@ export const authOptions: NextAuthOptions = {
         };
       }
 
-      // if (trigger === "update" && session?.nickname) {
-      //   token.user.nickname = session.nickname
-      // }
+      if (trigger === "update" && session?.nickname) {
+        token.user.nickname = session.nickname
+      }
 
       return token;
     },
     // 세션에 로그인한 유저 데이터 입력
-    async session({ session, token }: any) {
+    async session({ session, trigger, token, newSession }: any) {
       if (token) {
         session.user = token.user;
       }
 
-      // if (trigger === "update" && newSession?.nickname) {
-      //   session.user.nickname = newSession.nickname;
-      // }
+      if (trigger === "update" && newSession?.nickname) {
+        session.user.nickname = newSession.nickname;
+      }
 
       return session;
     },

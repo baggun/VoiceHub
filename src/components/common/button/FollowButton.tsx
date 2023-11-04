@@ -9,7 +9,7 @@ import { setFollow } from "@apis/api/follow";
 import { Button } from ".";
 import { useRecoilState } from "recoil";
 // import { userState } from "@/recoil/user/atom";
-import { useRouter } from "next/navigation";
+import { usePathname, useRouter } from "next/navigation";
 import { useSession } from "next-auth/react";
 
 /**
@@ -21,6 +21,7 @@ type FollowButtonProps = {
   followSuccessEvent?: (e: boolean) => void;
 };
 const FollowButton = ({ target, isFollowed, followSuccessEvent }: FollowButtonProps) => {
+  const pathname = usePathname();
   const router = useRouter();
   // const navigate = useNavigate();
   // const user = useSelector((state: RootState) => state.users);
@@ -36,7 +37,7 @@ const FollowButton = ({ target, isFollowed, followSuccessEvent }: FollowButtonPr
     e.preventDefault();
 
     if (!session?.user || !session?.user.id) {
-      router.push("/auth/login");
+      router.push(`/auth/login?redirect_to=${encodeURIComponent(pathname)}`);
 
       return;
     }
@@ -55,6 +56,7 @@ const FollowButton = ({ target, isFollowed, followSuccessEvent }: FollowButtonPr
       variant={isFollowing ? "grey" : "primary"}
       className="btn-follow"
       $borderRadius="0.5rem"
+      $padding="0.75rem 1.25rem"
       onClick={onClickHandler}
     >
       {isFollowing ? "팔로우 중" : "팔로우 하기"}
