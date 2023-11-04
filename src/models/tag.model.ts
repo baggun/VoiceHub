@@ -1,6 +1,6 @@
 import mongoose, { Schema } from "mongoose";
 
-const tagSchema = new Schema({
+export const tagSchema = new Schema({
   // 태그
   tag: {
     type: String,

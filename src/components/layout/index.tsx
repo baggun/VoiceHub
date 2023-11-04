@@ -9,12 +9,13 @@ import { AuthCard } from "../common/card";
 import { isLoggedIn } from "@/utils/storage";
 import { useRouter } from "next/navigation";
 import { useRecoilValue } from "recoil";
-import { userState } from "@/recoil/user/atom";
+// import { userState } from "@/recoil/user/atom";
 import LogoButton from "../common/button/LogoButton";
 import auth_bg from "/public/img/auth_bg.png";
 import auth_bg_2 from "/public/img/auth_bg_2.png";
 import styled from "styled-components";
 import Image from "next/image";
+import { useSession } from "next-auth/react";
 
 export const DefaultLayout = ({ children, className }: { children: React.ReactNode; className?: string }) => {
   return (
@@ -38,7 +39,8 @@ export const MainLayout = ({ children }: { children: React.ReactNode }) => {
 
 export const LoginLayout = ({ children }: { children: React.ReactNode }) => {
   const router = useRouter();
-  const user = useRecoilValue(userState);
+  // const user = useRecoilValue(userState);
+  const { data: session } = useSession();
 
   const logoStyle: CSSProperties = {
     height: "30px",
@@ -47,11 +49,16 @@ export const LoginLayout = ({ children }: { children: React.ReactNode }) => {
     left: "1rem",
   };
 
-  React.useEffect(() => {
-    if (user.id && isLoggedIn()) {
-      router.back();
-    }
-  }, []);
+  if (session && session.user.id) {
+    router.back();
+  }
+
+  // React.useEffect(() => {
+  //   // if (session && session.user.id && isLoggedIn()) {
+  //   if (session && session.user.id) {
+  //     router.back();
+  //   }
+  // }, []);
 
   return (
     <MobileWrapper>

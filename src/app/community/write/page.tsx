@@ -19,12 +19,14 @@ import { postPost } from "@apis/api/post";
 import { _CATEGORY_DATA_ } from "@data/category";
 import { useRouter } from "next/navigation";
 import { useRecoilValue } from "recoil";
-import { userState } from "@/recoil/user/atom";
+import { useSession } from "next-auth/react";
+// import { userState } from "@/recoil/user/atom";
 
 const CommunityWrite = () => {
   const router = useRouter();
   // const user = useSelector((state: RootState) => state.users);
-  const user = useRecoilValue(userState);
+  // const user = useRecoilValue(userState);
+  const { data: session } = useSession();
   const [selectorValue, setSelectorValue] = React.useState<readonly OptionType[]>([]);
   const [title, setTitle] = React.useState<string>("");
   const [content, setContent] = React.useState<string>("");
@@ -33,7 +35,7 @@ const CommunityWrite = () => {
   const submitHandler = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
 
-    if (!user.id) {
+    if (!session?.user.id) {
       router.push("/auth/login");
       return;
     }

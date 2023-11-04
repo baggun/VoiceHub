@@ -4,7 +4,7 @@ const {
   Types: { ObjectId },
 } = Schema;
 
-const voiceSchema = new Schema({
+export const voiceSchema = new Schema({
   // 제목
   title: {
     type: String,

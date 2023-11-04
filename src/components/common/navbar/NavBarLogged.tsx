@@ -6,7 +6,7 @@ import { NavBarNavLink } from ".";
 import ProfileNav from "@/components/profile/ProfileNav";
 import { IconBell, IconPlus } from "@tabler/icons-react";
 import { useRecoilValue } from "recoil";
-import { userState } from "@/recoil/user/atom";
+// import { userState } from "@/recoil/user/atom";
 import { usePathname } from "next/navigation";
 import React from "react";
 import { useSession } from "next-auth/react";

@@ -4,7 +4,7 @@ const {
   Types: { ObjectId },
 } = Schema;
 
-const voiceLikeSchema = new Schema({
+export const voiceLikeSchema = new Schema({
   // 유저 oid
   user: {
     type: ObjectId,

@@ -1,6 +1,6 @@
 import mongoose, { Schema } from "mongoose";
 
-const scriptSchema = new Schema({
+export const scriptSchema = new Schema({
   title: {
     type: String,
     required: true,

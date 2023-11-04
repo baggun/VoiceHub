@@ -24,15 +24,22 @@ import ScriptTextarea from "@/components/common/textarea/ScriptTextarea";
 import { getScript, postScript } from "@apis/api/script";
 import { useRouter } from "next/navigation";
 import { useRecoilValue } from "recoil";
-import { userState } from "@/recoil/user/atom";
+// import { userState } from "@/recoil/user/atom";
 import { useSearchParams } from "next/navigation";
+import { useSession } from "next-auth/react";
 
 const VoiceUpload = () => {
   const router = useRouter();
-  const user = useRecoilValue(userState);
+  // const user = useRecoilValue(userState);
+  const { data: session } = useSession();
   // const user = useSelector((state: RootState) => state.users);
   const searchParams = useSearchParams();
   const script: string | null = searchParams.get("script");
+
+  if (!session?.user || !session?.user.id) {
+    router.replace("/auth/login");
+    return;
+  }
 
   const [voiceData, setVoiceData] = React.useState<VoiceInfo>({
     id: "",
@@ -124,7 +131,7 @@ const VoiceUpload = () => {
                       audioSrc={"https://www.mfiles.co.uk/mp3-downloads/franz-schubert-standchen-serenade.mp3"}
                       info={{
                         ...voiceData,
-                        ownerName: user.nickname,
+                        ownerName: session.user.nickname,
                       }}
                       $darkmode={true}
                     />

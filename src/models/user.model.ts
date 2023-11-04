@@ -4,7 +4,7 @@ const {
   Types: { ObjectId },
 } = Schema;
 
-const userSchema = new Schema({
+export const userSchema = new Schema({
   // 아이디
   user_id: {
     type: String,
@@ -87,4 +87,5 @@ const userSchema = new Schema({
     default: Date.now,
   },
 });
+
 export default mongoose.models.User || mongoose.model("User", userSchema);

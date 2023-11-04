@@ -17,7 +17,7 @@ import { NavBarDropdown } from "@common/navbar/NavBarDropdown";
 // import profile_temp from "@assets/img/profile_temp.png";
 import { useRecoilState } from "recoil";
 import { useRouter } from "next/navigation";
-import { userState } from "@/recoil/user/atom";
+// import { userState } from "@/recoil/user/atom";
 import { signOut, useSession } from "next-auth/react";
 
 const ProfileNav = () => {

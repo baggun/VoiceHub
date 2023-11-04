@@ -4,7 +4,7 @@ import React from "react";
 import styled from "styled-components";
 import { useRecoilValue } from "recoil";
 import { useRouter } from "next/navigation";
-import { userState } from "@/recoil/user/atom";
+// import { userState } from "@/recoil/user/atom";
 import { IconHeart, IconHeartFilled } from "@tabler/icons-react";
 import { UserData } from "@/types/user";
 import { Button, CustomButtonProps } from "../button";

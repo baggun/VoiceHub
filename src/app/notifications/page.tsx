@@ -17,7 +17,8 @@ import { deleteNotification, getNotifications } from "@apis/api/notification";
 import { getNotificationsProcess } from "@apis/services/notification";
 import { useRouter } from "next/navigation";
 import { useRecoilValue } from "recoil";
-import { userState } from "@/recoil/user/atom";
+import { useSession } from "next-auth/react";
+// import { userState } from "@/recoil/user/atom";
 
 type FilterMenuType = {
   name: string;
@@ -50,8 +51,14 @@ const filterMenus: FilterMenuType[] = [
 
 const Notification = () => {
   const router = useRouter();
-  const user = useRecoilValue(userState);
+  // const user = useRecoilValue(userState);
+  const { data: session } = useSession();
   // const user = useSelector((state: RootState) => state.users);
+
+  if (!session?.user || session.user.id) {
+    router.replace("/auth/login");
+    return;
+  }
 
   const [issues, setIssues] = React.useState<IssueType[]>([]);
   const [filterType, setFilterType] = React.useState<IssueFilterType[]>(filterMenus[0].type);
@@ -61,14 +68,14 @@ const Notification = () => {
   const initNotifications = async () => {
     const res = await getNotifications();
     console.log(res);
-    setIssues(getNotificationsProcess(user.id, res.notification));
+    setIssues(getNotificationsProcess(session?.user?.id, res.notification));
   };
 
   React.useEffect(() => {
-    if (!user.id) {
-      router.push("/auth/login");
-      return;
-    }
+    // if (!user.id) {
+    //   router.push("/auth/login");
+    //   return;
+    // }
 
     initNotifications();
   }, []);

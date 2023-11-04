@@ -8,8 +8,9 @@ import React from "react";
 import { setFollow } from "@apis/api/follow";
 import { Button } from ".";
 import { useRecoilState } from "recoil";
-import { userState } from "@/recoil/user/atom";
+// import { userState } from "@/recoil/user/atom";
 import { useRouter } from "next/navigation";
+import { useSession } from "next-auth/react";
 
 /**
  * 팔로우 버튼
@@ -23,7 +24,8 @@ const FollowButton = ({ target, isFollowed, followSuccessEvent }: FollowButtonPr
   const router = useRouter();
   // const navigate = useNavigate();
   // const user = useSelector((state: RootState) => state.users);
-  const [user, setUser] = useRecoilState(userState);
+  // const [user, setUser] = useRecoilState(userState);
+  const { data: session } = useSession();
   const [isFollowing, setFollowing] = React.useState<boolean>(isFollowed);
 
   React.useEffect(() => {
@@ -33,7 +35,7 @@ const FollowButton = ({ target, isFollowed, followSuccessEvent }: FollowButtonPr
   const onClickHandler = async (e: React.MouseEvent<HTMLButtonElement, MouseEvent>) => {
     e.preventDefault();
 
-    if (!!!user.id) {
+    if (!session?.user || !session?.user.id) {
       router.push("/auth/login");
 
       return;
@@ -46,7 +48,7 @@ const FollowButton = ({ target, isFollowed, followSuccessEvent }: FollowButtonPr
     }
   };
 
-  if (!!user.id && user.id === target) return <></>;
+  if (session && session.user.id === target) return <></>;
 
   return (
     <Button

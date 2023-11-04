@@ -19,13 +19,66 @@ export const POST = async (request: NextRequest) => {
   });
 
   try {
-    await user.save();
-    return new Response("User has been created", {
-      status: 201,
-    });
+    const userStatus = await user.save();
+
+    if (!userStatus) {
+      const err = new Error("실패");
+      return Response.json(
+        {
+          success: true,
+          err,
+        },
+        {
+          status: 400,
+        },
+      );
+    }
+
+    return Response.json(
+      {
+        success: true,
+      },
+      {
+        status: 201,
+      },
+    );
   } catch (err: any) {
-    return new Response(err.message, {
-      status: 500,
-    });
+
+    if (err.code === 11000 && err.keyPattern) {
+      // 중복 에러를 처리
+      const duplicatedKey = Object.keys(err.keyPattern)[0];
+      let data = { message: "에러가 발생했습니다.", error: id };
+      switch (duplicatedKey) {
+        case "user_id":
+          data = { message: "이미 존재하는 아이디입니다.", error: 'id' };
+          break;
+        case "user_email":
+          data = { message: "이미 존재하는 이메일입니다.", error: 'email' };
+          break;
+        case "user_nickname":
+          data = { message: "이미 존재하는 닉네임입니다.", error: 'nickname' };
+          break;
+      }
+      return Response.json(
+        {
+          success: false,
+          ...data,
+        },
+        {
+          status: 400,
+        },
+      );
+    }
+
+    // 기타 오류 처리
+    return (
+      Response.json({
+        success: false,
+        message: "서버 오류가 발생했습니다.",
+      }),
+      {
+        status: 500,
+      }
+    );
   }
 };

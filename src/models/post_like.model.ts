@@ -4,7 +4,7 @@ const {
   Types: { ObjectId },
 } = Schema;
 
-const postLikeSchema = new Schema({
+export const postLikeSchema = new Schema({
   // 유저 oid
   user: {
     type: ObjectId,

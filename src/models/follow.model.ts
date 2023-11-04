@@ -4,7 +4,7 @@ const {
   Types: { ObjectId },
 } = Schema;
 
-const followSchema = new Schema({
+export const followSchema = new Schema({
   // 유저 oid
   user: {
     type: ObjectId,

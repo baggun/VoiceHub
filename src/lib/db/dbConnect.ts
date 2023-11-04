@@ -1,9 +1,25 @@
-import mongoose from "mongoose";
+import mongoose, { mongo } from "mongoose";
 
-const { MONGODB_URI, MONGODB_DB } = process.env;
+import { voiceSchema } from "@models/voice.model";
+import { userSchema } from "@models/user.model";
+import { voiceLikeSchema } from "@models/voice_like.model";
+import { tagSchema } from "@models/tag.model";
+import { scriptSchema } from "@models/script.model";
+import { scriptLikeSchema } from "@models/script_like.model";
+import { postSchema } from "@models/post.model";
+import { postLikeSchema } from "@models/post_like.model";
+import { followSchema } from "@models/follow.model";
+import { contestSchema } from "@models/contest.model";
 
-if (!MONGODB_URI) throw new Error("MONGODB_URI not defined");
-if (!MONGODB_DB) throw new Error("MONGODB_DB not defined");
+declare global {
+  var mongoose: any;
+}
+
+const MONGODB_URI = process.env.MONGODB_URI!;
+
+if (!MONGODB_URI) {
+  throw new Error("Please define the MONGODB_URI environment variable inside .env.local");
+}
 
 let cached = global.mongoose;
 
@@ -12,18 +28,36 @@ if (!cached) {
 }
 
 async function dbConnect() {
-  if (cached.conn) return cached.conn;
-
+  if (cached.conn) {
+    return cached.conn;
+  }
   if (!cached.promise) {
     cached.promise = mongoose
-      .set({ debug: true, strictQuery: false })
-      .connect(`${MONGODB_URI}`, {
-        dbName: MONGODB_DB,
+      .connect(MONGODB_URI, {
+        bufferCommands: false,
       })
-      .then(mongoose => mongoose);
+      .then(mongoose => {
+        return mongoose;
+      });
+  }
+  try {
+    cached.conn = await cached.promise;
+
+    mongoose.model("User", voiceSchema);
+    mongoose.model("Voice", voiceSchema);
+    mongoose.model("VoiceLike", voiceLikeSchema);
+    mongoose.model("Tag", tagSchema);
+    mongoose.model("Script", scriptSchema);
+    mongoose.model("ScriptLike", scriptLikeSchema);
+    mongoose.model("Post", postSchema);
+    mongoose.model("PostLike", postLikeSchema);
+    mongoose.model("Follow", followSchema);
+    mongoose.model("Contest", contestSchema);
+  } catch (e) {
+    cached.promise = null;
+    throw e;
   }
 
-  cached.conn = await cached.promise;
   return cached.conn;
 }
 

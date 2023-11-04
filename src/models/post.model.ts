@@ -4,7 +4,7 @@ const {
   Types: { ObjectId },
 } = Schema;
 
-const postSchema = new Schema({
+export const postSchema = new Schema({
   // 글 제목
   title: {
     type: String,

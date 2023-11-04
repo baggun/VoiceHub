@@ -4,7 +4,7 @@ const {
   Types: { ObjectId },
 } = Schema;
 
-const scriptLikeSchema = new Schema({
+export const scriptLikeSchema = new Schema({
   // 유저 oid
   user: {
     type: ObjectId,

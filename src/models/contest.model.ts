@@ -1,6 +1,6 @@
 import mongoose, { Schema } from "mongoose";
 
-const contestSchema = new Schema(
+export const contestSchema = new Schema(
   {
     // 공모 이름
     contest: {

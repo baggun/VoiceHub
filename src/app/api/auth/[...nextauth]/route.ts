@@ -7,46 +7,47 @@ import User from "@models/user.model";
 
 export const authOptions: NextAuthOptions = {
   providers: [
-    // 인증 방식 선택 ( 현재는 "id" + "password" )
     CredentialsProvider({
-      // 여기서 입력한 이름을 "signIn(이름)" 형태로 사용
       name: "Credentials",
-      // 여기서 작성한 타입 그대로 아래 "authorize()"의 "credentials"의 타입 적용
-      // 또한 "next-auth"에서 생성해주는 로그인창에서 사용 ( http://localhost:3000/api/auth/signin )
+
       credentials: {
         id: {
           label: "아이디",
           type: "text",
-          placeholder: "아이디를 입력하세요.",
         },
         password: {
           label: "비밀번호",
           type: "password",
-          placeholder: "비밀번호를 입력하세요.",
         },
       },
 
-      // 로그인 유효성 검사
-      // 로그인 요청인 "signIn("credentials", { id, password })"에서 넣어준 "id", "password"값이 그대로 들어옴
       async authorize(credentials, req) {
         await dbConnect();
 
-        if (!credentials) throw new Error("잘못된 입력값으로 인한 오류가 발생했습니다.");
+        if (!credentials) throw new Error("Wrong input error - auth");
 
         try {
           const { id, password } = credentials;
 
           const user = await User.findOne({ user_id: id });
-          // const exUser = await prisma.user.findUnique({
-          //   where: { id },
-          //   include: { photo: true },
-          // });
-          if (!user) throw new Error("존재하지 않는 아이디입니다.");
+
+          // if (!user) throw new Error("존재하지 않는 아이디입니다.");
+          if (!user) throw JSON.stringify({ success: false, message: `일치하는 아이디가 없습니다.`, error: "id" });
 
           const result = await bcrypt.compare(password, user.user_pw);
-          if (!result) throw new Error("비밀번호가 불일치합니다.");
+          if (!result)
+            throw JSON.stringify({ success: false, message: "비밀번호가 옳지 않습니다.", error: "password" });
 
-          // 반환하는 값중에 name, email, image만 살려서 "session.user"로 들어감
+          // const data = await User.findOne({ user_id: id });
+
+          // if (!data)
+          //   return done(null, false, { message: `일치하는 아이디가 없습니다.`, error: 'id' });
+
+          // if (data.user_pw !== password)
+          //   return done(null, false, { message: "비밀번호가 옳지 않습니다.", error: 'password' });
+
+          // return done(null, data);
+
           return user;
         } catch (err: any) {
           throw new Error(err);
@@ -66,6 +67,11 @@ export const authOptions: NextAuthOptions = {
           nickname: user.user_nickname,
         };
       }
+
+      // if (trigger === "update" && session?.nickname) {
+      //   token.user.nickname = session.nickname
+      // }
+
       return token;
     },
     // 세션에 로그인한 유저 데이터 입력
@@ -73,6 +79,11 @@ export const authOptions: NextAuthOptions = {
       if (token) {
         session.user = token.user;
       }
+
+      // if (trigger === "update" && newSession?.nickname) {
+      //   session.user.nickname = newSession.nickname;
+      // }
+
       return session;
     },
   },

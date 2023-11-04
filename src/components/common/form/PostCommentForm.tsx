@@ -4,9 +4,10 @@ import React from "react";
 import styled from "styled-components";
 import SubmitButton from "../button/SubmitButton";
 import { useRecoilValue } from "recoil";
-import { userState } from "@/recoil/user/atom";
+// import { userState } from "@/recoil/user/atom";
 import { useRouter } from "next/navigation";
 import { postPostComment } from "@/apis/api/post";
+import { useSession } from "next-auth/react";
 
 type PostCommentForm = {
   post_id: string;
@@ -14,7 +15,8 @@ type PostCommentForm = {
 
 const PostCommentForm = ({ post_id }: PostCommentForm) => {
   const router = useRouter();
-  const user = useRecoilValue(userState);
+  // const user = useRecoilValue(userState);
+  const { data: session } = useSession();
   const [commentContent, setCommentContent] = React.useState<string>("");
 
   const commentSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
@@ -24,7 +26,7 @@ const PostCommentForm = ({ post_id }: PostCommentForm) => {
 
     if (commentContent === "") return;
 
-    if (!user.id) {
+    if (!session || !session.user.id) {
       router.push("/auth/login");
       return;
     }

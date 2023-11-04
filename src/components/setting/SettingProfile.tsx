@@ -4,7 +4,7 @@ import React from "react";
 import styled from "styled-components";
 import { useRecoilState } from "recoil";
 import { useRouter } from "next/navigation";
-import { userState } from "@/recoil/user/atom";
+// import { userState } from "@/recoil/user/atom";
 
 import Label from "@common/Label";
 import Textarea from "@common/textarea";
@@ -16,6 +16,7 @@ import { IconPencil } from "@tabler/icons-react";
 import { changeProfile } from "@apis/api/setting";
 import { getUser } from "@apis/api/users";
 import useForm from "@hooks/useForm";
+import { useSession } from "next-auth/react";
 
 type SettingProfileData = {
   email: string;
@@ -33,7 +34,8 @@ const SettingProfile = () => {
   //     }),
   //     shallowEqual
   // );
-  const [user, setUser] = useRecoilState(userState);
+  // const [user, setUser] = useRecoilState(userState);
+  const { data: session, update: sessionUpdate } = useSession();
   const fileInputRef = React.useRef<any>(null);
   const [prevProfile, setPrevProfile] = React.useState<SettingProfileData>({
     email: "",
@@ -48,10 +50,14 @@ const SettingProfile = () => {
 
         const res = await changeProfile(values.email, values.nickname, values.desc);
         if (res && res.success) {
-          setUser({
-            ...user,
+          sessionUpdate({
+            ...session?.user,
             nickname: values.nickname,
           });
+          // setUser({
+          //   ...user,
+          //   nickname: values.nickname,
+          // });
           // dispatch(changeNickname(values.nickname));
           setPrevProfile({ ...values });
           return;
@@ -63,8 +69,8 @@ const SettingProfile = () => {
     });
 
   const initUserData = async () => {
-    if (!user.id) return;
-    await getUser(user.id)
+    if (!session || !session.user.id) return;
+    await getUser(session.user.id)
       .then(res => {
         const prf = {
           nickname: res.user.user_nickname,

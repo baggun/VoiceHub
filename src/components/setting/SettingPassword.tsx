@@ -16,11 +16,13 @@ import { UserChangePasswordData } from "@type/user";
 import useForm from "@hooks/useForm";
 import { useRouter } from "next/navigation";
 import { useSetRecoilState } from "recoil";
-import { userState } from "@/recoil/user/atom";
+import { signOut, useSession } from "next-auth/react";
+// import { userState } from "@/recoil/user/atom";
 
 const SettingPassword = () => {
   const router = useRouter();
-  const setUser = useSetRecoilState(userState);
+  // const setUser = useSetRecoilState(userState);
+  // const { data: session, update: sessionUpdate } = useSession();
   // const navigate = useNavigate();
   // const dispatch = useDispatch();
   const { values, errors, isLoading, handleChange, handleSubmit, interpretMessage } = useForm<UserChangePasswordData>({
@@ -34,13 +36,21 @@ const SettingPassword = () => {
             clearUserStorage();
 
             // dispatch(resetUser());
-            setUser({
-              _id: "",
-              id: "",
-              nickname: "",
-              profile: "",
-            });
-            router.push("/auth/login");
+            // sessionUpdate({
+            //   _id: "",
+            //   id: "",
+            //   nickname: "",
+            //   profile: "",
+            // });
+
+            signOut().then(() => router.push("/auth/login"))
+            // setUser({
+            //   _id: "",
+            //   id: "",
+            //   nickname: "",
+            //   profile: "",
+            // });
+            // router.push("/auth/login");
 
             return;
           } else

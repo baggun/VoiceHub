@@ -94,7 +94,7 @@ const Voice = async ({ params }: { params: PageProps }) => {
               </div>
               {voiceData.script !== "" && (
                 <div className="col-md-5">
-                  <ScriptBlock>{voiceData?.script}</ScriptBlock>
+                  <ScriptBlock height="400px" >{voiceData?.script}</ScriptBlock>
                 </div>
               )}
             </div>

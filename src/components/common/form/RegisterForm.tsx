@@ -26,7 +26,14 @@ const RegisterForm = () => {
           },
           body: JSON.stringify(values),
         });
+
         res.status === 201 && router.push(`/auth/login?redirect_to=${redirect_to}`);
+
+        if (res.status === 400) {
+          const data = await res.json();
+
+          interpretMessage(data);
+        }
 
         // const res = await register(values);
 
@@ -42,50 +49,33 @@ const RegisterForm = () => {
     validate: RegisterValidation,
   });
   return (
-    <>
-      <h1>반갑습니다!</h1>
-      <p>회원가입 어쩌구 저쩌구 블라 블라 갈갈갈갈 어쩌구 저쩌구</p>
-
-      <AuthForm onSubmit={handleSubmit}>
-        <div className="form-group">
-          <AuthInput placeholder="ID" name="id" value={values.id} onChange={handleChange} />
-          {errors.id && <ErrorMsg>{errors.id}</ErrorMsg>}
-        </div>
-        <div className="form-group">
-          <AuthInput type="email" placeholder="Email" name="email" value={values.email} onChange={handleChange} />
-          {errors.email && <ErrorMsg>{errors.email}</ErrorMsg>}
-        </div>
-        <div className="form-group">
-          <AuthInput placeholder="Nickname" name="nickname" value={values.nickname} onChange={handleChange} />
-          {errors.nickname && <ErrorMsg>{errors.nickname}</ErrorMsg>}
-        </div>
-        <div className="form-group">
-          <AuthInput
-            type="password"
-            placeholder="Password"
-            name="password"
-            value={values.password}
-            onChange={handleChange}
-          />
-          {errors.password && <ErrorMsg>{errors.password}</ErrorMsg>}
-        </div>
-        <SubmitButton disabled={isLoading || values.email === "" || values.nickname === "" || values.password === ""}>
-          회원가입
-        </SubmitButton>
-      </AuthForm>
-      <span className="lead-msg">
-        <Link
-          href={{
-            pathname: "/auth/login",
-            query: {
-              redirect_to,
-            },
-          }}
-        >
-          로그인
-        </Link>
-      </span>
-    </>
+    <AuthForm onSubmit={handleSubmit}>
+      <div className="form-group">
+        <AuthInput placeholder="ID" name="id" value={values.id} onChange={handleChange} />
+        {errors.id && <ErrorMsg>{errors.id}</ErrorMsg>}
+      </div>
+      <div className="form-group">
+        <AuthInput type="email" placeholder="Email" name="email" value={values.email} onChange={handleChange} />
+        {errors.email && <ErrorMsg>{errors.email}</ErrorMsg>}
+      </div>
+      <div className="form-group">
+        <AuthInput placeholder="Nickname" name="nickname" value={values.nickname} onChange={handleChange} />
+        {errors.nickname && <ErrorMsg>{errors.nickname}</ErrorMsg>}
+      </div>
+      <div className="form-group">
+        <AuthInput
+          type="password"
+          placeholder="Password"
+          name="password"
+          value={values.password}
+          onChange={handleChange}
+        />
+        {errors.password && <ErrorMsg>{errors.password}</ErrorMsg>}
+      </div>
+      <SubmitButton disabled={isLoading || values.email === "" || values.nickname === "" || values.password === ""}>
+        회원가입
+      </SubmitButton>
+    </AuthForm>
   );
 };
 

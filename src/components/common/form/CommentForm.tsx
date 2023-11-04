@@ -7,7 +7,8 @@ import { Button } from "@common/button";
 import { postVoiceComment } from "@apis/api/voice";
 import { useRouter } from "next/navigation";
 import { useRecoilValue } from "recoil";
-import { userState } from "@/recoil/user/atom";
+import { useSession } from "next-auth/react";
+// import { userState } from "@/recoil/user/atom";
 // import { RootState } from "@modules/index";
 // import { useSelector } from "react-redux";
 
@@ -18,16 +19,17 @@ const CommentForm = ({ voice_id }: CommentFormProps) => {
   const router = useRouter();
   // const navigate = useNavigate();
   const [content, setContent] = React.useState<string>("");
-  const user = useRecoilValue(userState);
+  // const user = useRecoilValue(userState);
+  const { data: session } = useSession();
   // const id = useSelector((state: RootState) => state.users.id);
 
   const submitHandler = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
 
-    // if (!user.id) {
-    //     router.push("/auth/login");
-    //     return;
-    // }
+    if (!session || session.user.id) {
+        router.push("/auth/login");
+        return;
+    }
 
     if (content === "") {
       window.alert("내용을 입력해주세요.");

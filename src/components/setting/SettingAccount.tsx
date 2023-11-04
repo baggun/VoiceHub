@@ -14,13 +14,15 @@ import { UserPasswordData } from "@type/user";
 import useForm from "@hooks/useForm";
 import { useRouter } from "next/navigation";
 import { useSetRecoilState } from "recoil";
-import { userState } from "@/recoil/user/atom";
+import { useSession } from "next-auth/react";
+// import { userState } from "@/recoil/user/atom";
 
 const SettingAccount = () => {
   const router = useRouter();
   // const navigate = useNavigate();
   // const dispatch = useDispatch();
-  const setUser = useSetRecoilState(userState);
+  // const setUser = useSetRecoilState(userState);
+  const { data: session, update: sessionUpdate } = useSession();
 
   const { values, errors, isLoading, handleChange, handleSubmit, interpretMessage } = useForm<UserPasswordData>({
     initValues: { password: "" },
@@ -34,12 +36,18 @@ const SettingAccount = () => {
             clearUserStorage();
 
             // dispatch(resetUser());
-            setUser({
+            sessionUpdate({
               _id: "",
               id: "",
               nickname: "",
               profile: "",
             });
+            // setUser({
+            //   _id: "",
+            //   id: "",
+            //   nickname: "",
+            //   profile: "",
+            // });
 
             router.replace("/");
 
