@@ -1,4 +1,3 @@
-import { client } from "../client";
 import { ErrorMsg } from "@apis/utils/error";
 
 /**
@@ -9,8 +8,9 @@ import { ErrorMsg } from "@apis/utils/error";
  */
 export const getContestList = async (skip: number = 0, limit: number = 0) => {
   try {
-    const res = await client.get(`/contest?skip=${skip}&limit=${limit}`);
-    return res.data;
+    const res = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/contest?skip=${skip}&limit=${limit}`);
+    if (!res.ok) throw new Error("Failed to fetch data");
+    return res.json();
   } catch (err) {
     throw ErrorMsg(err);
   }
@@ -23,8 +23,9 @@ export const getContestList = async (skip: number = 0, limit: number = 0) => {
  */
 export const getContest = async (contest_id: string) => {
   try {
-    const res = await client.get(`/contest/${contest_id}`);
-    return res.data;
+    const res = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/contest/${contest_id}`);
+    if (!res.ok) throw new Error("Failed to fetch data");
+    return res.json();
   } catch (err) {
     throw ErrorMsg(err);
   }

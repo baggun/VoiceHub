@@ -1,4 +1,3 @@
-import { client } from "../client";
 import { ErrorMsg } from "@apis/utils/error";
 import { UserLoginData, UserRegisterData } from "@type/user";
 
@@ -11,12 +10,19 @@ import { UserLoginData, UserRegisterData } from "@type/user";
  */
 export const changeProfile = async (email: string, nickname: string, desc: string) => {
   try {
-    const res = await client.patch(`/user/profile`, {
-      email,
-      nickname,
-      desc,
+    const res = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/user/profile`, {
+      method: "PATCH",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({
+        email,
+        nickname,
+        desc,
+      }),
     });
-    return res.data;
+    if (!res.ok) throw new Error("Failed to fetch data");
+    return res.json();
   } catch (err) {
     throw ErrorMsg(err);
   }
@@ -30,11 +36,18 @@ export const changeProfile = async (email: string, nickname: string, desc: strin
  */
 export const changePassword = async (password: string, repassword: string) => {
   try {
-    const res = await client.patch(`/user/password`, {
-      password,
-      repassword,
+    const res = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/user/password`, {
+      method: "PATCH",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({
+        password,
+        repassword,
+      }),
     });
-    return res.data;
+    if (!res.ok) throw new Error("Failed to fetch data");
+    return res.json();
   } catch (err) {
     throw ErrorMsg(err);
   }
@@ -47,10 +60,17 @@ export const changePassword = async (password: string, repassword: string) => {
  */
 export const deleteAccount = async (password: string) => {
   try {
-    const res = await client.delete(`/user/account`, {
-      data: { password },
+    const res = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/user/account`, {
+      method: "DELETE",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({
+        password,
+      }),
     });
-    return res.data;
+    if (!res.ok) throw new Error("Failed to fetch data");
+    return res.json();
   } catch (err) {
     throw ErrorMsg(err);
   }

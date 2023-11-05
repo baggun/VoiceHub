@@ -1,6 +1,3 @@
-// "use client";
-
-import { client } from "../client";
 import { ErrorMsg } from "@apis/utils/error";
 // import { headers } from "next/headers";
 
@@ -13,8 +10,9 @@ import { ErrorMsg } from "@apis/utils/error";
  */
 export const getVoices = async (tag: string = "", skip: number = 0, limit: number = 0) => {
   try {
-    const res = await client.get(`/voice?tag=${tag}&skip=${skip}&limit=${limit}`);
-    return res.data;
+    const res = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/voice?tag=${tag}&skip=${skip}&limit=${limit}`);
+    if (!res.ok) throw new Error("Failed to fetch data");
+    return res.json();
   } catch (err) {
     throw ErrorMsg(err);
   }
@@ -26,35 +24,10 @@ export const getVoices = async (tag: string = "", skip: number = 0, limit: numbe
  * @param {string} title voice 제목
  * @returns 성공 여부
  */
-// export const getVoice = async (user_id: string, title: string) => {
-//   try {
-//     const res = await client.get(`/voice/${user_id}/${title}`, {
-//       headers: {
-//         // Cookie: `connect.sid=${myCookie}`,
-//       },
-//     });
-//     return res.data;
-//   } catch (err) {
-//     throw ErrorMsg(err);
-//   }
-// };
-/**
- * 목소리 찾기
- * @param {string} user_id user 아이디
- * @param {string} title voice 제목
- * @returns 성공 여부
- */
 export const getVoice = async (user_id: string, title: string) => {
   try {
-    const res = await fetch(process.env.NEXT_PUBLIC_API_URL + `/voice/${user_id}/${title}`, {
-      // headers: headers(),
-    });
-  
-    // console.log(res);
-    if (!res.ok) {
-      throw new Error("Failed to fetch data");
-    }
-  
+    const res = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/voice/${user_id}/${title}`);
+    if (!res.ok) throw new Error("Failed to fetch data");
     return res.json();
   } catch (err) {
     throw ErrorMsg(err);
@@ -70,12 +43,16 @@ export const getVoice = async (user_id: string, title: string) => {
  */
 export const postVoice = async (title: string, voice_src: string, script: string, tags?: string[]) => {
   try {
-    const res = await client.post(`/voice/${title}`, {
-      voice_src,
-      script,
-      tags: tags || [],
+    const res = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/voice/${title}`, {
+      method: "POST",
+      body: JSON.stringify({
+        voice_src,
+        script,
+        tags: tags || [],
+      }),
     });
-    return res.data;
+    if (!res.ok) throw new Error("Failed to fetch data");
+    return res.json();
   } catch (err) {
     throw ErrorMsg(err);
   }
@@ -89,10 +66,12 @@ export const postVoice = async (title: string, voice_src: string, script: string
  */
 export const deleteVoice = async (user_id: string, voice_oid: string) => {
   try {
-    const res = await client.delete(`/voice/${voice_oid}`, {
-      data: { user_id },
+    const res = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/voice/${voice_oid}`, {
+      method: "DELETE",
+      body: JSON.stringify({ user_id }),
     });
-    return res.data;
+    if (!res.ok) throw new Error("Failed to fetch data");
+    return res.json();
   } catch (err) {
     throw ErrorMsg(err);
   }
@@ -106,10 +85,12 @@ export const deleteVoice = async (user_id: string, voice_oid: string) => {
  */
 export const postVoiceComment = async (voice_oid: string, comment: string) => {
   try {
-    const res = await client.post(`/voice/${voice_oid}/comment`, {
-      comment,
+    const res = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/voice/${voice_oid}/comment`, {
+      method: "POST",
+      body: JSON.stringify({ comment }),
     });
-    return res.data;
+    if (!res.ok) throw new Error("Failed to fetch data");
+    return res.json();
   } catch (err) {
     throw ErrorMsg(err);
   }
@@ -125,12 +106,16 @@ export const postVoiceComment = async (voice_oid: string, comment: string) => {
  */
 export const patchVoiceComment = async (voice_oid: string, user_oid: string, comment_oid: string, comment: string) => {
   try {
-    const res = await client.patch(`/voice/${voice_oid}/comment`, {
-      user_oid,
-      comment_oid,
-      comment,
+    const res = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/voice/${voice_oid}/comment`, {
+      method: "PATCH",
+      body: JSON.stringify({
+        user_oid,
+        comment_oid,
+        comment,
+      }),
     });
-    return res.data;
+    if (!res.ok) throw new Error("Failed to fetch data");
+    return res.json();
   } catch (err) {
     throw ErrorMsg(err);
   }
@@ -145,10 +130,15 @@ export const patchVoiceComment = async (voice_oid: string, user_oid: string, com
  */
 export const deleteVoiceComment = async (voice_oid: string, user_oid: string, comment_oid: string) => {
   try {
-    const res = await client.delete(`/voice/${voice_oid}/comment`, {
-      data: { user_oid, comment_oid },
+    const res = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/voice/${voice_oid}/comment`, {
+      method: "DELETE",
+      body: JSON.stringify({
+        user_oid,
+        comment_oid,
+      }),
     });
-    return res.data;
+    if (!res.ok) throw new Error("Failed to fetch data");
+    return res.json();
   } catch (err) {
     throw ErrorMsg(err);
   }
@@ -161,8 +151,11 @@ export const deleteVoiceComment = async (voice_oid: string, user_oid: string, co
  */
 export const voiceLike = async (voice_oid: string) => {
   try {
-    const res = await client.post(`/voice/${voice_oid}/like`);
-    return res.data;
+    const res = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/voice/${voice_oid}/like`, {
+      method: "POST",
+    });
+    if (!res.ok) throw new Error("Failed to fetch data");
+    return res.json();
   } catch (err) {
     throw ErrorMsg(err);
   }

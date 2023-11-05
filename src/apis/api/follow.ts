@@ -1,4 +1,3 @@
-import { client } from "../client";
 import { ErrorMsg } from "@apis/utils/error";
 
 /**
@@ -9,8 +8,9 @@ import { ErrorMsg } from "@apis/utils/error";
  */
 export const getFollow = async (user: string, target: string) => {
   try {
-    const res = await client.get(`/follow/${user}/${target}`);
-    return res.data;
+    const res = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/follow/${user}/${target}`);
+    if (!res.ok) throw new Error("Failed to fetch data");
+    return res.json();
   } catch (err) {
     throw ErrorMsg(err);
   }
@@ -23,8 +23,11 @@ export const getFollow = async (user: string, target: string) => {
  */
 export const setFollow = async (target_oid: string) => {
   try {
-    const res = await client.post(`/follow/${target_oid}`);
-    return res.data;
+    const res = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/follow/${target_oid}`, {
+      method: "POST",
+    });
+    if (!res.ok) throw new Error("Failed to fetch data");
+    return res.json();
   } catch (err) {
     throw ErrorMsg(err);
   }

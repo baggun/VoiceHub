@@ -1,4 +1,3 @@
-import { client } from "../client";
 import { ErrorMsg } from "@apis/utils/error";
 
 /**
@@ -10,8 +9,9 @@ import { ErrorMsg } from "@apis/utils/error";
  */
 export const getPosts = async (tag: string = "", skip: number = 0, limit: number = 0) => {
   try {
-    const res = await client.get(`/post?tag=${tag}&skip=${skip}&limit=${limit}`);
-    return res.data;
+    const res = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/post?tag=${tag}&skip=${skip}&limit=${limit}`);
+    if (!res.ok) throw new Error("Failed to fetch data");
+    return res.json();
   } catch (err) {
     throw ErrorMsg(err);
   }
@@ -24,8 +24,9 @@ export const getPosts = async (tag: string = "", skip: number = 0, limit: number
  */
 export const getPost = async (post_id: string) => {
   try {
-    const res = await client.get(`/post/${post_id}`);
-    return res.data;
+    const res = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/post/${post_id}`);
+    if (!res.ok) throw new Error("Failed to fetch data");
+    return res.json();
   } catch (err) {
     throw ErrorMsg(err);
   }
@@ -38,10 +39,12 @@ export const getPost = async (post_id: string) => {
  */
 export const postPost = async (post: { title: string; content: string; type: string; tags: string[] }) => {
   try {
-    const res = await client.post(`/post`, {
-      ...post,
+    const res = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/post`, {
+      method: "POST",
+      body: JSON.stringify(post),
     });
-    return res.data;
+    if (!res.ok) throw new Error("Failed to fetch data");
+    return res.json();
   } catch (err) {
     throw ErrorMsg(err);
   }
@@ -54,8 +57,11 @@ export const postPost = async (post: { title: string; content: string; type: str
  */
 export const deletePost = async (post_oid: string) => {
   try {
-    const res = await client.delete(`/post/${post_oid}`);
-    return res.data;
+    const res = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/post/${post_oid}`, {
+      method: "DELETE",
+    });
+    if (!res.ok) throw new Error("Failed to fetch data");
+    return res.json();
   } catch (err) {
     throw ErrorMsg(err);
   }
@@ -70,10 +76,12 @@ export const deletePost = async (post_oid: string) => {
  */
 export const postPostComment = async (post_oid: string, comment: string) => {
   try {
-    const res = await client.post(`/post/${post_oid}/comment`, {
-      comment,
+    const res = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/post/${post_oid}/comment`, {
+      method: "POST",
+      body: JSON.stringify({ comment }),
     });
-    return res.data;
+    if (!res.ok) throw new Error("Failed to fetch data");
+    return res.json();
   } catch (err) {
     throw ErrorMsg(err);
   }
@@ -81,10 +89,8 @@ export const postPostComment = async (post_oid: string, comment: string) => {
 
 /**
  * 댓글 수정
- * @param {string} user_oid user _id
- * @param {string} post_oid post _id
- * @param {string} comment_oid comment _id
- * @param {string} comment 댓글 내용
+ * @param {string} post_oid user _id
+ * @param {object} comment 댓글 내용
  * @returns 성공 여부
  */
 export const patchPostComment = async (
@@ -96,20 +102,21 @@ export const patchPostComment = async (
   },
 ) => {
   try {
-    const res = await client.patch(`/post/${post_oid}/comment`, {
-      ...comment,
+    const res = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/post/${post_oid}/comment`, {
+      method: "PATCH",
+      body: JSON.stringify(comment),
     });
-    return res.data;
+    if (!res.ok) throw new Error("Failed to fetch data");
+    return res.json();
   } catch (err) {
     throw ErrorMsg(err);
   }
 };
 
 /**
- * 댓글 수정
+ * 댓글 삭제
  * @param {string} post_oid post _id
- * @param {string} user_oid user _id
- * @param {string} comment_oid comment _id
+ * @param {object} comment comment _id
  * @returns 성공 여부
  */
 export const deletePostComment = async (
@@ -120,10 +127,12 @@ export const deletePostComment = async (
   },
 ) => {
   try {
-    const res = await client.delete(`/post/${post_oid}/comment`, {
-      data: { ...comment },
+    const res = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/post/${post_oid}/comment`, {
+      method: "DELETE",
+      body: JSON.stringify(comment),
     });
-    return res.data;
+    if (!res.ok) throw new Error("Failed to fetch data");
+    return res.json();
   } catch (err) {
     throw ErrorMsg(err);
   }
@@ -136,22 +145,11 @@ export const deletePostComment = async (
  */
 export const postLike = async (post_oid: string) => {
   try {
-    const res = await client.post(`/post/${post_oid}/like`);
-    return res.data;
-  } catch (err) {
-    throw ErrorMsg(err);
-  }
-};
-
-/**
- * post 좋아요 해제
- * @param {string} post_oid post _id
- * @returns 성공 여부
- */
-export const postUnLike = async (post_oid: string) => {
-  try {
-    const res = await client.delete(`/post/${post_oid}/like`);
-    return res.data;
+    const res = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/post/${post_oid}/like`, {
+      method: "POST",
+    });
+    if (!res.ok) throw new Error("Failed to fetch data");
+    return res.json();
   } catch (err) {
     throw ErrorMsg(err);
   }

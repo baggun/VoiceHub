@@ -1,4 +1,3 @@
-import { client } from "../client";
 import { ErrorMsg } from "@apis/utils/error";
 
 /**
@@ -7,8 +6,9 @@ import { ErrorMsg } from "@apis/utils/error";
  */
 export const getNotifications = async () => {
   try {
-    const res = await client.get(`/notification`);
-    return res.data;
+    const res = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/notification`);
+    if (!res.ok) throw new Error("Failed to fetch data");
+    return res.json();
   } catch (err) {
     throw ErrorMsg(err);
   }
@@ -21,8 +21,12 @@ export const getNotifications = async () => {
  */
 export const readNotification = async (notification_id: string) => {
   try {
-    const res = await client.patch(`/notification`, { notification_id });
-    return res.data;
+    const res = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/notification`, {
+      method: "PATCH",
+      body: JSON.stringify({ notification_id }),
+    });
+    if (!res.ok) throw new Error("Failed to fetch data");
+    return res.json();
   } catch (err) {
     throw ErrorMsg(err);
   }
@@ -35,8 +39,12 @@ export const readNotification = async (notification_id: string) => {
  */
 export const deleteNotification = async (notification_id: string[]) => {
   try {
-    const res = await client.delete(`/notification`, { data: { notification_id } });
-    return res.data;
+    const res = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/notification`, {
+      method: "DELETE",
+      body: JSON.stringify({ notification_id }),
+    });
+    if (!res.ok) throw new Error("Failed to fetch data");
+    return res.json();
   } catch (err) {
     throw ErrorMsg(err);
   }

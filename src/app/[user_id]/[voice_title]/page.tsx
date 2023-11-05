@@ -23,7 +23,6 @@ import { VoiceInfo } from "@type/voice";
 import { CommentType } from "@type/comment";
 
 import { VoiceTitle, VoiceBG, VoiceFooter, Commet } from "./page.styled";
-import { headers } from "next/headers";
 
 interface PageProps {
   user_id: string;
@@ -31,18 +30,6 @@ interface PageProps {
 }
 
 export const dynamic = "force-dynamic";
-
-// async function getVoice(user_id: string, title: string) {
-//   const res = await fetch(process.env.NEXT_PUBLIC_API_URL + `/voice/${user_id}/${title}`, {
-//     headers: headers(),
-//   });
-
-//   if (!res.ok) {
-//     throw new Error("Failed to fetch data");
-//   }
-
-//   return res.json();
-// }
 
 const Voice = async ({ params }: { params: PageProps }) => {
   const { user_id, voice_title } = params;
@@ -94,7 +81,7 @@ const Voice = async ({ params }: { params: PageProps }) => {
               </div>
               {voiceData.script !== "" && (
                 <div className="col-md-5">
-                  <ScriptBlock height="400px" >{voiceData?.script}</ScriptBlock>
+                  <ScriptBlock height="400px">{voiceData?.script}</ScriptBlock>
                 </div>
               )}
             </div>

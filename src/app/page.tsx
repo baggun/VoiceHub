@@ -8,46 +8,10 @@ import { AudioFileButton, AudioFileBar } from "@components/audio/AudioFile";
 import { VoiceInfo } from "@type/voice";
 import { getVoices } from "@apis/api/voice";
 import { getVoicesProcess } from "@apis/services/voice";
-import Head from "next/head";
-import Image from "next/image";
-
-// async function getVoices() {
-//   const res = await fetch('http://localhost:3000/api/voice')
-//   // The return value is *not* serialized
-//   // You can return Date, Map, Set, etc.
-
-//   if (!res.ok) {
-//     // This will activate the closest `error.js` Error Boundary
-//     throw new Error('Failed to fetch data')
-//   }
-
-//   return res.json()
-// }
-import { cookies } from "next/headers";
 
 const Home = async () => {
   const res = await getVoices();
   const tracks: VoiceInfo[] = getVoicesProcess(res.data);
-
-  // .then((res) => getVoicesProcess(res.data))
-  // .then((res) => setTracks(res))
-  // .catch((err) => {
-  //   console.log(err);
-  // });
-  // const [tracks, setTracks] = React.useState<VoiceInfo[]>();
-
-  // React.useEffect(() => {
-  //   initVoices();
-  // }, []);
-
-  // const initVoices = async () => {
-  //   await getVoices()
-  //     .then((res) => getVoicesProcess(res.data))
-  //     .then((res) => setTracks(res))
-  //     .catch((err) => {
-  //       console.log(err);
-  //     });
-  // };
 
   return (
     <MainLayout>

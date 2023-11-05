@@ -1,4 +1,3 @@
-import { client } from "../client";
 import { ErrorMsg } from "@apis/utils/error";
 
 /**
@@ -8,8 +7,9 @@ import { ErrorMsg } from "@apis/utils/error";
  */
 export const search = async (word: string) => {
   try {
-    const res = await client.get(`/search/${word}`);
-    return res.data;
+    const res = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/search/${word}`);
+    if (!res.ok) throw new Error("Failed to fetch data");
+    return res.json();
   } catch (err) {
     throw ErrorMsg(err);
   }

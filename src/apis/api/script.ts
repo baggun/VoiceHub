@@ -1,4 +1,3 @@
-import { client } from "../client";
 import { ErrorMsg } from "@apis/utils/error";
 
 /**
@@ -10,8 +9,9 @@ import { ErrorMsg } from "@apis/utils/error";
  */
 export const getScripts = async (tag: string = "", skip: number = 0, limit: number = 0) => {
   try {
-    const res = await client.get(`/script?tag=${tag}&skip=${skip}&limit=${limit}`);
-    return res.data;
+    const res = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/script?tag=${tag}&skip=${skip}&limit=${limit}`);
+    if (!res.ok) throw new Error("Failed to fetch data");
+    return res.json();
   } catch (err) {
     throw ErrorMsg(err);
   }
@@ -24,8 +24,9 @@ export const getScripts = async (tag: string = "", skip: number = 0, limit: numb
  */
 export const getScript = async (script_oid: string) => {
   try {
-    const res = await client.get(`/script/${script_oid}`);
-    return res.data;
+    const res = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/script/${script_oid}`);
+    if (!res.ok) throw new Error("Failed to fetch data");
+    return res.json();
   } catch (err) {
     throw ErrorMsg(err);
   }
@@ -40,8 +41,16 @@ export const getScript = async (script_oid: string) => {
  */
 export const postScript = async (title: string, script: string, tags: string[]) => {
   try {
-    const res = await client.post(`/script`, { title, script, tags });
-    return res.data;
+    const res = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/script`, {
+      method: "POST",
+      body: JSON.stringify({
+        title,
+        script,
+        tags,
+      }),
+    });
+    if (!res.ok) throw new Error("Failed to fetch data");
+    return res.json();
   } catch (err) {
     throw ErrorMsg(err);
   }
@@ -55,8 +64,12 @@ export const postScript = async (title: string, script: string, tags: string[]) 
  */
 export const deleteScript = async (user_oid: string, script_oid: string) => {
   try {
-    const res = await client.delete(`/script`, { data: { user_oid, script_oid } });
-    return res.data;
+    const res = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/script`, {
+      method: "DELETE",
+      body: JSON.stringify({ user_oid, script_oid }),
+    });
+    if (!res.ok) throw new Error("Failed to fetch data");
+    return res.json();
   } catch (err) {
     throw ErrorMsg(err);
   }

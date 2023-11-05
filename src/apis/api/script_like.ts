@@ -1,4 +1,3 @@
-import { client } from "../client";
 import { ErrorMsg } from "@apis/utils/error";
 
 /**
@@ -8,8 +7,9 @@ import { ErrorMsg } from "@apis/utils/error";
  */
 export const getScriptLike = async (script_id: string) => {
   try {
-    const res = await client.get(`/script/${script_id}/like`);
-    return res.data;
+    const res = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/script/${script_id}/like`);
+    if (!res.ok) throw new Error("Failed to fetch data");
+    return res.json();
   } catch (err) {
     throw ErrorMsg(err);
   }
@@ -22,8 +22,11 @@ export const getScriptLike = async (script_id: string) => {
  */
 export const setScriptLike = async (script_id: string) => {
   try {
-    const res = await client.post(`/script/${script_id}/like`);
-    return res.data;
+    const res = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/script/${script_id}/like`, {
+      method: "POST",
+    });
+    if (!res.ok) throw new Error("Failed to fetch data");
+    return res.json();
   } catch (err) {
     throw ErrorMsg(err);
   }
