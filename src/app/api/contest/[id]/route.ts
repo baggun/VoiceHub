@@ -20,17 +20,16 @@ export async function GET(request: NextRequest, { params }: { params: { id: stri
         success: true,
         contest,
       });
-    } else {
-      return Response.json(
-        {
-          success: false,
-          message: `${id}에 해당하는 공모가 없습니다.`,
-        },
-        {
-          status: 400,
-        },
-      );
     }
+    return Response.json(
+      {
+        success: false,
+        message: `${id}에 해당하는 공모가 없습니다.`,
+      },
+      {
+        status: 400,
+      },
+    );
   } catch (err: any) {
     return Response.json(
       {

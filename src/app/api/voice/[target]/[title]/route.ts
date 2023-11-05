@@ -18,10 +18,15 @@ export async function GET(request: NextRequest, { params }: { params: { target: 
     const user = await User.findOne({ user_id: target }, { _id: true });
 
     if (!user) {
-      return Response.json({
-        success: false,
-        message: `올바른 유저의 id 가 아닙니다. ${target}`,
-      });
+      return Response.json(
+        {
+          success: false,
+          message: `올바른 유저의 id 가 아닙니다. ${target}`,
+        },
+        {
+          status: 400,
+        },
+      );
     }
 
     const voice: any = await Voice.findOne({ author: user._id, title: title })
@@ -45,17 +50,22 @@ export async function GET(request: NextRequest, { params }: { params: { target: 
       .lean();
 
     if (!voice) {
-      return Response.json({
-        success: false,
-        message: `해당하는 글이 없습니다.`,
-      });
+      return Response.json(
+        {
+          success: false,
+          message: `해당하는 글이 없습니다.`,
+        },
+        {
+          status: 400,
+        },
+      );
     }
 
     const likes = await VoiceLike.find({ voice: voice._id }, { user: true, _id: false })
       .populate({
         path: "user",
         select: ["user_id", "user_nickname", "user_profile"],
-        model:"User"
+        model: "User",
       })
       .lean();
 

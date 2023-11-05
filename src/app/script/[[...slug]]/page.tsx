@@ -1,7 +1,9 @@
 import React from "react";
 import Link from "next/link";
+import { notFound } from "next/navigation";
 
 import Tag from "@/components/common/tag";
+import Like from "@/components/common/like";
 import { MainLayout } from "@components/layout";
 import ScriptCard from "@components/script/ScriptCard";
 import ScriptBlock from "@components/script/ScriptBlock";
@@ -13,31 +15,18 @@ import { getScript, getScripts } from "@apis/api/script";
 import { getScriptProcess, getScriptsProcess } from "@apis/services/script";
 import { ScriptType } from "@type/scripts";
 import { UserData } from "@type/user";
+
 import { AudioScroller, ScriptBG, ScriptBody, ScriptHeader, ScriptTitle } from "./page.styled";
-import Like from "@/components/common/like";
 
 interface PageProps {
   slug?: string[];
-  // script_id: string;
 }
-
-// export const getServerSideProps: GetServerSideProps<PageProps> = async (
-//   context
-// ) => {
-//   return {
-//     props: {
-//       script_id: context.params?.slug?.[0] ?? "",
-//     },
-//   };
-// };
 
 const Script = async ({ params }: { params: PageProps }) => {
   const script_id = params?.slug?.[0] || "";
-  // const router = useRouter();
-
-  // const user = useRecoilValue(userState);
 
   const reses = await getScripts();
+
   const scripts = getScriptsProcess(reses.scripts);
 
   let curScript: ScriptType | null = null;
@@ -45,8 +34,9 @@ const Script = async ({ params }: { params: PageProps }) => {
 
   if (script_id) {
     const res = await getScript(script_id);
+    if (!res.ok) return notFound();
+
     curScript = getScriptProcess(res.script);
-    // console.log(res);
 
     if (res.likes) likers = getUsersProcess(res.likes);
   }
@@ -67,52 +57,6 @@ const Script = async ({ params }: { params: PageProps }) => {
       url: "https://www.mfiles.co.uk/mp3-downloads/franz-schubert-standchen-serenade.mp3",
     },
   ];
-
-  // const initScripts = async () => {
-  //   await getScripts()
-  //     .then((res) => getScriptsProcess(res.scripts))
-  //     .then((res) => setScripts(res));
-  // };
-
-  // const initScript = async () => {
-  //   if (!script_id) return;
-  //   const res = await getScript(script_id);
-  //   setCurScript(getScriptProcess(res.script));
-
-  //   if (res.likes) setLikers(getUsersProcess(res.likes));
-  // };
-
-  // React.useEffect(() => {
-  //   if (script_id) initScript();
-  //   if (scripts.length === 0) initScripts();
-  // }, [script_id]);
-
-  // const isLike = (): boolean => {
-  //   if (likers.some((item) => item.id === user.id)) return true;
-  //   return false;
-  // };
-
-  // const likeScriptHandler = async (
-  //   e: React.MouseEvent<HTMLButtonElement, MouseEvent>
-  // ) => {
-  //   e.preventDefault();
-
-  //   // if (user.id === "") {
-  //   //   router.push("/auth/login");
-  //   //   return;
-  //   // }
-
-  //   if (!!!script_id) return;
-
-  //   // 찜하기 API
-  //   const res = await setScriptLike(script_id);
-
-  //   if (res && res.success) {
-  //     if (res.result) likers.push(user);
-  //     else likers = [...likers.filter((lUser) => lUser.id !== user.id)];
-  //   }
-  // };
-
   return (
     <MainLayout>
       {script_id && curScript && (
@@ -129,23 +73,6 @@ const Script = async ({ params }: { params: PageProps }) => {
                   <ScriptHeader>
                     <Link href={`/voice/upload?script=${curScript.id}`}>이 대사로 업로드</Link>
                     <Like type="Script" target_id={script_id} likers={likers} />
-                    {/* <Button
-                      variant="primary"
-                      $borderRadius="0.75rem"
-                      $withIcon
-                      onClick={likeScriptHandler}
-                    >
-                      {!!user.id && isLike() ? (
-                        <>
-                          <IconHeartFilled className="icon icon-md" />찜 해제
-                        </>
-                      ) : (
-                        <>
-                          <IconHeart className="icon icon-md" />
-                          찜하기
-                        </>
-                      )}
-                    </Button> */}
                   </ScriptHeader>
                   <ScriptBody>
                     <h2>관련 목소리</h2>
@@ -169,7 +96,6 @@ const Script = async ({ params }: { params: PageProps }) => {
       )}
       <Container>
         <div className="row">
-          {JSON.stringify(scripts)}
           {scripts.map(sc => (
             <ScriptCard key={`script-${sc.id}`} className="col-md-6" script={sc} />
           ))}

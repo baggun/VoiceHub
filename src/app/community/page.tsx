@@ -1,35 +1,19 @@
 import React from "react";
-// import { Link, useNavigate } from "react-router-dom";
-import styled, { css } from "styled-components";
-import { DefaultLayout } from "@components/layout";
-import Profile from "@components/profile";
-import { Button } from "@components/common/button";
-import { IconAlertSquareRounded, IconMessage2, IconNotes, IconQuestionMark } from "@tabler/icons-react";
-import { PostType } from "@type/post";
-import Post from "@components/community/Post";
-import { getPosts } from "@apis/api/post";
-import { getPostsProcess } from "@apis/services/post";
-import { useRouter } from "next/navigation";
 import Link from "next/link";
+
+import Post from "@components/community/Post";
+import { DefaultLayout } from "@components/layout"; 
+import { Button } from "@components/common/button";
+import { IconAlertSquareRounded,  IconNotes, IconQuestionMark } from "@tabler/icons-react"; 
+
+import { getPosts } from "@apis/api/post";
+import { getPostsProcess } from "@apis/services/post"; 
+
 import { MenuBlock, Menu, MenuIcon, PostHeader, Advertisement } from "./page.styled";
 
 const Community = async () => {
   const res = await getPosts();
-  const posts = getPostsProcess(res.posts);
-  // const navigate = useNavigate();
-  // const router = useRouter();
-
-  // const [posts, setPosts] = React.useState<PostType[]>([]);
-
-  // const initPosts = async () => {
-  //     await getPosts()
-  //         .then((res) => getPostsProcess(res.posts))
-  //         .then((res) => setPosts(res));
-  // };
-
-  // React.useEffect(() => {
-  //     initPosts();
-  // }, []);
+  const posts = getPostsProcess(res.posts); 
 
   return (
     <DefaultLayout className="mg-t-3">

@@ -1,16 +1,4 @@
-import styled, { CSSProperties } from "styled-components";
 import { Button } from ".";
-
-// const SubmitButton = styled(Button).attrs({
-//     type: "submit",
-// })`
-//     width: 100%;
-//     border-radius: 0.25rem;
-//     padding: 1rem;
-//     margin: 1rem 0px;
-//     font-weight: bold;
-//     background: ${({ theme }) => theme.colors.secondary};
-// `;
 
 const SubmitButton = ({
   width = "100%",

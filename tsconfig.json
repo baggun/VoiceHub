@@ -63,7 +63,7 @@
     "**/*.ts",
     "**/*.tsx",
     ".next/types/**/*.ts"
-, "src/app/script/[[...slug]]"  ],
+, "src/app/script/[[...slug]]", "src/app/api/contest/[id]"  ],
   "exclude": [
     "node_modules"
   ]

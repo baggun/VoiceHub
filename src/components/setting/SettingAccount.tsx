@@ -1,27 +1,21 @@
 "use client";
 
 import styled from "styled-components";
-// import { useDispatch } from "react-redux";
-// import { useNavigate } from "react-router-dom";
-// import { resetUser } from "@modules/users";
+import { useRouter } from "next/navigation";
+import { useSession } from "next-auth/react";
 
 import { AuthInput } from "@common/input";
 import { ErrorMsg } from "@common/form/Form";
 import SubmitButton from "@common/button/SubmitButton";
+
 import { deleteAccount } from "@apis/api/setting";
 import { clearUserStorage } from "@utils/storage";
 import { UserPasswordData } from "@type/user";
 import useForm from "@hooks/useForm";
-import { useRouter } from "next/navigation";
-import { useSetRecoilState } from "recoil";
-import { useSession } from "next-auth/react";
-// import { userState } from "@/recoil/user/atom";
+
 
 const SettingAccount = () => {
   const router = useRouter();
-  // const navigate = useNavigate();
-  // const dispatch = useDispatch();
-  // const setUser = useSetRecoilState(userState);
   const { data: session, update: sessionUpdate } = useSession();
 
   const { values, errors, isLoading, handleChange, handleSubmit, interpretMessage } = useForm<UserPasswordData>({
@@ -35,19 +29,12 @@ const SettingAccount = () => {
           if (res && res.success) {
             clearUserStorage();
 
-            // dispatch(resetUser());
             sessionUpdate({
               _id: "",
               id: "",
               nickname: "",
               profile: "",
             });
-            // setUser({
-            //   _id: "",
-            //   id: "",
-            //   nickname: "",
-            //   profile: "",
-            // });
 
             router.replace("/");
 

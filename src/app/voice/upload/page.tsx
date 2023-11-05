@@ -1,45 +1,34 @@
 "use client";
 
 import React from "react";
-// import { useSelector } from "react-redux";
-// import { useNavigate, useSearchParams } from "react-router-dom";
-// import { RootState } from "@modules/index";
-import useStage from "@hooks/useStage";
+import { useRouter } from "next/navigation";
+import { useSession } from "next-auth/react";
+import { useSearchParams } from "next/navigation";
 
+import Label from "@common/Label";
 import { H1 } from "@common/Heading";
 import { Button } from "@common/button";
-import { Container, ContainerFluid } from "@common/Grid";
 import { Input } from "@components/common/input";
-import Label from "@common/Label";
 import { UploadLayout } from "@components/layout";
 import AudioWave from "@components/audio/AudioWave";
 import { UploadCard } from "@components/common/card";
+import { Container, ContainerFluid } from "@common/Grid";
 import { FormGroup } from "@components/common/form/Form";
 import Selector, { OptionType } from "@common/input/Selector";
 import DragDropFile from "@components/common/input/DragDropFile";
-import { VoiceInfo } from "@type/voice";
-import { postVoice } from "@apis/api/voice";
 import ScriptBlock from "@components/script/ScriptBlock";
 import ScriptTextarea from "@/components/common/textarea/ScriptTextarea";
+
+import useStage from "@hooks/useStage";
+import { postVoice } from "@apis/api/voice";
 import { getScript, postScript } from "@apis/api/script";
-import { useRouter } from "next/navigation";
-import { useRecoilValue } from "recoil";
-// import { userState } from "@/recoil/user/atom";
-import { useSearchParams } from "next/navigation";
-import { useSession } from "next-auth/react";
+import { VoiceInfo } from "@type/voice";
 
 const VoiceUpload = () => {
   const router = useRouter();
-  // const user = useRecoilValue(userState);
   const { data: session } = useSession();
-  // const user = useSelector((state: RootState) => state.users);
   const searchParams = useSearchParams();
   const script: string | null = searchParams.get("script");
-
-  // if (!session?.user || !session?.user.id) {
-  //   router.replace("/auth/login");
-  //   return;
-  // }
 
   const [voiceData, setVoiceData] = React.useState<VoiceInfo>({
     id: "",
@@ -131,7 +120,7 @@ const VoiceUpload = () => {
                       audioSrc={"https://www.mfiles.co.uk/mp3-downloads/franz-schubert-standchen-serenade.mp3"}
                       info={{
                         ...voiceData,
-                        ownerName: session?.user.nickname || '',
+                        ownerName: session?.user.nickname || "",
                       }}
                       $darkmode={true}
                     />

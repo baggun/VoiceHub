@@ -1,122 +1,30 @@
-// "use client";
-
 import React from "react";
-import styled, { css } from "styled-components";
-// import { Link, useParams, useSearchParams } from "react-router-dom";
+import { notFound } from "next/navigation";
 
-import { MainLayout } from "@components/layout";
-import { Container, ContainerFluid } from "@common/Grid";
 import Profile from "@components/profile";
-import Post from "@components/community/Post";
+import { MainLayout } from "@components/layout";
 import UserInfo from "@components/user/UserInfo";
-import ScriptCard from "@components/script/ScriptCard";
-import FollowButton from "@common/button/FollowButton";
-import ProfileCard from "@components/profile/ProfileCard";
-import { AudioFileBar } from "@components/audio/AudioFile";
+import UserWorks from "@/components/user/UserWorks";
+import { Container, ContainerFluid } from "@common/Grid";
 import UserFollowTable from "@components/user/UserFollowTable";
 
-import { PostType } from "@type/post";
-import { VoiceInfo } from "@type/voice";
-import { ScriptType } from "@type/scripts";
-
-import {
-  getUser,
-  getUserFollowers,
-  getUserFollowings,
-  getUserLikePosts,
-  getUserLikeScripts,
-  getUserLikeVoices,
-  getUserPosts,
-  getUserVoices,
-} from "@apis/api/users";
-import { getVoicesProcess } from "@apis/services/voice";
-import { getScriptsProcess } from "@apis/services/script";
-import { getPostsProcess } from "@apis/services/post";
-import { UserData, UserProfileData } from "@type/user";
-import { TabObjType } from "@type/tab";
-import { getUsersProcess } from "@apis/services/user";
-import { GetServerSideProps } from "next";
-import { useSearchParams } from "next/navigation";
-import Link from "next/link";
+import { getUser } from "@apis/api/users";
+import { UserProfileData } from "@type/user";
 
 import { ProfileBG, ProfileContents, ProfileName, ProfileInfo } from "./page.styled";
-import UserWorks from "@/components/user/UserWorks";
 
 interface PageProps {
   user_id: string;
 }
-// export const getServerSideProps: GetServerSideProps<PageProps> = async ({
-//   params,
-// }) => {
-//   const user_id = params?.user_id as string;
-//   return {
-//     props: { user_id },
-//   };
-// };
 
 const User = async ({ params, searchParams }: { params: PageProps; searchParams: { tab: string } }) => {
   const { user_id } = params;
-  //   const { user_id } = useParams();
-  // const searchParams = useSearchParams();
   const tab: string = searchParams.tab || "voices";
 
   const res = await getUser(user_id);
+  if (!res.ok) return notFound();
   const profileData: UserProfileData = res.user;
-
   const associatedTags: string[] = [];
-  // const [profileData, setProfileData] = React.useState<UserProfileData>({
-  //   user_desc: "",
-  //   isFollowed: false,
-  //   user_email: "",
-  //   user_id: "",
-  //   user_nickname: "",
-  //   user_profile: "",
-  //   followers: 0,
-  //   followings: 0,
-  // });
-
-  // const [associatedTags, setAssociatedTags] = React.useState<string[]>([]);
-
-  // const [followers, setFollowers] = React.useState<UserData[]>([]);
-
-  // const refreshTabData = async () => {
-  //   if (!user_id) return;
-
-  //   const curTab = tab || "voices";
-  //   if (!Object.keys(tabList).includes(curTab)) {
-  //     await (curTab === "followers"
-  //       ? getUserFollowers(user_id)
-  //       : getUserFollowings(user_id)
-  //     )
-  //       .then((res) => getUsersProcess(res.data))
-  //       .then((res) => setFollowers(res));
-  //     return;
-  //   }
-
-  //   tabList[curTab].api(user_id);
-  // };
-
-  // const initUserData = async () => {
-  //   if (!user_id) return;
-  //   const res = await getUser(user_id);
-  //   setProfileData(res.user);
-  // };
-
-  // const followerCntHandler = (isFollowed: boolean) => {
-  //   setProfileData({
-  //     ...profileData,
-  //     isFollowed,
-  //     followers: profileData.followers + (isFollowed ? 1 : -1),
-  //   });
-  // };
-
-  // React.useEffect(() => {
-  //   initUserData();
-  // }, []);
-
-  // React.useEffect(() => {
-  //   refreshTabData();
-  // }, [tab, user_id]);
 
   return (
     <MainLayout>

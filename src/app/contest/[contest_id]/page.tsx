@@ -1,18 +1,16 @@
 import React from "react";
-// import { Link, useNavigate, useParams } from "react-router-dom";
-import styled, { css } from "styled-components";
-import Label from "@common/Label";
-import { Badge } from "@common/badge";
-import { DefaultLayout } from "@components/layout";
-import { dateFormat } from "@utils/format";
-import { ContestData } from "@type/contest";
-import ContestThumbnail from "@components/contest/ContestThumbnail";
-import { isDeadline, remainingDeadline, calculateRemainingDeadline } from "@utils/deadline";
-import ContestDeadline from "@components/contest/ContestDeadline";
+import { notFound } from "next/navigation";
+
 import { Button } from "@common/button";
+import { DefaultLayout } from "@components/layout";
+import ContestThumbnail from "@components/contest/ContestThumbnail";
+import ContestDeadline from "@components/contest/ContestDeadline";
+
 import { getContest } from "@apis/api/contest";
 import { getContestProcess } from "@apis/services/contest";
-import { useRouter } from "next/navigation";
+import { dateFormat } from "@utils/format";
+import { isDeadline, calculateRemainingDeadline } from "@utils/deadline";
+
 import {
   ContestCard,
   ContestContent,
@@ -28,36 +26,13 @@ import {
 interface PageProps {
   contest_id: string;
 }
-// export const getServerSideProps: GetServerSideProps<PageProps> = async ({
-//   params,
-// }) => {
-//   const contest_id = params?.contest_id as string;
-//   return {
-//     props: { contest_id },
-//   };
-// };
 const Contest = async ({ params }: { params: PageProps }) => {
-  // const Contest = async ({ contest_id }: PageProps) => {
   const { contest_id } = params;
 
-  // const router = useRouter();
-
   const res = await getContest(contest_id);
+  if (!res.ok) return notFound();
+
   const contestData = getContestProcess(res.contest);
-
-  // if (!contest_id) {
-  //   wrongContest();
-  //   return;
-  // }
-
-  // const wrongContest = () => {
-  //   if (
-  //     window.confirm(
-  //       "존재하지 않는 공고입니다.\n(올바르지 않는 주소이거나 강제 삭제되었습니다.)"
-  //     )
-  //   )
-  //     router.push("/contest");
-  // };
 
   return (
     <DefaultLayout>

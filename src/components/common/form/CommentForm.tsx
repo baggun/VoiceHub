@@ -2,15 +2,11 @@
 
 import React from "react";
 import styled from "styled-components";
-// import { useNavigate } from "react-router-dom";
+import { useSession } from "next-auth/react";
+import { usePathname, useRouter } from "next/navigation";
+
 import { Button } from "@common/button";
 import { postVoiceComment } from "@apis/api/voice";
-import { usePathname, useRouter } from "next/navigation";
-import { useRecoilValue } from "recoil";
-import { useSession } from "next-auth/react";
-// import { userState } from "@/recoil/user/atom";
-// import { RootState } from "@modules/index";
-// import { useSelector } from "react-redux";
 
 type CommentFormProps = {
   voice_id: string;
@@ -18,11 +14,8 @@ type CommentFormProps = {
 const CommentForm = ({ voice_id }: CommentFormProps) => {
   const pathname = usePathname();
   const router = useRouter();
-  // const navigate = useNavigate();
   const [content, setContent] = React.useState<string>("");
-  // const user = useRecoilValue(userState);
   const { data: session } = useSession();
-  // const id = useSelector((state: RootState) => state.users.id);
 
   const submitHandler = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();

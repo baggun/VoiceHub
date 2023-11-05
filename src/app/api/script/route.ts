@@ -1,26 +1,13 @@
-import dbConnect from "@lib/db/dbConnect";
 import { NextRequest } from "next/server";
+
+import dbConnect from "@lib/db/dbConnect";
 import Script from "@/models/script.model";
-import { getServerSession } from "next-auth";
-import { authOptions } from "@/app/api/auth/[...nextauth]/route";
-import mongoose from "mongoose";
 
 export async function GET(request: NextRequest) {
   const searchParams = request.nextUrl.searchParams;
   const tag: string = searchParams.get("tag") || "";
   const skip: number = parseInt(searchParams.get("skip") as string) || 0;
   const limit: number = parseInt(searchParams.get("limit") as string) || 10;
-
-  // const session = await getServerSession(authOptions);
-  // console.log("usss ossd", session);
-  // let user_oid: any = session?.user.oid || "";
-
-  // console.log("usss ossd", user_oid);
-  // user_oid = !mongoose.Types.ObjectId.isValid(user_oid)
-  //   ? null
-  //   : new mongoose.Types.ObjectId(user_oid);
-
-  // console.log("usss od", user_oid);
 
   let query: any = {};
   if (tag) {

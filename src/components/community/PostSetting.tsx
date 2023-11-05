@@ -1,14 +1,12 @@
 "use client";
 
 import Link from "next/link";
-import { useRouter } from "next/navigation";
-import { useRecoilValue } from "recoil";
 import { styled } from "styled-components";
-// import { userState } from "@/recoil/user/atom";
+import { useRouter } from "next/navigation";
+import { useSession } from "next-auth/react";
 
 import { deletePost } from "@/apis/api/post";
 import { PostType } from "@/types/post";
-import { useSession } from "next-auth/react";
 
 type PostSettingProps = {
   post: PostType;
@@ -17,10 +15,9 @@ type PostSettingProps = {
 
 const PostSetting = ({ post, post_id }: PostSettingProps) => {
   const router = useRouter();
-  // const user = useRecoilValue(userState);
   const { data: session } = useSession();
 
-  if (!session || !session.user.id) return <></>
+  if (!session || !session.user.id) return <></>;
 
   const handleDeletePost = async (e: React.MouseEvent<HTMLButtonElement>) => {
     e.preventDefault();

@@ -1,18 +1,16 @@
 "use client";
 
-import { useEffect, useRef, useState } from "react";
-// import { shallowEqual, useDispatch, useSelector } from "react-redux";
 import styled from "styled-components";
-import WaveSurfer from "wavesurfer.js";
-// import CursorPlugin from "wavesurfer.js/src/plugin/cursor";
-// import { RootState } from "@modules/index";
-// import { changeAudio, setPlay, setTime, setWaveRef } from "@modules/audio";
-import { IconPlayerPauseFilled, IconPlayerPlayFilled } from "@tabler/icons-react";
-import { timeFormat } from "@utils/format";
-import PlayButton from "@components/common/button/PlayButton";
-import { AudioInfo } from "@type/voice";
+import { useEffect, useRef, useState } from "react";
 import { useRecoilState, useSetRecoilState } from "recoil";
 import { audioCurTimeState, audioInfoState, audioPlayState, audioState } from "@/recoil/audio/atom";
+
+import WaveSurfer from "wavesurfer.js";
+import PlayButton from "@components/common/button/PlayButton";
+import { IconPlayerPauseFilled, IconPlayerPlayFilled } from "@tabler/icons-react";
+
+import { timeFormat } from "@utils/format";
+import { AudioInfo } from "@type/voice";
 
 export default function AudioWave({
   audioSrc,
@@ -27,15 +25,6 @@ export default function AudioWave({
   const [audioPlay, setAudioPlay] = useRecoilState(audioPlayState);
   const setAudioInfo = useSetRecoilState(audioInfoState);
   const setAudioCurTime = useSetRecoilState(audioCurTimeState);
-  // const dispatch = useDispatch();
-  // const { audio.audio, audio.isPlay, audio.isControlWave } = useSelector(
-  //     (state: RootState) => ({
-  //         audio.audio: state.audio.audio,
-  //         audio.isPlay: state.audio.isPlay,
-  //         audio.isControlWave: state.audio.audio.isControlWave,
-  //     }),
-  //     shallowEqual
-  // );
 
   const wavesurfer = useRef<any>(null);
   const waveformRef = useRef<any>(null);
@@ -46,12 +35,6 @@ export default function AudioWave({
   const setTime = (t: number) => {
     if (!t) return;
     setAudioCurTime(t);
-    // setAudio((prev) => {
-    //   return {
-    //     ...prev,
-    //     currentTime: t,
-    //   };
-    // });
   };
 
   const changeAudio = (src: string, info: AudioInfo, isWave: boolean = false) => {
@@ -126,35 +109,20 @@ export default function AudioWave({
         //   플레이 시간 조정
         wavesurfer.current.on("seek", (e: any) => {
           setTime(e * wavesurfer.current.getDuration());
-          // dispatch(setTime(e * wavesurfer.current.getDuration()));
         });
         // 현재 시간 조정
         wavesurfer.current.on("audioprocess", function () {
           setCurrentTime(wavesurfer.current.getCurrentTime());
           setTime(wavesurfer.current.getCurrentTime());
-          // dispatch(setTime(wavesurfer.current.getCurrentTime()));
         });
         // 오디오 로드 완료시
         wavesurfer.current.on("ready", function () {
           setDuraion(wavesurfer.current.getDuration());
 
-          // console.log("READY");
-          // console.log(wavesurfer.current);
-          // console.log(wavesurfer.current.getCurrentTime());
-          // setAudio({
-          //   ...audio,
-          // //   waveRef: wavesurfer.current,
-          //   currentTime: wavesurfer.current.getCurrentTime(),
-          //   duration: wavesurfer.current.getDuration()
-          // });
           setAudioCurTime(wavesurfer.current.getCurrentTime());
-          // setAudioDuration(wavesurfer.current.getDuration());
-          // console.log('DDDDDDDDDDDDDDD",', wave)
-          // dispatch(setWaveRef(wavesurfer.current));
         });
         // 오디오 재생 끝
         wavesurfer.current.on("finish", function () {
-          // dispatch(setPlay(false));
           setPlay(false);
         });
       }
@@ -177,10 +145,8 @@ export default function AudioWave({
     console.log("1111111", audio.audio, "222222", audioSrc);
     if (audio.audio !== audioSrc) {
       changeAudio(audioSrc, info, true);
-      //   dispatch(changeAudio(audioSrc, info, true));
     } else {
       setPlay(!audioPlay, true);
-      // dispatch(setPlay(!audio.isPlay, true));
     }
   };
 

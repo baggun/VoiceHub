@@ -1,8 +1,10 @@
 import React from "react";
 import Link from "next/link";
+import { notFound } from "next/navigation";
 
 import Tag from "@/components/common/tag";
 import Profile from "@components/profile";
+import Like from "@/components/common/like";
 import { RecommendH2 } from "@common/Heading";
 import { MainLayout } from "@components/layout";
 import CommentForm from "@common/form/CommentForm";
@@ -12,7 +14,6 @@ import { AudioFileBar } from "@components/audio/AudioFile";
 import ProfileInfo from "@components/profile/ProfileInfo";
 import ScriptBlock from "@components/script/ScriptBlock";
 import ProfileCard from "@components/profile/ProfileCard";
-import Like from "@/components/common/like";
 
 import { getVoice } from "@apis/api/voice";
 import { getUsersProcess } from "@apis/services/user";
@@ -35,6 +36,8 @@ const Voice = async ({ params }: { params: PageProps }) => {
   const { user_id, voice_title } = params;
 
   const res = await getVoice(user_id, voice_title);
+
+  if (!res.ok) return notFound();
 
   const voiceData: VoiceInfo = getVoiceProcess(res.data);
   const comments: CommentType[] = getCommentProcess(res.data.comments);
@@ -156,32 +159,3 @@ const Voice = async ({ params }: { params: PageProps }) => {
 };
 
 export default Voice;
-
-// const VoiceTitle = styled.h1`
-//   margin-bottom: 1rem;
-// `;
-// const VoiceBG = styled.div`
-//   position: relative;
-//   width: 100%;
-//   background-color: ${({ theme }) => theme.colors.dark_bg};
-//   padding: 3rem 0rem;
-//   .audio-info {
-//     display: flex;
-//     flex-direction: column;
-//     justify-content: space-between;
-//     color: white;
-//     ${({ theme }) => theme.devices.max_tablet} {
-//       height: 350px;
-//       margin-bottom: 2rem;
-//     }
-//   }
-// `;
-// const VoiceFooter = styled.div`
-//   min-height: 1.5rem;
-// `;
-// const Commet = styled.div`
-//   display: flex;
-//   -webkit-box-align: center;
-//   align-items: center;
-//   margin: 1rem 0rem;
-// `;

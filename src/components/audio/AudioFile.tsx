@@ -1,15 +1,12 @@
 "use client";
 
+import Link from "next/link";
 import styled, { css } from "styled-components";
-// import { Link } from "react-router-dom";
-// import { useDispatch, useSelector, shallowEqual } from "react-redux";
-// import { RootState } from "@modules/index";
-// import { changeAudio, setPlay } from "@modules/audio";
-import { IconPlayerPauseFilled, IconPlayerPlayFilled } from "@tabler/icons-react";
-import { AudioInfo } from "@type/voice";
 import { useRecoilState, useSetRecoilState } from "recoil";
 import { audioCurTimeState, audioInfoState, audioPlayState, audioState } from "@/recoil/audio/atom";
-import Link from "next/link";
+
+import { IconPlayerPauseFilled, IconPlayerPlayFilled } from "@tabler/icons-react";
+import { AudioInfo } from "@type/voice";
 
 type AudioFileType = {
   audioSrc: string;
@@ -21,22 +18,9 @@ export const AudioFileButton = ({ audioSrc, info, $darkmode = false }: AudioFile
   const [play, setPlay] = useRecoilState(audioPlayState);
   const setAudioInfo = useSetRecoilState(audioInfoState);
   const setAudioCurTime = useSetRecoilState(audioCurTimeState);
-  //   const [user, setUser] = useRecoilState(userState);
-
-  // const dispatch = useDispatch();
-  // const { audio.audio, audio.isPlay } = useSelector(
-  //     (state: RootState) => ({
-  //         audio.audio: state.audio.audio,
-  //         audio.isPlay: state.audio.isPlay,
-  //     }),
-  //     shallowEqual
-  // );
 
   const onClickHandler = () => {
-    // console.log(play);
-
     if (audio.audio !== audioSrc) {
-      // console.log(audioSrc, audio.audio);
       setAudio(prev => {
         return {
           ...prev,
@@ -50,18 +34,8 @@ export const AudioFileButton = ({ audioSrc, info, $darkmode = false }: AudioFile
       setAudioInfo({ ...curInfo });
       setPlay(true);
       setAudioCurTime(0);
-      //   dispatch(changeAudio(audioSrc, info));
     } else {
-      // console.log('1111111111');
-      // setAudio((prev) => {
-      //   return {
-      //     ...prev,
-      //     // isPlay: !audio.isPlay,
-      //     isControlWave: prev.isControlWave,
-      //   };
-      // });
       setPlay(!play);
-      // dispatch(setPlay(!audio.isPlay));
     }
   };
 

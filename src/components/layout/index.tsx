@@ -1,21 +1,19 @@
 "use client";
 
+import Image from "next/image";
+import styled from "styled-components";
+import { useRouter } from "next/navigation"; 
 import React, { CSSProperties } from "react";
+import { useSession } from "next-auth/react";
+
 import Header from "./Header";
 import Footer from "./Footer";
-
-import { Container, MobileWrapper, MobileContainer } from "../common/Grid";
-import { AuthCard } from "../common/card";
-import { isLoggedIn } from "@/utils/storage";
-import { useRouter } from "next/navigation";
-import { useRecoilValue } from "recoil";
-// import { userState } from "@/recoil/user/atom";
+import { AuthCard } from "../common/card"; 
 import LogoButton from "../common/button/LogoButton";
+import { Container, MobileWrapper, MobileContainer } from "../common/Grid";
+
 import auth_bg from "/public/img/auth_bg.png";
 import auth_bg_2 from "/public/img/auth_bg_2.png";
-import styled from "styled-components";
-import Image from "next/image";
-import { useSession } from "next-auth/react";
 
 export const DefaultLayout = ({ children, className }: { children: React.ReactNode; className?: string }) => {
   return (
@@ -39,7 +37,6 @@ export const MainLayout = ({ children }: { children: React.ReactNode }) => {
 
 export const LoginLayout = ({ children }: { children: React.ReactNode }) => {
   const router = useRouter();
-  // const user = useRecoilValue(userState);
   const { data: session } = useSession();
 
   const logoStyle: CSSProperties = {
@@ -52,13 +49,6 @@ export const LoginLayout = ({ children }: { children: React.ReactNode }) => {
   if (session && session.user.id) {
     router.back();
   }
-
-  // React.useEffect(() => {
-  //   // if (session && session.user.id && isLoggedIn()) {
-  //   if (session && session.user.id) {
-  //     router.back();
-  //   }
-  // }, []);
 
   return (
     <MobileWrapper>

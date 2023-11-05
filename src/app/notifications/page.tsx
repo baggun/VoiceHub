@@ -1,10 +1,9 @@
 "use client";
 
-import React from "react";
-// import { useSelector } from "react-redux";
-// import { RootState } from "@modules/index";
-import styled, { css } from "styled-components";
-// import { Link, useNavigate } from "react-router-dom";
+import React from "react"; 
+import { useRouter } from "next/navigation"; 
+import { useSession } from "next-auth/react"; 
+import styled, { css } from "styled-components"; 
 
 import { Card } from "@common/card";
 import { Button } from "@common/button";
@@ -12,13 +11,10 @@ import Issue from "@components/notice/Issue";
 import Checkbox from "@common/input/Checkbox";
 import { DefaultLayout } from "@components/layout";
 import { IconCategory, IconHeadset, IconQuote, IconTrash, IconUser } from "@tabler/icons-react";
-import { IssueFilterType, IssueType } from "@type/issue";
-import { deleteNotification, getNotifications } from "@apis/api/notification";
+
 import { getNotificationsProcess } from "@apis/services/notification";
-import { useRouter } from "next/navigation";
-import { useRecoilValue } from "recoil";
-import { useSession } from "next-auth/react";
-// import { userState } from "@/recoil/user/atom";
+import { deleteNotification, getNotifications } from "@apis/api/notification";
+import { IssueFilterType, IssueType } from "@type/issue";
 
 type FilterMenuType = {
   name: string;
@@ -51,14 +47,7 @@ const filterMenus: FilterMenuType[] = [
 
 const Notification = () => {
   const router = useRouter();
-  // const user = useRecoilValue(userState);
   const { data: session } = useSession();
-  // const user = useSelector((state: RootState) => state.users);
-
-  // if (!session  || !session.user.id) {
-  //   router.replace("/auth/login");
-  //   return;
-  // }
 
   const [issues, setIssues] = React.useState<IssueType[]>([]);
   const [filterType, setFilterType] = React.useState<IssueFilterType[]>(filterMenus[0].type);
@@ -73,11 +62,6 @@ const Notification = () => {
   };
 
   React.useEffect(() => {
-    // if (!user.id) {
-    //   router.push("/auth/login");
-    //   return;
-    // }
-
     initNotifications();
   }, []);
 

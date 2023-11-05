@@ -2,37 +2,14 @@
 
 import React, { useRef } from "react";
 import styled from "styled-components";
-// import { useDispatch, useSelector, shallowEqual } from "react-redux";
-// import { RootState } from "@modules/index";
-// import { setDuration, setPlay, setTime } from "@modules/audio";
-import { timeFormat } from "@utils/format";
-import { audioCurTimeState, audioDurationState, audioPlayState, audioState } from "@/recoil/audio/atom";
 import { useRecoilState, useRecoilValue } from "recoil";
+import { audioCurTimeState, audioDurationState, audioPlayState, audioState } from "@/recoil/audio/atom";
+
+import { timeFormat } from "@utils/format";
 
 const ProgressBar = () => {
   const _audio = useRef<HTMLAudioElement | undefined>(typeof Audio !== "undefined" ? new Audio("") : undefined);
 
-  // const {
-  //     audioAudio,
-  //     audioRef,
-  //     audioWaveRef,
-  //     audioIsPlay,
-  //     isControlWave,
-  //     currentTime,
-  //     duration,
-  // } = useSelector(
-  //     (state: RootState) => ({
-  //         audioAudio: state.audio.audio,
-  //         audioRef: state._audio.current,
-  //         audioWaveRef: state.audio.waveRef,
-  //         audioIsPlay: state.audio.isPlay,
-  //         isControlWave: state.audio.isControlWave,
-  //         currentTime: state.audioCurTime,
-  //         duration: state.audioDuration,
-  //     }),
-  //     shallowEqual
-  // );
-  // const dispatch = useDispatch();
   const audio = useRecoilValue(audioState);
   const inputRef = React.useRef<any>(null);
   const [play, setPlay] = useRecoilState(audioPlayState);
@@ -60,13 +37,7 @@ const ProgressBar = () => {
       setPlay(false);
     };
     const loadedData = () => {
-      if (_audio.current)
-        // setAudio({
-        //     ...audio,
-        //     duration: _audio.current.duration
-        // })
-        setAudioDuration(_audio.current?.duration);
-      // dispatch(setDuration(_audio.current.duration));
+      if (_audio.current) setAudioDuration(_audio.current?.duration);
     };
     const timeUpdate = () => {
       if (!_audio.current) return;
@@ -76,10 +47,6 @@ const ProgressBar = () => {
       const per = (_audio.current?.currentTime / _audio.current?.duration) * 100;
 
       drawProgress(per);
-      //     setAudio({
-      // ...audio, currentTime: _audio.current.currentTime})
-      // dispatch(setTime(_audio.current.currentTime));
-      // drawProgress((audioRef.currentTime / audioRef.duration) * 100);
     };
 
     if (_audio.current) {
@@ -95,12 +62,6 @@ const ProgressBar = () => {
       _audio.current.removeEventListener("loadeddata", loadedData);
     };
   }, [_audio.current]);
-
-  // React.useEffect(() => {
-  //   const per = (audioCurTime / audioDuration) * 100;
-
-  //   drawProgress(per);
-  // }, [audioCurTime, audioDuration]);
 
   const handleProgressChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     if (_audio.current) _audio.current.currentTime = +e.target.value;

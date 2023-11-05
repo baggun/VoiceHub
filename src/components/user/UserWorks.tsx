@@ -1,24 +1,21 @@
 // "use client";
 
 import React from "react";
-import Link from "next/link";
-import styled, { css } from "styled-components";
 
+import Post from "../community/Post";
+import ScriptCard from "../script/ScriptCard";
+import { AudioFileBar } from "../audio/AudioFile";
 import ProfileCard from "@components/profile/ProfileCard";
 
 import { getPostsProcess } from "@/apis/services/post";
 import { getScriptsProcess } from "@/apis/services/script";
 import { getVoicesProcess } from "@/apis/services/voice";
 import { getUserLikePosts, getUserLikeScripts, getUserLikeVoices, getUserPosts, getUserVoices } from "@/apis/api/users";
-
+import { UserData } from "@/types/user";
 import { PostType } from "@/types/post";
 import { TabObjType } from "@/types/tab";
 import { VoiceInfo } from "@/types/voice";
 import { ScriptType } from "@/types/scripts";
-import { AudioFileBar } from "../audio/AudioFile";
-import ScriptCard from "../script/ScriptCard";
-import Post from "../community/Post";
-import { UserData } from "@/types/user";
 
 import { ProfileNavCollapse, ProfileNavLink } from "./UserWorks.styled";
 
@@ -32,10 +29,6 @@ const UserWorks = async ({ user_id, tab }: UserWorksProps) => {
   let tracks!: VoiceInfo[];
   let scripts!: ScriptType[];
   let followers!: UserData[];
-  //   const [posts, setPosts] = React.useState<PostType[]>([]);
-  //   const [tracks, setTracks] = React.useState<VoiceInfo[]>([]);
-  //   const [scripts, setScripts] = React.useState<ScriptType[]>([]);
-  //   const [followers, setFollowers] = React.useState<UserData[]>([]);
 
   const tabList: TabObjType = {
     voices: {
@@ -44,7 +37,6 @@ const UserWorks = async ({ user_id, tab }: UserWorksProps) => {
       api: async (user_id: string) => {
         await getUserVoices(user_id)
           .then(res => getVoicesProcess(res.data))
-          //   .then((res) => setTracks(res));
           .then(res => {
             tracks = res;
           });
@@ -59,7 +51,6 @@ const UserWorks = async ({ user_id, tab }: UserWorksProps) => {
           .then(res => {
             posts = res;
           });
-        //   .then((res) => setPosts(res));
       },
     },
     like_scripts: {
@@ -68,7 +59,6 @@ const UserWorks = async ({ user_id, tab }: UserWorksProps) => {
       api: async (user_id: string) => {
         await getUserLikeScripts(user_id)
           .then(res => getScriptsProcess(res.data))
-          //   .then((res) => setScripts(res));
           .then(res => (scripts = res));
       },
     },
@@ -78,7 +68,6 @@ const UserWorks = async ({ user_id, tab }: UserWorksProps) => {
       api: async (user_id: string) => {
         await getUserLikeVoices(user_id)
           .then(res => getVoicesProcess(res.data))
-          //   .then((res) => setTracks(res));
           .then(res => {
             tracks = res;
           });
@@ -90,7 +79,6 @@ const UserWorks = async ({ user_id, tab }: UserWorksProps) => {
       api: async (user_id: string) => {
         await getUserLikePosts(user_id)
           .then(res => getPostsProcess(res.data))
-          //   .then((res) => setPosts(res));
           .then(res => (posts = res));
       },
     },

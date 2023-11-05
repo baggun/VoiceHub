@@ -24,8 +24,8 @@ export const getContestList = async (skip: number = 0, limit: number = 0) => {
 export const getContest = async (contest_id: string) => {
   try {
     const res = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/contest/${contest_id}`);
-    if (!res.ok) throw new Error("Failed to fetch data");
-    return res.json();
+    const data = await res.json();
+    return { ok: res.ok, ...data };
   } catch (err) {
     throw ErrorMsg(err);
   }

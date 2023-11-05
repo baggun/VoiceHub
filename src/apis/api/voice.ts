@@ -1,5 +1,4 @@
 import { ErrorMsg } from "@apis/utils/error";
-// import { headers } from "next/headers";
 
 /**
  * 목소리 목록 가져오기
@@ -12,7 +11,7 @@ export const getVoices = async (tag: string = "", skip: number = 0, limit: numbe
   try {
     const res = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/voice?tag=${tag}&skip=${skip}&limit=${limit}`);
     if (!res.ok) throw new Error("Failed to fetch data");
-    return res.json();
+    return await res.json();
   } catch (err) {
     throw ErrorMsg(err);
   }
@@ -27,8 +26,8 @@ export const getVoices = async (tag: string = "", skip: number = 0, limit: numbe
 export const getVoice = async (user_id: string, title: string) => {
   try {
     const res = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/voice/${user_id}/${title}`);
-    if (!res.ok) throw new Error("Failed to fetch data");
-    return res.json();
+    const data = await res.json();
+    return { ok: res.ok, ...data };
   } catch (err) {
     throw ErrorMsg(err);
   }

@@ -2,27 +2,19 @@
 
 import React from "react";
 import styled, { css } from "styled-components";
-// import { useSelector, useDispatch } from "react-redux";
-// import { Link, useNavigate } from "react-router-dom";
 
-// import { RootState } from "@modules/index";
-import { Container } from "@common/Grid";
-import { NavBar, NavBarCollapse, NavBarNavLink, NavBarNav, NavLinkItemStyled } from "@components/common/navbar";
 import Search from "@components/search";
-import { IconSearch } from "@tabler/icons-react";
+import { Container } from "@common/Grid";
 import { ModalBackground } from "@common/modal";
-import NavBarLogged from "../common/navbar/NavBarLogged";
+import NavBarLogged from "@common/navbar/NavBarLogged";
+import { NavBar, NavBarCollapse, NavBarNavLink, NavBarNav, NavLinkItemStyled } from "@components/common/navbar";
+import { IconSearch } from "@tabler/icons-react";
 
 type HeaderProps = {
   hideNavItems?: boolean;
 };
 
-const Header = ({ hideNavItems }: HeaderProps) => {
-  // const router = useRouter();
-  // const user = useRecoilValue(userState);
-  // const navigate = useNavigate();
-  // const dispatch = useDispatch();
-  // const user_id = useSelector((state: RootState) => state.users.id);
+const Header = ({ hideNavItems }: HeaderProps) => { 
   const [openSearchModal, setOpenSearchModal] = React.useState<boolean>(false);
   const menus = [
     {

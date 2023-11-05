@@ -10,17 +10,6 @@ const ContestList = async () => {
   const res = await getContestList();
   const contestList: ContestData[] = getContestListProcess(res.contests);
 
-  // const [contestList, setContestList] = React.useState<ContestData[]>([]);
-
-  // const initContestList = async () => {
-  //     await getContestList()
-  //         .then((res) => setContestList(getContestListProcess(res.contests)))
-  // }
-
-  // React.useEffect(() => {
-  //     initContestList();
-  // }, []);
-
   return (
     <DefaultLayout>
       <div className="row">

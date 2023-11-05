@@ -1,20 +1,18 @@
 "use client";
 
+import React from "react";
 import Link from "next/link";
+import { useSession } from "next-auth/react";
+import { usePathname } from "next/navigation";
 import { css, styled } from "styled-components";
+
 import { NavBarNavLink } from ".";
 import ProfileNav from "@/components/profile/ProfileNav";
 import { IconBell, IconPlus } from "@tabler/icons-react";
-import { useRecoilValue } from "recoil";
-// import { userState } from "@/recoil/user/atom";
-import { usePathname } from "next/navigation";
-import React from "react";
-import { useSession } from "next-auth/react";
 
 const NavBarLogged = () => {
   const pathname = usePathname();
   const { data: session } = useSession();
-  // const user = useRecoilValue(userState);
   const [mounted, setMounted] = React.useState<boolean>(false);
 
   React.useEffect(() => {
@@ -25,7 +23,6 @@ const NavBarLogged = () => {
 
   return (
     <>
-      {/* {user && user.id !== "" ? ( */}
       {session && session.user ? (
         <>
           <ActLink href="/notifications">

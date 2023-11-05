@@ -67,8 +67,8 @@ export const register = async (userData: UserRegisterData) => {
 export const getUser = async (user_id: string) => {
   try {
     const res = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/user/${user_id}`);
-    if (!res.ok) throw new Error("Failed to fetch data");
-    return res.json();
+    const data = await res.json();
+    return { ok: res.ok, ...data };
   } catch (err) {
     throw ErrorMsg(err);
   }

@@ -2,9 +2,7 @@
 
 import React from "react";
 import styled from "styled-components";
-import { useRecoilValue } from "recoil";
 import { useRouter } from "next/navigation";
-// import { userState } from "@/recoil/user/atom";
 import { IconHeart, IconHeartFilled } from "@tabler/icons-react";
 import { UserData } from "@/types/user";
 import { Button, CustomButtonProps } from "../button";
@@ -47,7 +45,6 @@ const Type = (type: string) => {
 
 const Like = ({ target_id, likers, type }: LikeProps) => {
   const router = useRouter();
-  // const user = useRecoilValue(userState);
   const { data: session } = useSession();
 
   const [curLikers, setLikers] = React.useState<number>(likers.length);

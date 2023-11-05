@@ -9,8 +9,6 @@ type UserFollowTableProps = {
 };
 
 const UserFollowTable = ({ tab, followers, followings }: UserFollowTableProps) => {
-  // const searchParams = useSearchParams();
-  // const tab: string | null = searchParams.get("tab");
   const tables: TabType[] = [
     {
       tab: "followers",

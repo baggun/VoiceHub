@@ -2,30 +2,23 @@
 
 import React from "react";
 import styled from "styled-components";
-// import { useSelector } from "react-redux";
-// import { RootState } from "@modules/index";
-// import { Link, useNavigate } from "react-router-dom";
+import { useRouter } from "next/navigation";
+import { useSession } from "next-auth/react";
 
+import Label from "@common/Label";
 import { Button } from "@common/button";
 import Textarea from "@common/textarea";
 import Select from "@common/input/Select";
 import { FormGroup } from "@common/form/Form";
-import Label from "@common/Label";
 import { Input } from "@components/common/input";
 import { DefaultLayout } from "@components/layout";
 import Selector, { OptionType } from "@common/input/Selector";
 
 import { postPost } from "@apis/api/post";
 import { _CATEGORY_DATA_ } from "@data/category";
-import { useRouter } from "next/navigation";
-import { useRecoilValue } from "recoil";
-import { useSession } from "next-auth/react";
-// import { userState } from "@/recoil/user/atom";
 
 const CommunityWrite = () => {
   const router = useRouter();
-  // const user = useSelector((state: RootState) => state.users);
-  // const user = useRecoilValue(userState);
   const { data: session } = useSession();
   const [selectorValue, setSelectorValue] = React.useState<readonly OptionType[]>([]);
   const [title, setTitle] = React.useState<string>("");

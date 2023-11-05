@@ -1,34 +1,20 @@
-import { audioState, audioVolumeState } from "@/recoil/audio/atom";
-import { useRecoilState } from "recoil";
 import styled from "styled-components";
-// import { shallowEqual, useDispatch, useSelector } from "react-redux";
-// import { RootState } from "@modules/index";
-// import { changeVolume } from "@modules/audio";
+import { useRecoilValue, useRecoilState } from "recoil";
+import { audioState, audioVolumeState } from "@/recoil/audio/atom";
 
 const Volume = () => {
-  const [audio, setAudio] = useRecoilState(audioState);
+  const audio = useRecoilValue(audioState);
   const [volume, setVolume] = useRecoilState(audioVolumeState);
-  // const dispatch = useDispatch();
-  // const { audioVolume } = useSelector(
-  //     (state: RootState) => ({
-  //         audioVolume: state.audio.volume,
-  //     }),
-  //     shallowEqual
-  // );
-
   const onVolumeChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const newVolume = +e.target.value;
 
     if (newVolume) {
       changeVolume(newVolume);
-      // dispatch(changeVolume(newVolume));
     }
   };
 
   const changeVolume = (newVolume: number) => {
     if (audio.waveRef) audio.waveRef.setVolume(newVolume);
-    // if (audio.ref) audio.ref.volume = newVolume;
-    // setAudio({ ...audio, volume: newVolume });
 
     setVolume(newVolume);
   };

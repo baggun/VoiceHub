@@ -3,8 +3,6 @@
 import React from "react";
 import styled from "styled-components";
 import SubmitButton from "../button/SubmitButton";
-import { useRecoilValue } from "recoil";
-// import { userState } from "@/recoil/user/atom";
 import { usePathname, useRouter } from "next/navigation";
 import { postPostComment } from "@/apis/api/post";
 import { useSession } from "next-auth/react";
@@ -16,7 +14,6 @@ type PostCommentForm = {
 const PostCommentForm = ({ post_id }: PostCommentForm) => {
   const router = useRouter();
   const pathname = usePathname();
-  // const user = useRecoilValue(userState);
   const { data: session } = useSession();
   const [commentContent, setCommentContent] = React.useState<string>("");
 

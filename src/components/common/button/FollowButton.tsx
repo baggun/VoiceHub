@@ -1,14 +1,9 @@
 "use client";
 
 import React from "react";
-// import { useSelector } from "react-redux";
-// import { useNavigate } from "react-router-dom";
-// import { RootState } from "@modules/index";
 
 import { setFollow } from "@apis/api/follow";
 import { Button } from ".";
-import { useRecoilState } from "recoil";
-// import { userState } from "@/recoil/user/atom";
 import { usePathname, useRouter } from "next/navigation";
 import { useSession } from "next-auth/react";
 
@@ -21,11 +16,8 @@ type FollowButtonProps = {
   followSuccessEvent?: (e: boolean) => void;
 };
 const FollowButton = ({ target, isFollowed, followSuccessEvent }: FollowButtonProps) => {
-  const pathname = usePathname();
   const router = useRouter();
-  // const navigate = useNavigate();
-  // const user = useSelector((state: RootState) => state.users);
-  // const [user, setUser] = useRecoilState(userState);
+  const pathname = usePathname();
   const { data: session } = useSession();
   const [isFollowing, setFollowing] = React.useState<boolean>(isFollowed);
 

@@ -1,20 +1,24 @@
 import React from "react";
+import Link from "next/link";
+import { notFound } from "next/navigation";
 
+import { PostH1 } from "@common/Heading";
+import { Container } from "@common/Grid";
+import Tag from "@/components/common/tag";
+import Like from "@/components/common/like";
 import { MainLayout } from "@components/layout";
 import { IconArrowNarrowLeft } from "@tabler/icons-react";
 import ProfileInfo from "@components/profile/ProfileInfo";
-import { PostH1 } from "@common/Heading";
-import { Container } from "@common/Grid";
+import PostSetting from "@/components/community/PostSetting";
+import PostCommentForm from "@/components/common/form/PostCommentForm";
+
 import { getPost } from "@apis/api/post";
 import { getPostProcess } from "@apis/services/post";
-import { dateFormat } from "@utils/format";
-import { getCommentProcess } from "@apis/services/comment";
-import { CommentType } from "@type/comment";
-import { UserData } from "@type/user";
 import { getUsersProcess } from "@apis/services/user";
-import Tag from "@/components/common/tag";
-import Link from "next/link";
-
+import { getCommentProcess } from "@apis/services/comment";
+import { UserData } from "@type/user";
+import { dateFormat } from "@utils/format";
+import { CommentType } from "@type/comment";
 import {
   ViewContainer,
   ContentBlock,
@@ -24,50 +28,22 @@ import {
   CommentContentBlock,
   PostFooter,
 } from "./page.styled";
-import Like from "@/components/common/like";
-import PostSetting from "@/components/community/PostSetting";
-import PostCommentForm from "@/components/common/form/PostCommentForm";
 
 interface PageProps {
   post_id: string;
 }
-// export const getServerSideProps: GetServerSideProps<PageProps> = async ({
-//   params,
-// }) => {
-//   const post_id = params?.post_id as string;
-//   return {
-//     props: { post_id },
-//   };
-// };
 
 const View = async ({ params }: { params: PageProps }) => {
   const { post_id } = params;
   const res = await getPost(post_id);
+
+  if (!res.ok) return notFound();
+
   const post = getPostProcess(res.post);
   let comments!: CommentType[];
   let likers!: UserData[];
   if (res.post.comments) comments = getCommentProcess(res.post.comments);
   if (res.likes) likers = getUsersProcess(res.likes);
-
-  // const commentSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
-  //   e.preventDefault();
-
-  //   if (!post_id) return;
-
-  //   if (commentContent === "") return;
-
-  //   if (!user.id) {
-  //     router.push("/auth/login");
-  //     return;
-  //   }
-
-  //   await postPostComment(post_id, {
-  //     user_oid: user.id,
-  //     comment: commentContent,
-  //   });
-
-  //   initPost();
-  // };
 
   return (
     <MainLayout>

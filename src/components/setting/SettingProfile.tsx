@@ -2,9 +2,7 @@
 
 import React from "react";
 import styled from "styled-components";
-import { useRecoilState } from "recoil";
 import { useRouter } from "next/navigation";
-// import { userState } from "@/recoil/user/atom";
 
 import Label from "@common/Label";
 import Textarea from "@common/textarea";
@@ -26,15 +24,6 @@ type SettingProfileData = {
 
 const SettingProfile = () => {
   const router = useRouter();
-  // const navigate = useNavigate();
-  // const dispatch = useDispatch();
-  // const { user_id } = useSelector(
-  //     (state: RootState) => ({
-  //         user_id: state.users.id,
-  //     }),
-  //     shallowEqual
-  // );
-  // const [user, setUser] = useRecoilState(userState);
   const { data: session, update: sessionUpdate } = useSession();
   const fileInputRef = React.useRef<any>(null);
   const [prevProfile, setPrevProfile] = React.useState<SettingProfileData>({
@@ -54,11 +43,6 @@ const SettingProfile = () => {
             ...session?.user,
             nickname: values.nickname,
           });
-          // setUser({
-          //   ...user,
-          //   nickname: values.nickname,
-          // });
-          // dispatch(changeNickname(values.nickname));
           setPrevProfile({ ...values });
           return;
         }

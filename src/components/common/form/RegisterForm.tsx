@@ -1,11 +1,11 @@
 "use client";
 
-import Link from "next/link";
 import { useSearchParams, useRouter } from "next/navigation";
 
 import { AuthForm, ErrorMsg } from "./Form";
 import SubmitButton from "../button/SubmitButton";
 import { AuthInput } from "@components/common/input";
+
 import { RegisterValidation } from "@utils/validate";
 import { UserRegisterData } from "@type/user";
 import useForm from "@hooks/useForm";
@@ -34,14 +34,6 @@ const RegisterForm = () => {
 
           interpretMessage(data);
         }
-
-        // const res = await register(values);
-
-        // if (res.success) {
-        //   router.push("/auth/login");
-        // } else {
-        //   interpretMessage(res);
-        // }
       } catch (err) {
         console.error(err);
       }

@@ -25,8 +25,8 @@ export const getScripts = async (tag: string = "", skip: number = 0, limit: numb
 export const getScript = async (script_oid: string) => {
   try {
     const res = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/script/${script_oid}`);
-    if (!res.ok) throw new Error("Failed to fetch data");
-    return res.json();
+    const data = await res.json();
+    return { ok: res.ok, ...data };
   } catch (err) {
     throw ErrorMsg(err);
   }

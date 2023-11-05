@@ -5,7 +5,6 @@ import Voice from "@models/voice.model";
 import { NextResponse, type NextFetchEvent, type NextRequest } from "next/server";
 import { createEdgeRouter } from "next-connect";
 import { connectDB } from "@/utils/api_middleware";
-// import cors from "cors";
 
 interface RequestContext {
   params: {};
@@ -33,7 +32,7 @@ router.get(async req => {
       .populate({
         path: "author",
         select: ["user_id", "user_nickname"],
-        model:"User"
+        model: "User",
       })
       .sort("createdAt")
       .limit(10)
@@ -56,7 +55,6 @@ router.get(async req => {
       },
     );
   }
-  // return NextResponse.json({ aaa: "aaasa" });
 });
 
 export async function GET(request: NextRequest, ctx: RequestContext) {
