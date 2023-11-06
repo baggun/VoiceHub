@@ -69,7 +69,7 @@ const Voice = async ({ params }: { params: PageProps }) => {
   ];
 
   return (
-    <MainLayout>
+    <>
       <ContainerFluid className="pd-none">
         <VoiceBG>
           <Container>
@@ -154,7 +154,7 @@ const Voice = async ({ params }: { params: PageProps }) => {
           </div>
         </div>
       </Container>
-    </MainLayout>
+    </>
   );
 };
 
