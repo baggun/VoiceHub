@@ -9,7 +9,7 @@ import { ErrorMsg } from "@apis/utils/error";
  */
 export const getPosts = async (tag: string = "", skip: number = 0, limit: number = 0) => {
   try {
-    const res = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/post?tag=${tag}&skip=${skip}&limit=${limit}`);
+    const res = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/post?tag=${tag}&skip=${skip}&limit=${limit}`, { cache: 'no-cache'});
     if (!res.ok) throw new Error("Failed to fetch data");
     return res.json();
   } catch (err) {

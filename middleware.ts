@@ -7,6 +7,7 @@ const secret = process.env.NEXTAUTH_SECRET;
 
 const blockedPaths = ["/auth/login", "/auth/register"];
 const protectedPaths = ["/notifications", "/voice/upload", "/setting"];
+const matcher = ["/auth/login", "/auth/register", "/notifications", "/voice/upload", "/setting"];
 
 export async function middleware(req: NextRequest, event: NextFetchEvent) {
   const session = await getToken({ req, secret, raw: true });
@@ -26,5 +27,5 @@ export async function middleware(req: NextRequest, event: NextFetchEvent) {
 }
 
 export const config = {
-  matcher: [...blockedPaths, ...protectedPaths],
+  matcher,
 };
