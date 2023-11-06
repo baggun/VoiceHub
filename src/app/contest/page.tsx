@@ -6,6 +6,8 @@ import { getContestListProcess } from "@apis/services/contest";
 import { getContestList } from "@apis/api/contest";
 import { ContestData } from "@type/contest";
 
+export const dynamic = "force-dynamic";
+
 const ContestList = async () => {
   const res = await getContestList();
   const contestList: ContestData[] = getContestListProcess(res.contests);

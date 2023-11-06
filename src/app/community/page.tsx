@@ -11,6 +11,8 @@ import { getPostsProcess } from "@apis/services/post";
 
 import { MenuBlock, Menu, MenuIcon, PostHeader, Advertisement } from "./page.styled";
 
+export const dynamic = "force-dynamic";
+
 const Community = async () => {
   const res = await getPosts();
   const posts = getPostsProcess(res.posts); 

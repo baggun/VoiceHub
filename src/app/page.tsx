@@ -9,6 +9,8 @@ import { VoiceInfo } from "@type/voice";
 import { getVoices } from "@apis/api/voice";
 import { getVoicesProcess } from "@apis/services/voice";
 
+export const dynamic = "force-dynamic";
+
 const Home = async () => {
   const res = await getVoices();
   const tracks: VoiceInfo[] = getVoicesProcess(res.data);
