@@ -8,6 +8,7 @@ import { AudioFileButton, AudioFileBar } from "@components/audio/AudioFile";
 import { VoiceInfo } from "@type/voice";
 import { getVoices } from "@apis/api/voice";
 import { getVoicesProcess } from "@apis/services/voice";
+import ImageUpload from "@/components/ImageUpload";
 
 export const dynamic = "force-dynamic";
 
@@ -21,6 +22,7 @@ const Home = async () => {
         <Carousel />
       </ContainerFluid>
       <Container>
+        <ImageUpload/>
         <RecommendH2 $marginTop="4rem">오늘의 대사</RecommendH2>
         {tracks &&
           tracks.map(track => (
