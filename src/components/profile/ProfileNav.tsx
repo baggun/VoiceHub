@@ -24,7 +24,7 @@ const ProfileNav = () => {
   return (
     <div className="d-flex p-relative">
       <HeaderProfile onClick={() => setOpenDropdown(!openDropdown)}>
-        <ProfileImg src={"/img/profile_temp.png"} alt="profile" />
+        <ProfileImg src={session?.user.profile} alt="profile" />
       </HeaderProfile>
       {/* <Profile profileID={"aa"}></Profile> */}
       {openDropdown && (

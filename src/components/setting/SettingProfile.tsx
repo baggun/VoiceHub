@@ -3,6 +3,7 @@
 import React from "react";
 import styled from "styled-components";
 import { useRouter } from "next/navigation";
+import { useSession } from "next-auth/react";
 
 import Label from "@common/Label";
 import Textarea from "@common/textarea";
@@ -11,38 +12,35 @@ import SubmitButton from "@common/button/SubmitButton";
 import { ProfileImg } from "@components/profile/ProfileImg";
 import { IconPencil } from "@tabler/icons-react";
 
-import { changeProfile } from "@apis/api/setting";
 import { getUser } from "@apis/api/users";
+import { uploadImage } from "@/apis/api/upload";
+import { changeProfile } from "@apis/api/setting";
+import { SettingProfileData } from "@/types/user";
 import useForm from "@hooks/useForm";
-import { useSession } from "next-auth/react";
-
-type SettingProfileData = {
-  email: string;
-  nickname: string;
-  desc: string;
-};
 
 const SettingProfile = () => {
   const router = useRouter();
   const { data: session, update: sessionUpdate } = useSession();
   const fileInputRef = React.useRef<any>(null);
+
+  if (!session) return <></>;
+
   const [prevProfile, setPrevProfile] = React.useState<SettingProfileData>({
     email: "",
     nickname: "",
     desc: "",
+    profile: session?.user.profile,
   });
   const { values, setValues, errors, isLoading, handleChange, handleSubmit, interpretMessage } =
     useForm<SettingProfileData>({
-      initValues: { email: "", nickname: "", desc: "" },
+      initValues: { email: "", nickname: "", desc: "", profile: session.user.profile },
       onSubmit: async (values: SettingProfileData) => {
         // if (!values.password) return;
 
-        const res = await changeProfile(values.email, values.nickname, values.desc);
+        const res = await changeProfile(values);
+        console.log(res);
         if (res && res.success) {
-          sessionUpdate({
-            ...session?.user,
-            nickname: values.nickname,
-          });
+          sessionUpdate({ nickname: values.nickname, profile: values.profile });
           setPrevProfile({ ...values });
           return;
         }
@@ -60,6 +58,7 @@ const SettingProfile = () => {
           nickname: res.user.user_nickname,
           email: res.user.user_email,
           desc: res.user.user_desc,
+          profile: res.user.user_profile,
         };
         setPrevProfile(prf);
         setValues(prf);
@@ -84,18 +83,10 @@ const SettingProfile = () => {
       const formData = new FormData();
       formData.append("image", imageLists[0]);
 
-      // const res = await updateProfile(formData);
-
-      // console.log(res);
-      // if (res.success) {
-      //     dispatch(setProfileImage(res.result));
-      //     // setThumbnail(res.result.url);
-      //     if (user)
-      //         setUser({
-      //             ...user,
-      //             image: res.result,
-      //         });
-      // }
+      const res = await uploadImage(formData);
+      if (res.success && res.files.length > 0) {
+        setValues({ ...values, profile: res.files[0] });
+      }
     } catch (err) {
       console.error(err);
     }
@@ -104,13 +95,14 @@ const SettingProfile = () => {
   return (
     <SettingProfileForm onSubmit={handleSubmit}>
       <EditableProfile>
-        <ProfileImg src={"/img/profile_temp.png"} alt="profile" />
+        <ProfileImg src={values.profile} alt="profile" />
         <input
           ref={fileInputRef}
           type="file"
           name="thumbnail_file"
           onChange={handleAddImages}
           style={{ display: "none" }}
+          accept="image/*"
         />
         <InputImageButton
           onClick={(e: any) => {
@@ -147,7 +139,8 @@ const SettingProfile = () => {
           isLoading ||
           (values.email === prevProfile.email &&
             values.nickname === prevProfile.nickname &&
-            values.desc === prevProfile.desc)
+            values.desc === prevProfile.desc &&
+            values.profile === prevProfile.profile)
         }
       >
         저장
@@ -176,7 +169,6 @@ const InputImageButton = styled.button`
 `;
 
 const EditableProfile = styled.div`
-  cursor: pointer;
   width: 6rem;
   height: 6rem;
   display: flex;

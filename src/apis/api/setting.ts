@@ -6,20 +6,17 @@ import { UserLoginData, UserRegisterData } from "@type/user";
  * @param email
  * @param nickname
  * @param desc
+ * @param profile
  * @returns 성공 여부
  */
-export const changeProfile = async (email: string, nickname: string, desc: string) => {
+export const changeProfile = async (data: SettingProfileData) => {
   try {
-    const res = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/user/profile`, {
+    const res = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/user/account/profile`, {
       method: "PATCH",
       headers: {
         "Content-Type": "application/json",
       },
-      body: JSON.stringify({
-        email,
-        nickname,
-        desc,
-      }),
+      body: JSON.stringify(data),
     });
     if (!res.ok) throw new Error("Failed to fetch data");
     return res.json();

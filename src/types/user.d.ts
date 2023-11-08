@@ -33,3 +33,10 @@ export type UserProfileData = {
   followers: number;
   followings: number;
 };
+
+export type SettingProfileData = {
+  email: string;
+  nickname: string;
+  desc: string;
+  profile: string;
+};

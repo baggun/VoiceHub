@@ -25,7 +25,7 @@ const Post = ({ post }: PostProps) => {
       }}
       key={`post-${post.title}`}
     >
-      <Profile size={2} profileID={post.user_id} nickname={post.user_nickname} $marginRight="1rem"></Profile>
+      <Profile size={2} profileID={post.user_id} profile_url={post.user_profile} nickname={post.user_nickname} $marginRight="1rem"></Profile>
       <PostTitle href={`/community/${post.id}`}>
         <h2 className="post-title">{post.title}</h2>
       </PostTitle>

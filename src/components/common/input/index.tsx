@@ -6,7 +6,7 @@ export const Input = styled.input`
   font-weight: 300;
   border-radius: 0.25rem;
   border: 1px solid ${({ theme }) => theme.colors.lightGrey};
-  padding: 0.5rem;
+  padding: 0.75rem;
   outline: none;
 `;
 

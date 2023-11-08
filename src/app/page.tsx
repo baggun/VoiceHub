@@ -22,7 +22,6 @@ const Home = async () => {
         <Carousel />
       </ContainerFluid>
       <Container>
-        <ImageUpload/>
         <RecommendH2 $marginTop="4rem">오늘의 대사</RecommendH2>
         {tracks &&
           tracks.map(track => (

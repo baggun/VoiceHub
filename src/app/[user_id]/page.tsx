@@ -38,7 +38,7 @@ const User = async ({ params, searchParams }: { params: PageProps; searchParams:
           {/* 상단 유저 이름 및 팔로우 버튼 */}
           {user_id && (
             <ProfileContents>
-              <Profile profileID={user_id} size={6}></Profile>
+              <Profile profileID={user_id} profile_url={profileData.user_profile} size={6}></Profile>
               <ProfileInfo>
                 <div className="d-flex align-content-center">
                   <ProfileName>{profileData.user_nickname} 성우</ProfileName>

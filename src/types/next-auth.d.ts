@@ -10,6 +10,7 @@ declare module "next-auth" {
       oid: string;
       id: string;
       nickname: string;
+      profile: string;
     };
   }
 }

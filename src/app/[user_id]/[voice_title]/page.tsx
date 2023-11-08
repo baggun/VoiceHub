@@ -49,6 +49,7 @@ const Voice = async ({ params }: { params: PageProps }) => {
       id: "1",
       ownerID: "asdf",
       ownerName: "가나다",
+      ownerProfile: "base_profile.png",
       title: "Franz Schubert's Ständchen - Voice (Clarinet) & Piano",
       url: "https://api.twilio.com//2010-04-01/Accounts/AC25aa00521bfac6d667f13fec086072df/Recordings/RE6d44bc34911342ce03d6ad290b66580c.mp3",
     },
@@ -56,6 +57,7 @@ const Voice = async ({ params }: { params: PageProps }) => {
       id: "0",
       ownerID: "aaa",
       ownerName: "xvxvxv",
+      ownerProfile: "base_profile.png",
       title: "Brahms: St Anthony Chorale - Theme, Two Pianos Op.56b",
       url: "https://www.mfiles.co.uk/mp3-downloads/franz-schubert-standchen-serenade.mp3",
     },
@@ -63,6 +65,7 @@ const Voice = async ({ params }: { params: PageProps }) => {
       id: "2",
       ownerID: "343234",
       ownerName: "111111111111",
+      ownerProfile: "base_profile.png",
       title: "Franz Schubert's Ständchen - Voice (Clarinet) & Piano",
       url: "https://www.soundhelix.com/examples/mp3/SoundHelix-Song-1.mp3",
     },
@@ -98,6 +101,7 @@ const Voice = async ({ params }: { params: PageProps }) => {
             <ProfileCard
               id={voiceData.ownerID}
               nickname={voiceData.ownerName}
+              profile={voiceData.ownerProfile}
               aboutMe={voiceData.ownerDesc}
               isFollowed={isOwnerFollowed}
               size="lg"
@@ -108,7 +112,7 @@ const Voice = async ({ params }: { params: PageProps }) => {
               {comments.map((comment, idx) => {
                 return (
                   <Commet key={`comment_${idx}`}>
-                    <ProfileInfo profileID={comment.user.id} nickname={comment.user.nickname} size={3}>
+                    <ProfileInfo profileID={comment.user.id} profile_url={comment.user.profile}  nickname={comment.user.nickname} size={3}>
                       <p>{comment.content}</p>
                     </ProfileInfo>
                   </Commet>
@@ -135,7 +139,7 @@ const Voice = async ({ params }: { params: PageProps }) => {
               <>
                 <RecommendH2 $marginBottom="1rem">관심을 남긴 사람들</RecommendH2>
                 {likers.map(user => (
-                  <Profile profileID={user.id} key={`likers-${user.id}`} size={3}></Profile>
+                  <Profile profileID={user.id} profile_url={user.profile} key={`likers-${user.id}`} size={3}></Profile>
                 ))}
               </>
             )}

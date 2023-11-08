@@ -10,7 +10,7 @@ const s3 = new S3Client({
     secretAccessKey: String(process.env.S3_SECRET_ACCESS_KEY),
   },
   region: "ap-northeast-2",
-}); 
+});
 
 export async function POST(request: NextRequest) {
   try {
@@ -22,10 +22,11 @@ export async function POST(request: NextRequest) {
         const Body = (await file.arrayBuffer()) as Buffer;
         const nowDate = Date.now().toString();
         const fileName = `${nowDate}_${file.name}`;
-        await s3.send(new PutObjectCommand({ Bucket: "baggun", Key: `img/${fileName}`, Body }));
+        await s3.send(
+          new PutObjectCommand({ Bucket: "baggun", Key: `img/profile/${fileName}`, Body, ACL: "public-read" }),
+        );
 
-        return `https://${process.env.S3_BUCKET_NAME}.s3.ap-northeast-2.amazonaws.com/img/${fileName}`;
-        // https://baggun.s3.ap-northeast-2.amazonaws.com/img/1699371443457_11.PNG
+        return fileName;
       }),
     );
 

@@ -5,7 +5,7 @@ import { getServerSession } from "next-auth";
 import { authOptions } from "@/app/api/auth/[...nextauth]/route";
 
 export async function PATCH(request: NextRequest) {
-  const { email, nickname, desc } = await request.json();
+  const { email, nickname, desc, profile } = await request.json();
   const session = await getServerSession(authOptions);
 
   if (!session || !session.user) {
@@ -29,6 +29,7 @@ export async function PATCH(request: NextRequest) {
         user_nickname: nickname,
         user_email: email,
         user_desc: desc,
+        user_profile: profile,
       },
     );
 

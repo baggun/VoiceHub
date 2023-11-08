@@ -54,11 +54,16 @@ export const authOptions: NextAuthOptions = {
           oid: user._id,
           id: user.user_id,
           nickname: user.user_nickname,
+          profile: user.user_profile,
         };
       }
+      // console.log('UPDATE SESS', token)
 
       if (trigger === "update" && session?.nickname) {
-        token.user.nickname = session.nickname
+        token.user.nickname = session.nickname;
+      }
+      if (trigger === "update" && session?.profile) {
+        token.user.profile = session.profile;
       }
 
       return token;
@@ -71,6 +76,9 @@ export const authOptions: NextAuthOptions = {
 
       if (trigger === "update" && newSession?.nickname) {
         session.user.nickname = newSession.nickname;
+      }
+      if (trigger === "update" && newSession?.profile) {
+        session.user.nickname = newSession.profile;
       }
 
       return session;

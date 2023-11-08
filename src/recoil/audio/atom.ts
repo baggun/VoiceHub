@@ -37,6 +37,7 @@ export const audioInfoState = atom<AudioInfo>({
     id: "",
     ownerID: "",
     ownerName: "",
+    ownerProfile: "",
     title: "",
   },
 });

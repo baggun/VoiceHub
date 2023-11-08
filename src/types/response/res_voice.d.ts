@@ -2,6 +2,7 @@ export type VoiceResponseData = {
   author: {
     user_id: string;
     user_nickname: string;
+    user_profile: string;
     user_desc: string;
   };
   comments: string[];

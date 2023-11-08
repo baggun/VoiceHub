@@ -8,6 +8,7 @@ import { ProfileCardStyled, ProfileInfo, ProfileNameLink, ProfileAboutMe } from 
 type ProfileCardProps = {
   id: string;
   nickname?: string;
+  profile: string;
   aboutMe?: string;
   size?: "sm" | "md" | "lg";
   isFollowed: boolean;
@@ -40,10 +41,10 @@ const sizeGroup = {
   },
 };
 
-const ProfileCard = ({ id, nickname, size = "md", aboutMe, isFollowed }: ProfileCardProps) => {
+const ProfileCard = ({ id, nickname, profile, size = "md", aboutMe, isFollowed }: ProfileCardProps) => {
   return (
     <ProfileCardStyled $margin={sizeGroup[size].margin}>
-      <Profile profileID={id} size={sizeGroup[size].profileSize}></Profile>
+      <Profile profileID={id} profile_url={profile} size={sizeGroup[size].profileSize}></Profile>
       <ProfileInfo>
         <span>
           <ProfileNameLink href={`/${nickname}`} className="profile-name" size={sizeGroup[size].nameSize}>

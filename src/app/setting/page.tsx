@@ -51,7 +51,7 @@ const Setting = () => {
           <div className="col-lg-3">
             <SettingMenuList>
               {filterMenus.map(m => (
-                <SettingMenu key={m.name} active={m.type === filterType}>
+                <SettingMenu key={m.name} $active={m.type === filterType}>
                   <Button width="100%" variant="transparent" onClick={() => setFilterType(m.type)} $withIcon={true}>
                     {m.icon} {m.name}
                   </Button>
@@ -93,13 +93,13 @@ const SettingCard = styled(Card)`
 const SettingMenuList = styled.ul`
   margin-bottom: 3rem;
 `;
-const SettingMenu = styled.li<{ active?: boolean }>`
+const SettingMenu = styled.li<{ $active?: boolean }>`
   border-left: 2px solid transparent;
   button {
     font-weight: 300;
   }
   ${props =>
-    props.active &&
+    props.$active &&
     css`
       border-left: 2px solid var(--primaryColor);
       button {

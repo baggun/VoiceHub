@@ -3,6 +3,7 @@ export type AudioInfo = {
   id: string;
   ownerID: string;
   ownerName: string;
+  ownerProfile: string;
   ownerDesc?: string;
   title: string;
 };

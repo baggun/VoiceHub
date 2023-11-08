@@ -39,7 +39,7 @@ const FooterPlayer = () => {
   return (
     <PlayerBlock>
       <AudioInfoDiv>
-        <Profile profileID={audioInfo.ownerID} $marginRight="1rem"></Profile>
+        <Profile profileID={audioInfo.ownerID} profile_url={audioInfo.ownerProfile} $marginRight="1rem"></Profile>
         <div className="d-flex f-column">
           <SafetyLink to={audioInfo.ownerID} className="audio-username">
             {audioInfo.ownerName}
