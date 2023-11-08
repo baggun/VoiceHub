@@ -27,5 +27,5 @@ export async function middleware(req: NextRequest, event: NextFetchEvent) {
 }
 
 export const config = {
-  matcher,
+  matcher: ["/auth/login", "/auth/register", "/notifications", "/voice/upload", "/setting"],
 };

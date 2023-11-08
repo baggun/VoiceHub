@@ -13,6 +13,7 @@ import { clearUserStorage } from "@utils/storage";
 import { ChangePasswordValidation } from "@utils/validate";
 import { UserChangePasswordData } from "@type/user";
 import useForm from "@hooks/useForm";
+import Label from "../common/Label";
 
 const SettingPassword = () => {
   const router = useRouter();
@@ -23,20 +24,19 @@ const SettingPassword = () => {
 
       await changePassword(values.prev_password, values.next_password)
         .then(res => {
-          if (res && res.success) {
-            clearUserStorage();
-
+          if (res && res.ok && res.success) {
+            // clearUserStorage();
             signOut().then(() => router.push("/auth/login"));
-
             return;
-          } else
-            interpretMessage({
-              success: false,
-              error: "prev_password",
-              message: "현재 비밀번호가 틀립니다.",
-            });
+          }
+
+          interpretMessage({
+            success: false,
+            error: "prev_password",
+            message: "현재 비밀번호가 틀립니다.",
+          });
         })
-        .catch(err => {
+        .catch(err => { 
           interpretMessage({
             success: false,
             error: "prev_password",
@@ -50,9 +50,13 @@ const SettingPassword = () => {
   return (
     <PasswordForm onSubmit={handleSubmit}>
       <div className="form-group">
+        <Label htmlFor="prev_password" $require>
+          이전 비밀번호
+        </Label>
         <AuthInput
+          id="prev_password"
           type="password"
-          placeholder="이전 비밀번호"
+          placeholder="********"
           name="prev_password"
           value={values.prev_password}
           onChange={handleChange}
@@ -60,9 +64,13 @@ const SettingPassword = () => {
         {errors.prev_password && <ErrorMsg>{errors.prev_password}</ErrorMsg>}
       </div>
       <div className="form-group">
+        <Label htmlFor="next_password" $require>
+          변경할 비밀번호
+        </Label>
         <AuthInput
+          id="next_password"
           type="password"
-          placeholder="변경할 비밀번호"
+          placeholder="********"
           name="next_password"
           value={values.next_password}
           onChange={handleChange}

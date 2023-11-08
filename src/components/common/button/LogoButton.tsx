@@ -17,7 +17,7 @@ const LogoButton = ({ style }: { style?: CSSProperties }) => {
   return (
     <Link href="/" style={LinkStyle}>
       {/* <p>바꾸기</p> */}
-      <Image src={Logo} alt="로고" height={30} />
+      <Image src={Logo} alt="로고" height={30} priority />
     </Link>
   );
 };

@@ -21,19 +21,19 @@ import useForm from "@hooks/useForm";
 const SettingProfile = () => {
   const router = useRouter();
   const { data: session, update: sessionUpdate } = useSession();
+  // if (!session) return <></>; 
   const fileInputRef = React.useRef<any>(null);
-
-  if (!session) return <></>;
 
   const [prevProfile, setPrevProfile] = React.useState<SettingProfileData>({
     email: "",
     nickname: "",
     desc: "",
-    profile: session?.user.profile,
+    profile: '',
   });
+  
   const { values, setValues, errors, isLoading, handleChange, handleSubmit, interpretMessage } =
     useForm<SettingProfileData>({
-      initValues: { email: "", nickname: "", desc: "", profile: session.user.profile },
+      initValues: { email: "", nickname: "", desc: "", profile: '' },
       onSubmit: async (values: SettingProfileData) => {
         // if (!values.password) return;
 
@@ -49,6 +49,7 @@ const SettingProfile = () => {
       },
       validate: null,
     });
+
 
   const initUserData = async () => {
     if (!session || !session.user.id) return;
@@ -68,7 +69,8 @@ const SettingProfile = () => {
 
   React.useEffect(() => {
     initUserData();
-  }, []);
+  }, [session]);
+  
 
   const handleAddImages = async (event: React.ChangeEvent<HTMLInputElement>) => {
     const imageLists = event.target.files;
@@ -95,7 +97,7 @@ const SettingProfile = () => {
   return (
     <SettingProfileForm onSubmit={handleSubmit}>
       <EditableProfile>
-        <ProfileImg src={values.profile} alt="profile" />
+        <ProfileImg src={values.profile} alt="" />
         <input
           ref={fileInputRef}
           type="file"

@@ -3,6 +3,7 @@ import { NextRequest } from "next/server";
 import User from "@models/user.model";
 import { getServerSession } from "next-auth";
 import { authOptions } from "@/app/api/auth/[...nextauth]/route";
+import bcrypt from "bcrypt";
 
 export async function PATCH(request: NextRequest) {
   const { password, repassword } = await request.json();
@@ -23,14 +24,24 @@ export async function PATCH(request: NextRequest) {
   try {
     await dbConnect();
 
-    const user = await User.updateOne(
-      { _id: session.user.oid, password: password },
-      {
-        user_pw: repassword,
-      },
-    );
+    const user = await User.findById(session.user.oid);
 
-    if (!user || !user.acknowledged) throw new Error("사용자 검색 실패");
+    if (!user) throw new Error("로그인 세션 데이터가 올바르지 않습니다.");
+
+    const result = await bcrypt.compare(password, user.user_pw);
+    if (!result)
+      return Response.json(
+        {
+          success: false,
+          message: "비밀번호가 일치하지 않습니다.",
+          error: "password",
+        },
+        { status: 400 },
+      );
+
+    const hashedPassword = await bcrypt.hash(repassword, 5);
+    user.user_pw = hashedPassword;
+    await user.save();
 
     return Response.json({
       success: true,

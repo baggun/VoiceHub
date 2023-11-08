@@ -1,5 +1,5 @@
 import { ErrorMsg } from "@apis/utils/error";
-import { UserLoginData, UserRegisterData } from "@type/user";
+import { SettingProfileData, UserLoginData, UserRegisterData } from "@type/user";
 
 /**
  * 프로필 변경
@@ -33,7 +33,7 @@ export const changeProfile = async (data: SettingProfileData) => {
  */
 export const changePassword = async (password: string, repassword: string) => {
   try {
-    const res = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/user/password`, {
+    const res = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/user/account/password`, {
       method: "PATCH",
       headers: {
         "Content-Type": "application/json",
@@ -43,8 +43,8 @@ export const changePassword = async (password: string, repassword: string) => {
         repassword,
       }),
     });
-    if (!res.ok) throw new Error("Failed to fetch data");
-    return res.json();
+    const data = await res.json();
+    return { ok: res.ok, ...data }; 
   } catch (err) {
     throw ErrorMsg(err);
   }

@@ -10,6 +10,8 @@ import SettingPassword from "@components/setting/SettingPassword";
 import SettingAccount from "@components/setting/SettingAccount";
 import SettingProfile from "@components/setting/SettingProfile";
 import SettingNotification from "@components/setting/SettingNotification";
+import { useSession } from "next-auth/react";
+import { useRouter } from "next/navigation";
 
 type SettingFilterType = "profile" | "notification" | "password" | "account";
 
@@ -20,6 +22,14 @@ type FilterMenuType = {
 };
 
 const Setting = () => {
+  // const { data: session, update: sessionUpdate } = useSession();
+  // const { status } = useSession();
+  // const router = useRouter();
+
+  // if (status !== "authenticated") {
+  //   router?.push("/auth/login");
+  // }
+
   const [filterType, setFilterType] = React.useState<SettingFilterType>("profile");
   const filterMenus: FilterMenuType[] = [
     {
