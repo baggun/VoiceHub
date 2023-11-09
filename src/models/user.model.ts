@@ -43,7 +43,7 @@ export const userSchema = new Schema({
   user_profile: {
     type: String,
     required: true,
-    default: "profile_0.png",
+    default: "base_profile.png",
   },
 
   // 알림

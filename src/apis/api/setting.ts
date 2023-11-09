@@ -66,8 +66,8 @@ export const deleteAccount = async (password: string) => {
         password,
       }),
     });
-    if (!res.ok) throw new Error("Failed to fetch data");
-    return res.json();
+    const data = await res.json();
+    return { ok: res.ok, ...data }; 
   } catch (err) {
     throw ErrorMsg(err);
   }

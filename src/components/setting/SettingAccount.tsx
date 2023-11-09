@@ -3,6 +3,7 @@
 import styled from "styled-components";
 import { useRouter } from "next/navigation";
 import { useSession } from "next-auth/react";
+import { signOut } from "next-auth/react";
 
 import { AuthInput } from "@common/input";
 import { ErrorMsg } from "@common/form/Form";
@@ -27,16 +28,17 @@ const SettingAccount = () => {
         .then(res => {
           console.log(res);
           if (res && res.success) {
-            clearUserStorage();
+            // clearUserStorage();
 
-            sessionUpdate({
-              _id: "",
-              id: "",
-              nickname: "",
-              profile: "",
-            });
+            signOut().then(() => router.push("/auth/login"));
+            // sessionUpdate({
+            //   _id: "",
+            //   id: "",
+            //   nickname: "",
+            //   profile: "",
+            // });
 
-            router.replace("/");
+            // router.replace("/");
 
             return;
           } else {
