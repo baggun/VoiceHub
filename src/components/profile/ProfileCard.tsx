@@ -4,14 +4,16 @@ import Link from "next/link";
 import FollowButton from "@common/button/FollowButton";
 import Profile from ".";
 import { ProfileCardStyled, ProfileInfo, ProfileNameLink, ProfileAboutMe } from "./Profile.styled";
+import { isAliveUser, userNickname } from "@/utils/validate";
 
 type ProfileCardProps = {
   id: string;
-  nickname?: string;
+  nickname: string;
   profile: string;
   aboutMe?: string;
   size?: "sm" | "md" | "lg";
-  isFollowed: boolean;
+  isFollowed?: boolean;
+  disabledFollow?: boolean;
 };
 
 const sizeGroup = {
@@ -41,19 +43,31 @@ const sizeGroup = {
   },
 };
 
-const ProfileCard = ({ id, nickname, profile, size = "md", aboutMe, isFollowed }: ProfileCardProps) => {
+const ProfileCard = ({
+  id,
+  nickname,
+  profile,
+  size = "md",
+  aboutMe,
+  isFollowed = false,
+  disabledFollow = false,
+}: ProfileCardProps) => {
   return (
     <ProfileCardStyled $margin={sizeGroup[size].margin}>
       <Profile profileID={id} profile_url={profile} size={sizeGroup[size].profileSize}></Profile>
       <ProfileInfo>
         <span>
-          <ProfileNameLink href={`/${nickname}`} className="profile-name" size={sizeGroup[size].nameSize}>
-            {nickname} 성우
+          <ProfileNameLink
+            href={`/${id}`}
+            className={`profile-name ${isAliveUser(id) ? "": "disabled-link"}`}
+            size={sizeGroup[size].nameSize}
+          >
+            {userNickname(nickname)} 성우
           </ProfileNameLink>
         </span>
         <ProfileAboutMe size={sizeGroup[size].aboutMeSize}>{aboutMe}</ProfileAboutMe>
       </ProfileInfo>
-      <FollowButton target={id} isFollowed={isFollowed} />
+      {!disabledFollow && <FollowButton target={id} isFollowed={isFollowed} />}
     </ProfileCardStyled>
   );
 };

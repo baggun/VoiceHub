@@ -59,7 +59,7 @@ export const UserList = ({ users }: { users: UserData[] }) => {
         <IconUser {...iconProps} /> 성우
       </SearchLabel>
       {users.length > 0 ? (
-        users?.map(user => <ProfileCard key={`search-user-${user.id}`} {...user} isFollowed={true} size="sm" />)
+        users?.map(user => <ProfileCard key={`search-user-${user.id}`} {...user} disabledFollow={true} size="sm" />)
       ) : (
         <Empty>검색결과 없음</Empty>
       )}

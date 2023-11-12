@@ -85,3 +85,11 @@ export const ChangePasswordValidation = ({
 
   return errors;
 };
+
+export const isAliveUser = (id: string) => {
+  return !id.startsWith("deleted_user_");
+};
+
+export const userNickname = (id: string) => {
+  return isAliveUser(id) ? id : "(유령)";
+};

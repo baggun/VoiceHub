@@ -77,7 +77,7 @@ export async function GET(request: NextRequest) {
   try {
     await dbConnect();
 
-    const voices = await Voice.find(query, "-comments")
+    const voices = await Voice.find({ ...query, deleted: { $ne: true } }, "-comments")
       .populate({
         path: "author",
         select: ["user_id", "user_nickname"],

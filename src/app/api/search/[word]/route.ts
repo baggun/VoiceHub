@@ -15,7 +15,7 @@ export async function GET(request: NextRequest, { params }: { params: { word: st
 
   try {
     await dbConnect();
-    const voices = await Voice.find({ title: RegWord }, "-comments")
+    const voices = await Voice.find({ title: RegWord, deleted: { $ne: true } }, "-comments")
       .populate({
         path: "author",
         select: ["user_id", "user_nickname"],
@@ -31,7 +31,10 @@ export async function GET(request: NextRequest, { params }: { params: { word: st
       .skip(skip * limit)
       .lean();
 
-    const users = await User.find({ user_nickname: RegWord }, "user_id user_nickname user_email user_profile")
+    const users = await User.find(
+      { user_nickname: RegWord, deleted: { $ne: true } },
+      "user_id user_nickname user_email user_profile",
+    )
       .sort("user_updatedAt")
       .limit(10)
       .skip(skip * limit)

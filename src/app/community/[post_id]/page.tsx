@@ -59,7 +59,7 @@ const View = async ({ params }: { params: PageProps }) => {
               <PostH1>{post?.title}</PostH1>
               {post?.tags && <PostTags>{post?.tags.map(t => <Tag key={t} tag={t} />)}</PostTags>}
               {post && (
-                <ProfileInfo profileID={post.user_id} nickname={post.user_nickname} size={3}>
+                <ProfileInfo profileID={post.user_id} profile_url={post.user_profile} nickname={post.user_nickname} size={3}>
                   <Date>{post && dateFormat(post?.createdAt)}</Date>
                 </ProfileInfo>
               )}
@@ -84,7 +84,7 @@ const View = async ({ params }: { params: PageProps }) => {
             {comments.map((c, idx) => {
               return (
                 <CommentBlock key={`c-${idx}`}>
-                  <ProfileInfo profileID={c.user.id} nickname={c.user.nickname} size={3}>
+                  <ProfileInfo profileID={c.user.id} profile_url={c.user.profile} nickname={c.user.nickname} size={3}>
                     <Date>{dateFormat(c.date)}</Date>
                   </ProfileInfo>
                   <CommentContentBlock>{c.content}</CommentContentBlock>

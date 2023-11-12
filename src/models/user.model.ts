@@ -36,7 +36,7 @@ export const userSchema = new Schema({
   user_desc: {
     type: String,
     required: true,
-    default: "안녕하세요.",
+    default: "",
   },
 
   // 프로필 사진
@@ -85,6 +85,13 @@ export const userSchema = new Schema({
   user_updatedAt: {
     type: Date,
     default: Date.now,
+  },
+
+  // Soft Delete
+  deleted: {
+    type: Boolean,
+    required: true,
+    default: false,
   },
 });
 

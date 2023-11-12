@@ -59,6 +59,13 @@ export const voiceSchema = new Schema({
     type: Date,
     default: Date.now,
   },
+
+  // Soft Delete
+  deleted: {
+    type: Boolean,
+    required: true,
+    default: false,
+  },
 });
 
 export default mongoose.models.Voice || mongoose.model("Voice", voiceSchema);

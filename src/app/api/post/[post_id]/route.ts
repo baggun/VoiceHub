@@ -17,13 +17,13 @@ export async function GET(request: NextRequest, { params }: { params: { post_id:
         populate: {
           path: "user",
           select: ["user_id", "user_nickname", "user_profile"],
-          model:"User"
+          model: "User",
         },
       })
       .populate({
         path: "author",
         select: ["user_id", "user_nickname"],
-        model:"User"
+        model: "User",
       })
       .lean();
 
@@ -39,7 +39,7 @@ export async function GET(request: NextRequest, { params }: { params: { post_id:
       .populate({
         path: "user",
         select: ["user_id", "user_nickname"],
-        model:"User"
+        model: "User",
       })
       .lean();
 
@@ -88,6 +88,8 @@ export async function DELETE(request: NextRequest, { params }: { params: { post_
     if (!postStatus) {
       throw new Error("포스트를 찾을 수 없음");
     }
+
+    const likes = await PostLike.deleteMany({ post: post_id });
 
     if (postStatus.deletedCount) return Response.json({ success: true, message: "삭제 완료" });
 

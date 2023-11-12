@@ -3,7 +3,7 @@
 import Image from "next/image";
 import styled from "styled-components";
 
-import { Button } from "../button";
+import { Button } from "../../common/button";
 import { MainLayout } from "@/components/layout";
 import { ContainerFluid } from "@/components/common/Grid";
 

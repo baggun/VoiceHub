@@ -8,6 +8,7 @@ import Link from "next/link";
 import { profileURL } from "@/utils/url";
 
 import { ProfileLink, ProfileName } from "./Profile.styled";
+import { isAliveUser, userNickname } from "@/utils/validate";
 
 export type ProfileLinkProps = {
   size?: number;
@@ -31,7 +32,7 @@ const Profile = ({
 }: ProfileProps) => {
   return (
     <ProfileLink
-      className="profile"
+      className={`profile ${isAliveUser(profileID) ? "disabled-link" : ""}`}
       href={`/${profileID}`}
       //   size={size}
       $marginRight={$marginRight}
@@ -40,7 +41,7 @@ const Profile = ({
       <ProfileImg src={profile_url} alt="profile" size={size} />
       {nickname && (
         <ProfileName className="profile-nickname" $nicknameMargin={$nicknameMargin}>
-          {nickname}
+          {userNickname(nickname)}
         </ProfileName>
       )}
     </ProfileLink>

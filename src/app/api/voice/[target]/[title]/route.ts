@@ -98,3 +98,59 @@ export async function GET(request: NextRequest, { params }: { params: { target: 
     );
   }
 }
+
+export async function DELETE(request: NextRequest, { params }: { params: { target: string; title: string } }) {
+  const { target, title } = params;
+  const session = await getServerSession(authOptions);
+
+  if (!session || !session.user) {
+    return Response.json(
+      {
+        success: false,
+        message: "로그인 상태가 아닙니다.",
+      },
+      {
+        status: 403,
+      },
+    );
+  }
+
+  try {
+    await dbConnect();
+
+    const user = await User.findOne({ user_id: target }, { _id: true });
+
+    if (!user) {
+      return Response.json(
+        {
+          success: false,
+          message: `올바른 유저의 id 가 아닙니다. ${target}`,
+        },
+        {
+          status: 400,
+        },
+      );
+    }
+
+    const voice: any = await Voice.findOne({ author: user._id, title: title });
+    voice.deleted = true;
+    await voice.save();
+
+    const d = await VoiceLike.deleteMany({ voice: voice._id });
+
+    return Response.json({
+      success: true,
+      message: `목소리 삭제`,
+    });
+  } catch (err: any) {
+    return Response.json(
+      {
+        success: false,
+        message: err.message,
+      },
+      {
+        status: 500,
+      },
+    );
+  }
+}

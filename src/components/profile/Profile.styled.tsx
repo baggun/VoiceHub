@@ -55,6 +55,9 @@ export const ProfileNameLink = styled(Link)<{ size: string }>`
   font-size: ${props => props.size};
   font-weight: 500;
   line-height: 1.2;
+  .disabled-link {
+    pointer-events: none;
+  }
 `;
 export const ProfileAboutMe = styled.p<{ size: string }>`
   font-size: ${props => props.size};

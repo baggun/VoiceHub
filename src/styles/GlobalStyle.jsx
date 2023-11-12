@@ -117,6 +117,9 @@ export const GlobalStyle = createGlobalStyle`
           background-color: #f6fff5;
         }
 
+        .disabled-link {
+          pointer-events: none;
+        }
         /* 
 
             class Utilities
