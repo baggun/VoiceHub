@@ -4,8 +4,8 @@
   "private": true,
   "scripts": {
     "dev": "next dev",
-    "build": "next build",
-    "start": "next start ",
+    "build": "cross-env ANALYZE=true NODE_ENV=production next build",
+    "start": "next start",
     "lint": "next lint",
     "storybook": "storybook dev -p 6006",
     "build-storybook": "storybook build"
@@ -17,6 +17,7 @@
     "@types/multer": "^1.4.10",
     "@types/multer-s3": "^3.0.2",
     "bcrypt": "^5.1.1",
+    "cross-env": "^7.0.3",
     "dotenv": "^16.3.1",
     "lodash": "^4.17.21",
     "mongoose": "^8.0.0",
@@ -37,6 +38,7 @@
     "wavesurfer.js": "^7.3.8"
   },
   "devDependencies": {
+    "@next/bundle-analyzer": "^14.0.2",
     "@storybook/addon-essentials": "^7.5.3",
     "@storybook/addon-interactions": "^7.5.3",
     "@storybook/addon-links": "^7.5.3",
