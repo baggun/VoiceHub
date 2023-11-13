@@ -79,9 +79,15 @@ const VARIANTS_OUTLINE = {
   `,
 };
 
-export type CustomButtonProps = StyledButtonProps & {
+export interface CustomButtonProps extends StyledButtonProps {
   type?: "button" | "reset" | "submit";
+  /**
+   * Button theme
+   */
   disabled?: boolean;
+  /**
+   * Button theme
+   */
   variant?: "primary" | "secondary" | "grey" | "black" | "transparent";
   outline?: boolean;
   $withIcon?: boolean;
@@ -129,7 +135,7 @@ export const Button = ({
   );
 };
 
-type StyledButtonProps = {
+interface StyledButtonProps  {
   $borderRadius?: string;
   width?: string;
   height?: string;

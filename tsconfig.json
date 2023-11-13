@@ -1,11 +1,7 @@
 {
   "compilerOptions": {
     "target": "es5",
-    "lib": [
-      "dom",
-      "dom.iterable",
-      "esnext"
-    ],
+    "lib": ["dom", "dom.iterable", "esnext"],
     "allowJs": true,
     "skipLibCheck": true,
     "strict": true,
@@ -17,40 +13,19 @@
     "isolatedModules": true,
     "jsx": "preserve",
     "incremental": true,
+    "types": ["graceful-fs"],
     "paths": {
-      "@/*": [
-        "./src/*"
-      ],
-      "@hooks/*": [
-        "./src/hooks/*"
-      ],
-      "@type/*": [
-        "./src/types/*"
-      ],
-      "@utils/*": [
-        "./src/utils/*"
-      ],
-      "@apis/*": [
-        "./src/apis/*"
-      ],
-      "@data/*": [
-        "./src/data/*"
-      ],
-      "@common/*": [
-        "./src/components/common/*"
-      ],
-      "@components/*": [
-        "./src/components/*"
-      ],
-      "@recoil/*": [
-        "./src/recoil/*"
-      ],
-      "@models/*": [
-        "./src/models/*"
-      ],
-      "@lib/*": [
-        "./src/lib/*"
-      ]
+      "@/*": ["./src/*"],
+      "@hooks/*": ["./src/hooks/*"],
+      "@type/*": ["./src/types/*"],
+      "@utils/*": ["./src/utils/*"],
+      "@apis/*": ["./src/apis/*"],
+      "@data/*": ["./src/data/*"],
+      "@common/*": ["./src/components/common/*"],
+      "@components/*": ["./src/components/*"],
+      "@recoil/*": ["./src/recoil/*"],
+      "@models/*": ["./src/models/*"],
+      "@lib/*": ["./src/lib/*"]
     },
     "plugins": [
       {
@@ -62,9 +37,9 @@
     "next-env.d.ts",
     "**/*.ts",
     "**/*.tsx",
-    ".next/types/**/*.ts"
-, "src/app/script/[[...slug]]", "src/app/api/contest/[id]"  ],
-  "exclude": [
-    "node_modules"
-  ]
+    ".next/types/**/*.ts",
+    "src/app/script/[[...slug]]",
+    "src/app/api/contest/[id]"
+  ],
+  "exclude": ["node_modules"]
 }

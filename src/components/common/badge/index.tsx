@@ -2,7 +2,9 @@
 
 import styled, { css } from "styled-components";
 
-export const Badge = styled.span<{ $variant?: string }>`
+export interface BadgeProps { $variant?: string };
+
+const Badge = styled.span<BadgeProps>`
   display: inline;
   padding: 0.3em 0.5em;
   font-size: 80%;
@@ -38,3 +40,4 @@ export const Badge = styled.span<{ $variant?: string }>`
     }
   }}
 `;
+export default Badge;

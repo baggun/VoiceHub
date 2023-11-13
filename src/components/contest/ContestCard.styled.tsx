@@ -2,7 +2,7 @@
 
 import Link from "next/link";
 import styled from "styled-components";
-import { Badge } from "../common/badge";
+import Badge from "../common/badge";
 
 export const ContestCardLink = styled(Link)`
   margin: 1rem 0rem;

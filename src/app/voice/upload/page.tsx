@@ -5,7 +5,7 @@ import { useRouter } from "next/navigation";
 import { useSession } from "next-auth/react";
 import { useSearchParams } from "next/navigation";
 
-import Label from "@common/Label";
+import Label from "@/components/common/Label";
 import { H1 } from "@common/Heading";
 import { Button } from "@common/button";
 import { Input } from "@components/common/input";

@@ -1,7 +1,7 @@
 "use client";
 
 import styled, { css } from "styled-components";
-import { Badge } from "@common/badge";
+import Badge from "@common/badge";
 
 export const ContestCard = styled.div`
   padding: 3rem;

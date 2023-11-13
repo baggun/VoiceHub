@@ -5,7 +5,7 @@ import { IconSearch, IconScript, IconUser } from "@tabler/icons-react";
 import { Nav } from "@common/nav";
 import { NavItemActive } from "@common/nav";
 import { IconHeadphones } from "@tabler/icons-react";
-import { Badge } from "@common/badge";
+import Badge from "@common/badge";
 import { ModalBackground } from "@common/modal";
 import { search } from "@apis/api/search";
 import { ScriptBaseType } from "@type/scripts";

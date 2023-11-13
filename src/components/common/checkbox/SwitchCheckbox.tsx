@@ -6,7 +6,7 @@ type SwitchLabelProps = {
   size?: "sm" | "md" | "lg";
 };
 
-type SwitchCheckboxProps = SwitchLabelProps & {
+export type SwitchCheckboxProps = SwitchLabelProps & {
   onChange: (t: boolean) => void;
   id: string;
   children?: React.ReactNode;

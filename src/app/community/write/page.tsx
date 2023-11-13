@@ -5,7 +5,7 @@ import styled from "styled-components";
 import { useRouter } from "next/navigation";
 import { useSession } from "next-auth/react";
 
-import Label from "@common/Label";
+import Label from "@/components/common/Label";
 import { Button } from "@common/button";
 import Textarea from "@common/textarea";
 import Select from "@common/input/Select";

@@ -1,7 +1,7 @@
 import React from "react";
 import styled, { css } from "styled-components";
 // import { Link } from "react-router-dom";
-import { Badge } from "@common/badge";
+import Badge from "@common/badge";
 import { dateFormat } from "@utils/format";
 import { ContestData } from "@type/contest";
 import ContestThumbnail from "./ContestThumbnail";
