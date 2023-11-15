@@ -8,7 +8,7 @@ import { AuthInput } from "@common/input";
 import { ErrorMsg } from "@common/form/Form";
 import SubmitButton from "@common/button/SubmitButton";
 
-import { changePassword } from "@apis/api/setting";
+import { changePassword } from "@utils/apis/api/setting";
 import { clearUserStorage } from "@utils/storage";
 import { ChangePasswordValidation } from "@utils/validate";
 import { UserChangePasswordData } from "@type/user";

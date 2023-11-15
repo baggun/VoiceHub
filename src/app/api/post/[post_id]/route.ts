@@ -22,7 +22,7 @@ export async function GET(request: NextRequest, { params }: { params: { post_id:
       })
       .populate({
         path: "author",
-        select: ["user_id", "user_nickname"],
+        select: ["user_id", "user_nickname", "user_profile"],
         model: "User",
       })
       .lean();

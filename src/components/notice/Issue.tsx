@@ -7,7 +7,7 @@ import styled, { css } from "styled-components";
 import { IssueType } from "@type/issue";
 import Checkbox from "@common/input/Checkbox";
 import { dateFormat } from "@utils/format";
-import { readNotification } from "@apis/api/notification";
+import { readNotification } from "@utils/apis/api/notification";
 import { Button } from "@common/button";
 import { IconTrash } from "@tabler/icons-react";
 import { useRouter } from "next/navigation";

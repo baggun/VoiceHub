@@ -11,7 +11,7 @@ export async function GET(request: NextRequest) {
     await dbConnect();
 
     const contests = await Contest.find()
-      .sort("date")
+      .sort("-endDate")
       .skip(skip * limit)
       .limit(limit);
 
@@ -38,19 +38,23 @@ export async function GET(request: NextRequest) {
         status: 500,
       },
     );
-  }
+  } 
 }
 
-export async function POST(request: Request) {
+export async function POST(request: NextRequest) {
+  console.log(request);
   const body = await request.json();
 
-  const { contest, thumbnail, company, startDate, endDate } = body;
+  console.log(body);
+
+  const { contest, content, thumbnail, company, startDate, endDate } = body;
 
   try {
     await dbConnect();
 
     const newContest = new Contest({
       contest,
+      content, 
       thumbnail,
       company,
       startDate: new Date(startDate),

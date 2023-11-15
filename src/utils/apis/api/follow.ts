@@ -1,4 +1,4 @@
-import { ErrorMsg } from "@apis/utils/error";
+import { ErrorMsg } from "@utils/error";
 
 /**
  * 팔로우 정보 가져오기

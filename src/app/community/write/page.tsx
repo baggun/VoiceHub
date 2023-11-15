@@ -14,7 +14,7 @@ import { Input } from "@components/common/input";
 import { DefaultLayout } from "@components/layout";
 import Selector, { OptionType } from "@common/input/Selector";
 
-import { postPost } from "@apis/api/post";
+import { postPost } from "@utils/apis/api/post";
 import { _CATEGORY_DATA_ } from "@data/category";
 
 const CommunityWrite = () => {

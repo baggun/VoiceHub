@@ -1,4 +1,4 @@
-import { ErrorMsg } from "@apis/utils/error";
+import { ErrorMsg } from "@utils/error";
 
 /**
  * 검색

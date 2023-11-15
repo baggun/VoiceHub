@@ -20,6 +20,7 @@ export const getPostsProcess = (data: PostResponseData[]): PostType[] => {
 };
 
 export const getPostProcess = (data: PostResponseData): PostType => {
+  
   return {
     id: data._id,
     user_oid: data.author._id,

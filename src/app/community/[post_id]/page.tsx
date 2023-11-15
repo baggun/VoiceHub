@@ -12,10 +12,10 @@ import ProfileInfo from "@components/profile/ProfileInfo";
 import PostSetting from "@/components/community/PostSetting";
 import PostCommentForm from "@/components/common/form/PostCommentForm";
 
-import { getPost } from "@apis/api/post";
-import { getPostProcess } from "@apis/services/post";
-import { getUsersProcess } from "@apis/services/user";
-import { getCommentProcess } from "@apis/services/comment";
+import { getPost } from "@utils/apis/api/post";
+import { getPostProcess } from "@utils/apis/services/post";
+import { getUsersProcess } from "@utils/apis/services/user";
+import { getCommentProcess } from "@utils/apis/services/comment";
 import { UserData } from "@type/user";
 import { dateFormat } from "@utils/format";
 import { CommentType } from "@type/comment";

@@ -4,8 +4,9 @@ import React from "react";
 import styled from "styled-components";
 import SubmitButton from "../button/SubmitButton";
 import { usePathname, useRouter } from "next/navigation";
-import { postPostComment } from "@/apis/api/post";
+// import { postPostComment } from "@/utils/apis/api/post";
 import { useSession } from "next-auth/react";
+import { postPostComment } from "@/utils/apis/api/post";
 
 type PostCommentForm = {
   post_id: string;

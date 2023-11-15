@@ -1,4 +1,4 @@
-import Provider from "@/components/Provider";
+import Provider from "@/components/layout/Provider";
 import { GlobalStyle } from "@/styles/GlobalStyle";
 import FooterPlayer from "@/components/audio/FooterPlayer";
 import { Noto_Sans_KR } from "next/font/google";

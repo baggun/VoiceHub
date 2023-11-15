@@ -20,8 +20,8 @@ import ScriptBlock from "@components/script/ScriptBlock";
 import ScriptTextarea from "@/components/common/textarea/ScriptTextarea";
 
 import useStage from "@hooks/useStage";
-import { postVoice } from "@apis/api/voice";
-import { getScript, postScript } from "@apis/api/script";
+import { postVoice } from "@utils/apis/api/voice";
+import { getScript, postScript } from "@utils/apis/api/script";
 import { VoiceInfo } from "@type/voice";
 
 const VoiceUpload = () => {

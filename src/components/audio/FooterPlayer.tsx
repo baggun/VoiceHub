@@ -78,7 +78,7 @@ const PlayerBlock = styled.div`
   width: 100%;
   bottom: 0px;
   background: rgb(149, 61, 147);
-  background: linear-gradient(125deg, #1e1e1e 0%, #1e1e1e 100%);
+  background: linear-gradient(to right, #1e1e1e 0%, #1f2041 50%, #1e1e1e 100%);
   z-index: ${({ theme }) => theme.zIndex.footerPlayer};
 `;
 

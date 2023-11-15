@@ -12,8 +12,8 @@ import Checkbox from "@common/input/Checkbox";
 import { DefaultLayout } from "@components/layout";
 import { IconCategory, IconHeadset, IconQuote, IconTrash, IconUser } from "@tabler/icons-react";
 
-import { getNotificationsProcess } from "@apis/services/notification";
-import { deleteNotification, getNotifications } from "@apis/api/notification";
+import { getNotificationsProcess } from "@utils/apis/services/notification";
+import { deleteNotification, getNotifications } from "@utils/apis/api/notification";
 import { IssueFilterType, IssueType } from "@type/issue";
 
 type FilterMenuType = {

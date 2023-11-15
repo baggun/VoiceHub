@@ -2,7 +2,7 @@
 
 import React from "react";
 
-import { setFollow } from "@apis/api/follow";
+import { setFollow } from "@utils/apis/api/follow";
 import { Button } from ".";
 import { usePathname, useRouter } from "next/navigation";
 import { useSession } from "next-auth/react";

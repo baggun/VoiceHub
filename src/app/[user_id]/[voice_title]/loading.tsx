@@ -11,10 +11,10 @@ import ProfileInfo from "@components/profile/ProfileInfo";
 import ScriptBlock from "@components/script/ScriptBlock";
 import ProfileCard from "@components/profile/ProfileCard";
 
-import { getVoice } from "@apis/api/voice";
-import { getUsersProcess } from "@apis/services/user";
-import { getVoiceProcess } from "@apis/services/voice";
-import { getCommentProcess } from "@apis/services/comment";
+import { getVoice } from "@utils/apis/api/voice";
+import { getUsersProcess } from "@utils/apis/services/user";
+import { getVoiceProcess } from "@utils/apis/services/voice";
+import { getCommentProcess } from "@utils/apis/services/comment";
 import { UserData } from "@type/user";
 import { VoiceInfo } from "@type/voice";
 import { CommentType } from "@type/comment";

@@ -6,8 +6,8 @@ import { DefaultLayout } from "@components/layout";
 import { Button } from "@components/common/button";
 import { IconAlertSquareRounded,  IconNotes, IconQuestionMark } from "@tabler/icons-react"; 
 
-import { getPosts } from "@apis/api/post";
-import { getPostsProcess } from "@apis/services/post"; 
+import { getPosts } from "@utils/apis/api/post";
+import { getPostsProcess } from "@utils/apis/services/post"; 
 
 import { MenuBlock, Menu, MenuIcon, PostHeader, Advertisement } from "./page.styled";
 

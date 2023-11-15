@@ -1,4 +1,4 @@
-import { ErrorMsg } from "@apis/utils/error";
+import { ErrorMsg } from "@utils/error";
 
 /**
  * 목소리 목록 가져오기
@@ -24,7 +24,7 @@ export const getPosts = async (tag: string = "", skip: number = 0, limit: number
  */
 export const getPost = async (post_id: string) => {
   try {
-    const res = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/post/${post_id}`);
+    const res = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/post/${post_id}`, { cache: 'no-cache'});
     const data = await res.json();
     return { ok: res.ok, ...data };
   } catch (err) {

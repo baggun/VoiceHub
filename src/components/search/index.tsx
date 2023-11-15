@@ -7,15 +7,15 @@ import { NavItemActive } from "@common/nav";
 import { IconHeadphones } from "@tabler/icons-react";
 import Badge from "@common/badge";
 import { ModalBackground } from "@common/modal";
-import { search } from "@apis/api/search";
+import { search } from "@utils/apis/api/search";
 import { ScriptBaseType } from "@type/scripts";
 import { VoiceInfo } from "@type/voice";
-import { getVoicesProcess } from "@apis/services/voice";
-import { getScriptBaseProcess } from "@apis/services/script";
+import { getVoicesProcess } from "@utils/apis/services/voice";
+import { getScriptBaseProcess } from "@utils/apis/services/script";
 import { ScriptList, VoiceList, UserList } from "./SearchList";
 import { Button } from "@common/button";
 import { UserData } from "@type/user";
-import { getUsersPureProcess } from "@apis/services/user";
+import { getUsersPureProcess } from "@utils/apis/services/user";
 
 const iconProps = {
   className: "icon",

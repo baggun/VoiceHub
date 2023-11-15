@@ -6,9 +6,9 @@ import { useRouter } from "next/navigation";
 import { IconHeart, IconHeartFilled } from "@tabler/icons-react";
 import { UserData } from "@/types/user";
 import { Button, CustomButtonProps } from "../button";
-import { voiceLike } from "@/apis/api/voice";
-import { setScriptLike } from "@/apis/api/script_like";
-import { postLike } from "@/apis/api/post";
+import { voiceLike } from "@/utils/apis/api/voice";
+import { setScriptLike } from "@/utils/apis/api/script_like";
+import { postLike } from "@/utils/apis/api/post";
 import { useSession } from "next-auth/react";
 
 type LikeProps = {

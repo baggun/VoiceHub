@@ -12,9 +12,9 @@ import SubmitButton from "@common/button/SubmitButton";
 import { ProfileImg } from "@components/profile/ProfileImg";
 import { IconPencil } from "@tabler/icons-react";
 
-import { getUser } from "@apis/api/users";
-import { uploadImage } from "@/apis/api/upload";
-import { changeProfile } from "@apis/api/setting";
+import { getUser } from "@utils/apis/api/users";
+import { uploadImage } from "@/utils/apis/api/upload";
+import { changeProfile } from "@utils/apis/api/setting";
 import { SettingProfileData } from "@/types/user";
 import useForm from "@hooks/useForm";
 

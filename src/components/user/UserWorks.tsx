@@ -7,10 +7,10 @@ import ScriptCard from "../script/ScriptCard";
 import { AudioFileBar } from "../audio/AudioFile";
 import ProfileCard from "@components/profile/ProfileCard";
 
-import { getPostsProcess } from "@/apis/services/post";
-import { getScriptsProcess } from "@/apis/services/script";
-import { getVoicesProcess } from "@/apis/services/voice";
-import { getUserLikePosts, getUserLikeScripts, getUserLikeVoices, getUserPosts, getUserVoices } from "@/apis/api/users";
+import { getPostsProcess } from "@utils/apis/services/post";
+import { getScriptsProcess } from "@utils/apis/services/script";
+import { getVoicesProcess } from "@utils/apis/services/voice";
+import { getUserLikePosts, getUserLikeScripts, getUserLikeVoices, getUserPosts, getUserVoices } from "@/utils/apis/api/users";
 import { UserData } from "@/types/user";
 import { PostType } from "@/types/post";
 import { TabObjType } from "@/types/tab";

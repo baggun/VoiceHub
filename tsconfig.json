@@ -19,7 +19,6 @@
       "@hooks/*": ["./src/hooks/*"],
       "@type/*": ["./src/types/*"],
       "@utils/*": ["./src/utils/*"],
-      "@apis/*": ["./src/apis/*"],
       "@data/*": ["./src/data/*"],
       "@common/*": ["./src/components/common/*"],
       "@components/*": ["./src/components/*"],

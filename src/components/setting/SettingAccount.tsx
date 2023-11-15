@@ -9,7 +9,7 @@ import { AuthInput } from "@common/input";
 import { ErrorMsg } from "@common/form/Form";
 import SubmitButton from "@common/button/SubmitButton";
 
-import { deleteAccount } from "@apis/api/setting";
+import { deleteAccount } from "@utils/apis/api/setting";
 import { clearUserStorage } from "@utils/storage";
 import { UserPasswordData } from "@type/user";
 import useForm from "@hooks/useForm";

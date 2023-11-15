@@ -8,6 +8,11 @@ export const contestSchema = new Schema(
       required: true,
     },
 
+    content: {
+      type: String,
+      default: ''
+    },
+
     // 썸네일
     thumbnail: {
       type: String,

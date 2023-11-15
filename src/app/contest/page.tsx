@@ -2,8 +2,8 @@ import React from "react";
 import { DefaultLayout } from "@components/layout";
 import ContestCard from "@components/contest/ContestCard";
 
-import { getContestListProcess } from "@apis/services/contest";
-import { getContestList } from "@apis/api/contest";
+import { getContestListProcess } from "@utils/apis/services/contest";
+import { getContestList } from "@utils/apis/api/contest";
 import { ContestData } from "@type/contest";
 
 export const dynamic = "force-dynamic";

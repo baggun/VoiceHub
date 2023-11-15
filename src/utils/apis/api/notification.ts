@@ -1,4 +1,4 @@
-import { ErrorMsg } from "@apis/utils/error";
+import { ErrorMsg } from "@utils/error";
 
 /**
  * 알림 가져오기기
@@ -6,7 +6,7 @@ import { ErrorMsg } from "@apis/utils/error";
  */
 export const getNotifications = async () => {
   try {
-    const res = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/notification`);
+    const res = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/notification`, { cache: 'no-cache'});
     if (!res.ok) throw new Error("Failed to fetch data");
     return res.json();
   } catch (err) {

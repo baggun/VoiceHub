@@ -6,7 +6,7 @@ import { useSession } from "next-auth/react";
 import { usePathname, useRouter } from "next/navigation";
 
 import { Button } from "@common/button";
-import { postVoiceComment } from "@apis/api/voice";
+import { postVoiceComment } from "@utils/apis/api/voice";
 
 type CommentFormProps = {
   voice_id: string;

@@ -6,8 +6,8 @@ import { DefaultLayout } from "@components/layout";
 import ContestThumbnail from "@components/contest/ContestThumbnail";
 import ContestDeadline from "@components/contest/ContestDeadline";
 
-import { getContest } from "@apis/api/contest";
-import { getContestProcess } from "@apis/services/contest";
+import { getContest } from "@utils/apis/api/contest";
+import { getContestProcess } from "@utils/apis/services/contest";
 import { dateFormat } from "@utils/format";
 import { isDeadline, calculateRemainingDeadline } from "@utils/deadline";
 
@@ -32,6 +32,7 @@ const Contest = async ({ params }: { params: PageProps }) => {
   const res = await getContest(contest_id);
   if (!res.ok) return notFound();
 
+  console.log(res);
   const contestData = getContestProcess(res.contest);
 
   return (

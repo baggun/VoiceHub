@@ -6,9 +6,9 @@ import { RecommendH2 } from "@components/common/Heading";
 import { Container, ContainerFluid } from "@components/common/Grid";
 import { AudioFileButton, AudioFileBar } from "@components/audio/AudioFile";
 import { VoiceInfo } from "@type/voice";
-import { getVoices } from "@apis/api/voice";
-import { getVoicesProcess } from "@apis/services/voice";
-import ImageUpload from "@/components/ImageUpload";
+import { getVoices } from "@utils/apis/api/voice";
+import { getVoicesProcess } from "@utils/apis/services/voice";
+import ImageUpload from "@/components/common/input/ImageUpload";
 
 export const dynamic = "force-dynamic";
 

@@ -8,7 +8,7 @@ import UserWorks from "@/components/user/UserWorks";
 import { Container, ContainerFluid } from "@common/Grid";
 import UserFollowTable from "@components/user/UserFollowTable";
 
-import { getUser } from "@apis/api/users";
+import { getUser } from "@utils/apis/api/users";
 import { UserProfileData } from "@type/user";
 
 import { ProfileBG, ProfileContents, ProfileName, ProfileInfo } from "./page.styled";

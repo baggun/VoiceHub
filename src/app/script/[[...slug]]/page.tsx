@@ -10,9 +10,9 @@ import ScriptBlock from "@components/script/ScriptBlock";
 import { AudioFileBar } from "@components/audio/AudioFile";
 import { Container, ContainerFluid } from "@components/common/Grid";
 
-import { getUsersProcess } from "@apis/services/user";
-import { getScript, getScripts } from "@apis/api/script";
-import { getScriptProcess, getScriptsProcess } from "@apis/services/script";
+import { getUsersProcess } from "@utils/apis/services/user";
+import { getScript, getScripts } from "@utils/apis/api/script";
+import { getScriptProcess, getScriptsProcess } from "@utils/apis/services/script";
 import { ScriptType } from "@type/scripts";
 import { UserData } from "@type/user";
 

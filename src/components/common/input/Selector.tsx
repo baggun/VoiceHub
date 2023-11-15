@@ -1,4 +1,4 @@
-import { getTags } from "@apis/api/tag";
+import { getTags } from "@utils/apis/api/tag";
 import dynamic from "next/dynamic";
 import React from "react";
 // import AsyncCreatableSelect from "react-select/async-creatable";

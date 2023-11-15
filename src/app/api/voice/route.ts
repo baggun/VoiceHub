@@ -80,7 +80,7 @@ export async function GET(request: NextRequest) {
     const voices = await Voice.find({ ...query, deleted: { $ne: true } }, "-comments")
       .populate({
         path: "author",
-        select: ["user_id", "user_nickname"],
+        select: ["user_id", "user_nickname", "user_profile"],
       })
       .sort("createdAt")
       .limit(10)

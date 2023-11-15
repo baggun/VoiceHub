@@ -5,7 +5,7 @@ import { styled } from "styled-components";
 import { useRouter } from "next/navigation";
 import { useSession } from "next-auth/react";
 
-import { deletePost } from "@/apis/api/post";
+import { deletePost } from "@/utils/apis/api/post";
 import { PostType } from "@/types/post";
 
 type PostSettingProps = {
