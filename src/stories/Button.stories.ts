@@ -3,9 +3,42 @@ import type { Meta, StoryObj } from "@storybook/react";
 
 const meta = {
   title: "common/Button",
-  component: Button, 
+  component: Button,
   tags: ["autodocs"],
-  argTypes: {},
+  argTypes: {
+    $padding: {
+      table: {
+        category: "Customize Design",
+        subcategory: "CSS",
+        defaultValue: { summary: "", detail: "단위까지 입력해야 합니다. e.g. 1rem" },
+        type: { summary: "string" },
+      },
+    },
+    $margin: {
+      table: {
+        category: "Customize Design",
+        subcategory: "CSS",
+        defaultValue: { summary: "", detail: "단위까지 입력해야 합니다. e.g. 1rem" },
+        type: { summary: "string" },
+      },
+    },
+    $borderRadius: {
+      table: {
+        category: "Customize Design",
+        subcategory: "CSS",
+        defaultValue: { summary: "", detail: "단위까지 입력해야 합니다. e.g. 1rem" },
+        type: { summary: "string" },
+      },
+    },
+    $customStyle: {
+      table: {
+        category: "Customize Design",
+        subcategory: "CSS",
+        defaultValue: { summary: "", detail: "정령 방법이 없을떄 임시로 사용합니다." },
+        type: { summary: "string" },
+      },
+    },
+  },
   parameters: {
     layout: "fullscreen",
     // 추가
@@ -43,4 +76,4 @@ export const Transparent: Story = {
     variant: "transparent",
     children: "button",
   },
-}; 
+};

@@ -82,7 +82,7 @@ const VARIANTS_OUTLINE = {
 export interface CustomButtonProps extends StyledButtonProps {
   type?: "button" | "reset" | "submit";
   /**
-   * Button theme
+   * Button disabled
    */
   disabled?: boolean;
   /**
