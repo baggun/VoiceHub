@@ -58,6 +58,7 @@ export type DevicesTypes = typeof devices;
 
 const zIndex = {
   background_img: -1,
+  interaction: 1,
   footerPlayer: 99,
   modalBG: 100,
   modal: 101,

@@ -60,13 +60,28 @@ export const register = async (userData: UserRegisterData) => {
 };
 
 /**
+ * 추천 유저 목록
+ * @returns 성공 여부
+ */
+export const getRecommendUser = async () => {
+  try {
+    const res = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/user`);
+    const data = await res.json();
+    return { ok: res.ok, ...data };
+  } catch (err) {
+    throw ErrorMsg(err);
+  }
+};
+
+
+/**
  * 유저 기본정보
  * @param {string} user_id user 아이디
  * @returns 성공 여부
  */
 export const getUser = async (user_id: string) => {
   try {
-    const res = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/user/${user_id}`);
+    const res = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/user/${user_id}`, { cache: 'no-cache'});
     const data = await res.json();
     return { ok: res.ok, ...data };
   } catch (err) {

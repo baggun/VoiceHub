@@ -7,11 +7,11 @@ export const ProfileBG = styled.div`
   position: relative;
   width: 100%;
   height: 300px;
-  background-image: url(https://kyechan99.github.io/assets/img/head-img/2021-12-01-Threejs-Draw.jpg);
+  background-image: url(https://github.com/baggun/VoiceHub/raw/master/public/thumbnail.png);
   background-position: center center;
   background-repeat: no-repeat;
   background-size: cover;
-  filter: brightness(0.2);
+  filter: brightness(0.1);
   z-index: ${({ theme }) => theme.zIndex.background_img};
 `;
 export const ProfileContents = styled.div`

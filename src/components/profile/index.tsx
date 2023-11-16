@@ -14,6 +14,7 @@ export type ProfileLinkProps = {
   size?: number;
   $marginRight?: string;
   $nicknameMargin?: string;
+  direction?: 'row' | 'col';
 };
 export type ProfileProps = ProfileLinkProps & {
   profileID: string;
@@ -29,16 +30,18 @@ const Profile = ({
   size = 2.5,
   $marginRight = "0px",
   $nicknameMargin = "0.5rem",
+  direction = 'row',
 }: ProfileProps) => {
   return (
     <ProfileLink
-      className={`profile ${isAliveUser(profileID) ? "disabled-link" : ""}`}
+      className={`profile ${isAliveUser(profileID) ?  "" : "disabled-link"}`}
       href={`/${profileID}`}
+      direction={direction}
       //   size={size}
       $marginRight={$marginRight}
     >
       {/* <img src={profile_temp} /> */}
-      <ProfileImg src={profile_url} alt="profile" size={size} />
+      <ProfileImg className="profile-img" src={profile_url} alt="profile" size={size} />
       {nickname && (
         <ProfileName className="profile-nickname" $nicknameMargin={$nicknameMargin}>
           {userNickname(nickname)}

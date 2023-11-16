@@ -1,4 +1,4 @@
-import Carousel from "@components/carousel";
+import Carousel from "@/components/carousel/BannerCarousel";
 import { MainLayout } from "@components/layout";
 import { Container, ContainerFluid } from "@components/common/Grid";
 

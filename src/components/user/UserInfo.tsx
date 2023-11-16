@@ -16,14 +16,14 @@ const UserInfo = ({ profieData, className, associatedTags }: UserInfoProps) => {
       {profieData.user_desc && <UserAboutMe>{profieData.user_desc}</UserAboutMe>}
       <UserInfoListBlock>
         <ul>
-          <UserInfoList>
+          {/* <UserInfoList>
             <IconMapPin />
             Seoul. Sung book
           </UserInfoList>
           <UserInfoList>
             <IconPhone />
             010-1234-4321
-          </UserInfoList>
+          </UserInfoList> */}
           {profieData.user_email && (
             <UserInfoList>
               <IconMail />

@@ -14,9 +14,10 @@ import Link from "next/link";
 type ScriptCardProps = {
   script: ScriptType;
   className?: string;
+  $fixedWidth?: string;
 };
 
-const ScriptCard = ({ script, className }: ScriptCardProps) => {
+const ScriptCard = ({ script, className, $fixedWidth }: ScriptCardProps) => {
   const [scrollContent, setScrollContent] = React.useState<boolean>(false);
 
   const scrollContentHandler = (e: any) => {
@@ -26,7 +27,7 @@ const ScriptCard = ({ script, className }: ScriptCardProps) => {
 
   return (
     <div className={className}>
-      <ScriptBody>
+      <ScriptBody $fixedWidth={$fixedWidth}>
         <ScriptOverview>
           <Link href={`/script/${script.id}`}>
             <ScriptTitle>{script.title}</ScriptTitle>
@@ -69,7 +70,7 @@ const ScriptCard = ({ script, className }: ScriptCardProps) => {
 
 export default ScriptCard;
 
-const ScriptBody = styled.div`
+const ScriptBody = styled.div<{ $fixedWidth?: string }>`
   padding: 1rem;
   border-radius: 1rem;
   margin-bottom: 1rem;
@@ -80,6 +81,13 @@ const ScriptBody = styled.div`
   -webkit-box-shadow: 0px 0px 25px 5px rgba(50, 50, 50, 0.05);
   -moz-box-shadow: 0px 0px 25px 5px rgba(50, 50, 50, 0.05);
   background-color: white;
+
+  ${props =>
+    props.$fixedWidth &&
+    css`
+      width: ${props.$fixedWidth};
+      margin-right: 1rem;
+    `}
 `;
 const ScriptOverview = styled.div`
   display: flex;

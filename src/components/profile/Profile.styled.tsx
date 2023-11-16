@@ -15,6 +15,16 @@ export const ProfileLink = styled.a<ProfileLinkProps>`
   & + & {
     margin-left: 0.5rem;
   }
+  ${props =>
+    props.direction === "col" &&
+    css`
+      flex-direction: column;
+      .profile-nickname {
+        margin-left: 0px;
+        margin-top: 0.5rem;
+        font-weight: 500;
+      }
+    `}
   &:hover {
     .profile-nickname {
       font-weight: 400;

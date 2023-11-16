@@ -4,6 +4,7 @@ import { profileURL } from "@/utils/url";
 import styled, { css } from "styled-components";
 
 type ProfileImgProps = {
+  className?: string;
   size?: number;
   src?: string;
   alt: string;
