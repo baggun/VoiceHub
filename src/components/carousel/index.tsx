@@ -52,6 +52,7 @@ const CarouselStyled = styled(Slider)`
   .slick-track {
     margin-left: 0px;
     margin-right: 0px;
+    display: flex;
   }
 `;
 

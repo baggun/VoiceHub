@@ -4,8 +4,6 @@ import Slider from "react-slick";
 import styled from "styled-components";
 import { useRouter } from "next/navigation";
 
-import "slick-carousel/slick/slick.css";
-import "slick-carousel/slick/slick-theme.css";
 // import { useNavigate } from "react-router-dom";
 
 type BannerData = {

@@ -1,0 +1,150 @@
+"use client";
+
+import React from "react";
+import styled, { css, keyframes } from "styled-components";
+
+type SkeletonProps = {
+  /**
+   * 애니메이션 활성화 여부
+   */
+  $animation?: boolean;
+  /**
+   * children
+   */
+  children?: React.ReactNode;
+  /**
+   * 클래스명
+   */
+  className?: string;
+  /**
+   * Height
+   */
+  height?: string;
+  /**
+   * Width
+   */
+  width?: string;
+  /**
+   * 타입
+   */
+  variant?: "circle" | "rect";
+  /**
+   * 상세 스타일
+   */
+  style?: object;
+};
+
+const Skeleton = ({
+  $animation = true,
+  children,
+  className,
+  height,
+  style,
+  width,
+  variant = "rect",
+}: SkeletonProps) => {
+  //   const { animation = true, children, className, height, style, width, variant = "rect" } = props;
+  const classes = [];
+  const hasChildren = Boolean(children);
+
+  if (variant === "rect") {
+    if ((!width && !height) || (width && !height)) {
+      classes.push("skeleton--default-content");
+    }
+  }
+
+  if (variant === "circle") {
+    classes.push("skeleton--circle");
+  }
+
+  if (hasChildren) {
+    classes.push("skeleton--with-children");
+
+    if (!height) {
+      classes.push("skeleton--height-auto");
+    }
+
+    if (!width) {
+      classes.push("skeleton--width-fit");
+    }
+  }
+
+  return (
+    <SkeletonElement
+      className={className}
+      $animation={$animation}
+      variant={variant}
+      style={{ height, width, ...style }}
+    >
+      {children}
+    </SkeletonElement>
+  );
+};
+
+export default Skeleton;
+
+const pulse = keyframes`
+    0% {
+        opacity: 1;
+    }
+    50% {
+        opacity: 0.4;
+    }
+    100% {
+        opacity: 1;
+    }
+`;
+
+const skeletonStyles = css`
+  background-color: rgba(0, 0, 0, 0.12);
+  display: inline-block;
+  height: auto;
+  width: 100%;
+`;
+
+const skeletonAnimation = css`
+  animation: ${pulse} 1.5s ease-in-out 0.5s infinite;
+`;
+
+const VARIANTS = {
+  rect: css`
+    border-radius: 0.25rem;
+  `,
+  circle: css`
+    border-radius: 50%;
+  `,
+};
+
+export const SkeletonElement = styled.span<SkeletonProps>`
+  ${skeletonStyles}
+
+  ${props => props.$animation && skeletonAnimation} 
+
+  ${props => props.variant && VARIANTS[props.variant]}
+`;
+
+type SkeletonGroupProps = {
+  $align?: string;
+};
+export const SkeletonGroup = styled.div<SkeletonGroupProps>`
+  display: inline-flex;
+  flex-direction: column;
+  ${props =>
+    props.$align &&
+    css`
+      align-items: ${props.$align};
+    `}
+`;
+
+type SkeletonWrapperProps = {
+  $align?: string;
+  $overflow?: boolean;
+};
+export const SkeletonWrapper = styled.div<SkeletonWrapperProps>`
+  display: flex;
+  ${props =>
+    props.$overflow &&
+    css`
+      overflow: hidden;
+    `}
+`;

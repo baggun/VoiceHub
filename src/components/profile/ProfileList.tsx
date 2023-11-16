@@ -1,13 +1,15 @@
-"use client";
-import { UserData } from "@/types/user"; 
-import Profile from "."; 
+import { UserData } from "@/types/user";
+import Profile from ".";
 import Carousel from "../carousel";
 
-type ProfileListProps = {
-  users: UserData[];
-};
+import { getRecommendUser } from "@/utils/apis/api/users";
+import { getUsersPureProcess } from "@/utils/apis/services/user";
+import Skeleton, { SkeletonGroup, SkeletonWrapper } from "../sekeleton";
 
-const ProfileList = ({ users }: ProfileListProps) => {
+const ProfileList = async () => {
+  const resUsers = await getRecommendUser();
+  const users: UserData[] = getUsersPureProcess(resUsers.user);
+
   var setting = {
     slidesToShow: 5,
     slidesToScroll: 5,
@@ -48,7 +50,7 @@ const ProfileList = ({ users }: ProfileListProps) => {
           nickname={user.nickname}
           profile_url={user.profile}
           size={5.25}
-          direction="col"
+          $direction="col"
           $marginRight="1rem"
         />
       ))}
@@ -57,3 +59,23 @@ const ProfileList = ({ users }: ProfileListProps) => {
 };
 
 export default ProfileList;
+
+export const ProfileListSkeleton = () => {
+  return (
+    <SkeletonWrapper $overflow>
+      {Array.from({ length: 10 }, (v, index) => (
+        <SkeletonGroup key={index} $align="center">
+          <Skeleton
+            height="5.25rem"
+            width="5.25rem"
+            variant="circle"
+            style={{
+              margin: "0rem 0.5rem 0rem 0.5rem",
+            }}
+          />
+          <Skeleton height="1rem" width="3rem" style={{ margin: "0.5rem 0rem 0rem 0rem" }} />
+        </SkeletonGroup>
+      ))}
+    </SkeletonWrapper>
+  );
+};

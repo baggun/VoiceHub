@@ -1,8 +1,9 @@
 "use client";
 
-import { css, styled } from "styled-components";
-import { ProfileLinkProps } from ".";
 import Link from "next/link";
+import { css, styled } from "styled-components";
+
+import { ProfileLinkProps } from ".";
 
 export const ProfileLink = styled.a<ProfileLinkProps>`
   display: inline-flex;
@@ -12,12 +13,10 @@ export const ProfileLink = styled.a<ProfileLinkProps>`
       margin-right: ${props.$marginRight};
     `;
   }}
-  & + & {
-    margin-left: 0.5rem;
-  }
   ${props =>
-    props.direction === "col" &&
+    props.$direction === "col" &&
     css`
+      display: inline-flex !important;
       flex-direction: column;
       .profile-nickname {
         margin-left: 0px;
@@ -25,12 +24,16 @@ export const ProfileLink = styled.a<ProfileLinkProps>`
         font-weight: 500;
       }
     `}
+  & + & {
+    margin-left: 0.5rem;
+  }
   &:hover {
     .profile-nickname {
-      font-weight: 400;
+      font-weight: 600;
     }
   }
 `;
+
 export const ProfileName = styled.span<{ $nicknameMargin?: string }>`
   color: black;
   margin-left: ${props => props.$nicknameMargin};
@@ -88,3 +91,4 @@ export const ProfileInfoBlock = styled.div`
   flex-direction: column;
   margin-left: 0.75rem;
 `;
+ 

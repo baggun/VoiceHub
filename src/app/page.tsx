@@ -1,36 +1,19 @@
 import React, { Suspense } from "react";
-import Carousel from "@/components/carousel/BannerCarousel";
+
 import { MainLayout } from "@components/layout";
-import AudioWave from "@components/audio/AudioWave";
+import ScriptList, { ScriptListSkeleton } from "@/components/script/ScriptList";
+import AudioList, { AudioListSkeleton } from "@/components/audio/AudioList";
 import { RecommendH2 } from "@components/common/Heading";
+import ProfileList, { ProfileListSkeleton } from "@/components/profile/ProfileList";
+import Carousel from "@/components/carousel/BannerCarousel";
 import { Container, ContainerFluid } from "@components/common/Grid";
-import { AudioFileButton, AudioFileBar, AudioFileAlbum } from "@components/audio/AudioFile";
-import { VoiceInfo } from "@type/voice";
-import { getVoices } from "@utils/apis/api/voice";
-import { getVoicesProcess } from "@utils/apis/services/voice";
-import { AudioList } from "@/components/audio/AudioList";
-import Profile from "@/components/profile";
-import ProfileList from "@/components/profile/ProfileList";
-import { getRecommendUser } from "@/utils/apis/api/users";
-import { UserData } from "@/types/user";
-import { getUsersPureProcess } from "@/utils/apis/services/user";
-import { getScripts } from "@/utils/apis/api/script";
-import { getScriptsProcess } from "@/utils/apis/services/script";
-import ScriptCard from "@/components/script/ScriptCard";
-import ScriptList from "@/components/script/ScriptList";
+
+import "slick-carousel/slick/slick.css";
+import "slick-carousel/slick/slick-theme.css";
 
 export const dynamic = "force-dynamic";
 
 const Home = async () => {
-  const res = await getVoices();
-  const tracks: VoiceInfo[] = getVoicesProcess(res.data);
-
-  const resUsers = await getRecommendUser();
-  const users: UserData[] = getUsersPureProcess(resUsers.user);
-
-  const reses = await getScripts();
-  const scripts = getScriptsProcess(reses.scripts);
-
   return (
     <MainLayout>
       <ContainerFluid className="pd-none">
@@ -40,34 +23,36 @@ const Home = async () => {
         <RecommendH2 $marginTop="4rem" $marginBottom="1rem">
           지금 인기있는 성우
         </RecommendH2>
-        <ProfileList users={users} />
+        <Suspense fallback={<ProfileListSkeleton />}>
+          <ProfileList />
+        </Suspense>
 
         <RecommendH2 $marginTop="4rem" $marginBottom="1rem">
           오늘 인기있는
         </RecommendH2>
-        <Suspense fallback={<p>load</p>}>
-          <AudioList tracks={tracks} />
+        <Suspense fallback={<AudioListSkeleton />}>
+          <AudioList />
         </Suspense>
 
         <RecommendH2 $marginTop="4rem" $marginBottom="1rem">
           지금 인기 대사
         </RecommendH2>
-        <Suspense fallback={<p>load</p>}>
-          <ScriptList scripts={scripts} />
+        <Suspense fallback={<ScriptListSkeleton />}>
+          <ScriptList />
         </Suspense>
 
         <RecommendH2 $marginTop="4rem" $marginBottom="1rem">
           핫한 성우의 다른 작품
         </RecommendH2>
-        <Suspense fallback={<p>load</p>}>
-          <AudioList tracks={tracks} />
+        <Suspense fallback={<AudioListSkeleton />}>
+          <AudioList />
         </Suspense>
 
         <RecommendH2 $marginTop="4rem" $marginBottom="1rem">
           요즘 인기 태그
         </RecommendH2>
-        <Suspense fallback={<p>load</p>}>
-          <AudioList tracks={tracks} />
+        <Suspense fallback={<AudioListSkeleton />}>
+          <AudioList />
         </Suspense>
 
         {/* {tracks.length > 0 && <AudioWave audioSrc={tracks[0].url} info={{ ...tracks[0] }} />}

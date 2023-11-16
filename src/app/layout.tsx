@@ -16,6 +16,7 @@ const notoSansKr = Noto_Sans_KR({
 export default function RootLayout({ children }: { children: React.ReactNode }) {
   return (
     <html>
+      
       <body className={notoSansKr.className}>
         <Provider>
           <GlobalStyle />

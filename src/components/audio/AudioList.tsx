@@ -1,14 +1,14 @@
-"use client";
-
-import { VoiceInfo } from "@/types/voice";
-import { AudioFileAlbum } from "./AudioFile";
 import Carousel from "../carousel";
+import { AudioFileAlbum } from "./AudioFile";
+import Skeleton, { SkeletonGroup, SkeletonWrapper } from "../sekeleton";
 
-type AudioListProps = {
-  tracks: VoiceInfo[];
-};
-export const AudioList = ({ tracks }: AudioListProps) => {
-  if (tracks.length === 0) return <></>;
+import { getVoices } from "@utils/apis/api/voice";
+import { getVoicesProcess } from "@utils/apis/services/voice";
+import { VoiceInfo } from "@/types/voice";
+
+const AudioList = async () => {
+  const res = await getVoices();
+  const tracks: VoiceInfo[] = getVoicesProcess(res.data);
 
   var setting = {
     slidesToShow: 5,
@@ -65,5 +65,26 @@ export const AudioList = ({ tracks }: AudioListProps) => {
           />
         ))}
     </Carousel>
+  );
+};
+export default AudioList;
+
+export const AudioListSkeleton = () => {
+  return (
+    <SkeletonWrapper $overflow>
+      {Array.from({ length: 6 }, (v, index) => (
+        <SkeletonGroup key={index}>
+          <Skeleton
+            height="11rem"
+            width="11rem"
+            style={{
+              margin: "0rem 0.5rem 0rem 0rem",
+            }}
+          />
+          <Skeleton height="1rem" width="6rem" style={{ margin: "0.5rem 0rem 0rem 0rem" }} />
+          <Skeleton height="1rem" width="3rem" style={{ margin: "0.5rem 0rem 0rem 0rem" }} />
+        </SkeletonGroup>
+      ))}
+    </SkeletonWrapper>
   );
 };
