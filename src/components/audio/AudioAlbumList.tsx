@@ -1,13 +1,13 @@
 import Carousel from "../carousel";
-import { AudioFileAlbum } from "./AudioFile";
 import Skeleton, { SkeletonGroup, SkeletonWrapper } from "../sekeleton";
 
 import { getVoices } from "@utils/apis/api/voice";
 import { getVoicesProcess } from "@utils/apis/services/voice";
 import { VoiceInfo } from "@/types/voice";
+import AudioAlbum from "./player/AudioAlbum";
 
-const AudioList = async () => {
-  const res = await getVoices();
+const AudioAlbumList = async () => {
+  const res = await getVoices({});
   const tracks: VoiceInfo[] = getVoicesProcess(res.data);
 
   var setting = {
@@ -55,7 +55,7 @@ const AudioList = async () => {
     <Carousel setting={setting}>
       {tracks &&
         tracks.map(track => (
-          <AudioFileAlbum
+          <AudioAlbum
             key={track.id}
             audioSrc={track.url}
             userId={track.ownerID}
@@ -67,9 +67,9 @@ const AudioList = async () => {
     </Carousel>
   );
 };
-export default AudioList;
+export default AudioAlbumList;
 
-export const AudioListSkeleton = () => {
+export const AudioAlbumListSkeleton = () => {
   return (
     <SkeletonWrapper $overflow>
       {Array.from({ length: 6 }, (v, index) => (

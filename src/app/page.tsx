@@ -2,7 +2,7 @@ import React, { Suspense } from "react";
 
 import { MainLayout } from "@components/layout";
 import ScriptList, { ScriptListSkeleton } from "@/components/script/ScriptList";
-import AudioList, { AudioListSkeleton } from "@/components/audio/AudioList";
+import AudioAlbumList, { AudioAlbumListSkeleton } from "@/components/audio/AudioAlbumList";
 import { RecommendH2 } from "@components/common/Heading";
 import ProfileList, { ProfileListSkeleton } from "@/components/profile/ProfileList";
 import Carousel from "@/components/carousel/BannerCarousel";
@@ -30,8 +30,8 @@ const Home = async () => {
         <RecommendH2 $marginTop="4rem" $marginBottom="1rem">
           오늘 인기있는
         </RecommendH2>
-        <Suspense fallback={<AudioListSkeleton />}>
-          <AudioList />
+        <Suspense fallback={<AudioAlbumListSkeleton />}>
+          <AudioAlbumList />
         </Suspense>
 
         <RecommendH2 $marginTop="4rem" $marginBottom="1rem">
@@ -44,15 +44,15 @@ const Home = async () => {
         <RecommendH2 $marginTop="4rem" $marginBottom="1rem">
           핫한 성우의 다른 작품
         </RecommendH2>
-        <Suspense fallback={<AudioListSkeleton />}>
-          <AudioList />
+        <Suspense fallback={<AudioAlbumListSkeleton />}>
+          <AudioAlbumList />
         </Suspense>
 
         <RecommendH2 $marginTop="4rem" $marginBottom="1rem">
           요즘 인기 태그
         </RecommendH2>
-        <Suspense fallback={<AudioListSkeleton />}>
-          <AudioList />
+        <Suspense fallback={<AudioAlbumListSkeleton />}>
+          <AudioAlbumList />
         </Suspense>
 
         {/* {tracks.length > 0 && <AudioWave audioSrc={tracks[0].url} info={{ ...tracks[0] }} />}
@@ -60,7 +60,7 @@ const Home = async () => {
           지금 있기 있는 성우
         </RecommendH2>
         {tracks.length > 0 && (
-          <AudioFileBar
+          <AudioBar
             audioSrc={tracks[0].url}
             userId={tracks[0].ownerID}
             audioId={tracks[0].id}

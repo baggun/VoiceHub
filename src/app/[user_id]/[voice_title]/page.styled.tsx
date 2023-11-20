@@ -16,7 +16,7 @@ export const VoiceBG = styled.div`
     justify-content: space-between;
     color: white;
     ${({ theme }) => theme.devices.max_tablet} {
-      height: 350px;
+      height: 230px;
       margin-bottom: 2rem;
     }
   }

@@ -1,19 +1,18 @@
-import React from "react";
+import React, { Suspense } from "react";
 import Link from "next/link";
 import { notFound } from "next/navigation";
 
 import Tag from "@/components/common/tag";
 import Profile from "@components/profile";
 import Like from "@/components/common/like";
-import { RecommendH2 } from "@common/Heading";
-import { MainLayout } from "@components/layout";
+import { RecommendH3 } from "@common/Heading";
 import CommentForm from "@common/form/CommentForm";
-import AudioWave from "@components/audio/AudioWave";
+import AudioWave from "@/components/audio/player/AudioWave";
 import { Container, ContainerFluid } from "@common/Grid";
-import { AudioFileBar } from "@components/audio/AudioFile";
 import ProfileInfo from "@components/profile/ProfileInfo";
 import ScriptBlock from "@components/script/ScriptBlock";
 import ProfileCard from "@components/profile/ProfileCard";
+import AudioBar from "@/components/audio/player/AudioBar";
 
 import { getVoice } from "@utils/apis/api/voice";
 import { getUsersProcess } from "@utils/apis/services/user";
@@ -24,6 +23,7 @@ import { VoiceInfo } from "@type/voice";
 import { CommentType } from "@type/comment";
 
 import { VoiceTitle, VoiceBG, VoiceFooter, Commet } from "./page.styled";
+import AudioBarList, { AudioBarListSkeleton } from "@/components/audio/AudioBarList";
 
 interface PageProps {
   user_id: string;
@@ -97,7 +97,7 @@ const Voice = async ({ params }: { params: PageProps }) => {
 
       <Container>
         <div className="row">
-          <div className="col-md-8">
+          <div className="col-md-7">
             <ProfileCard
               id={voiceData.ownerID}
               nickname={voiceData.ownerName}
@@ -112,7 +112,12 @@ const Voice = async ({ params }: { params: PageProps }) => {
               {comments.map((comment, idx) => {
                 return (
                   <Commet key={`comment_${idx}`}>
-                    <ProfileInfo profileID={comment.user.id} profile_url={comment.user.profile}  nickname={comment.user.nickname} size={3}>
+                    <ProfileInfo
+                      profileID={comment.user.id}
+                      profile_url={comment.user.profile}
+                      nickname={comment.user.nickname}
+                      size={3}
+                    >
                       <p>{comment.content}</p>
                     </ProfileInfo>
                   </Commet>
@@ -120,33 +125,27 @@ const Voice = async ({ params }: { params: PageProps }) => {
               })}
             </div>
           </div>
-          <div className="col-md-4">
-            <>
-              <RecommendH2 $marginBottom="1rem">
-                <Link href={`/${tracks[0].ownerID}`}>성우의 다른 목소리</Link>
-              </RecommendH2>
-              {tracks.map(track => (
-                <AudioFileBar
-                  key={track.id}
-                  audioSrc={track.url}
-                  userId={track.ownerID}
-                  audioId={track.id}
-                  info={{ ...track }}
-                />
-              ))}
-            </>
+          <div className="col-md-5">
             {likers.length > 0 && (
               <>
-                <RecommendH2 $marginBottom="1rem">관심을 남긴 사람들</RecommendH2>
+                <RecommendH3 $marginBottom="1rem">관심을 남긴 사람들</RecommendH3>
                 {likers.map(user => (
                   <Profile profileID={user.id} profile_url={user.profile} key={`likers-${user.id}`} size={3}></Profile>
                 ))}
               </>
             )}
             <>
-              <RecommendH2 $marginBottom="1rem">이 목소리와 비슷한</RecommendH2>
+              <Suspense fallback={<AudioBarListSkeleton />}>
+                <RecommendH3 $marginBottom="1rem">
+                  <Link href={`/${tracks[0].ownerID}`}>성우의 다른 목소리</Link>
+                </RecommendH3>
+                <AudioBarList user_id={user_id} />
+              </Suspense>
+            </>
+            {/* <>
+              <RecommendH3 $marginBottom="1rem">이 목소리와 비슷한</RecommendH3>
               {tracks.map(track => (
-                <AudioFileBar
+                <AudioBar
                   audioSrc={track.url}
                   key={track.id}
                   userId={track.ownerID}
@@ -154,7 +153,7 @@ const Voice = async ({ params }: { params: PageProps }) => {
                   info={{ ...track }}
                 />
               ))}
-            </>
+            </> */}
           </div>
         </div>
       </Container>

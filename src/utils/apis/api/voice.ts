@@ -7,9 +7,11 @@ import { ErrorMsg } from "@utils/error";
  * @param {number} limit 한계
  * @returns 성공 여부
  */
-export const getVoices = async (tag: string = "", skip: number = 0, limit: number = 0) => {
+export const getVoices = async ({ tag = "", skip = 0, limit = 0 }: { tag?: string; skip?: number; limit?: number }) => {
   try {
-    const res = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/voice?tag=${tag}&skip=${skip}&limit=${limit}`, { cache: 'no-cache'});
+    const res = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/voice?tag=${tag}&skip=${skip}&limit=${limit}`, {
+      cache: "no-store",
+    });
     if (!res.ok) throw new Error("Failed to fetch data");
     return await res.json();
   } catch (err) {
@@ -25,7 +27,7 @@ export const getVoices = async (tag: string = "", skip: number = 0, limit: numbe
  */
 export const getVoice = async (user_id: string, title: string) => {
   try {
-    const res = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/voice/${user_id}/${title}`, { cache: 'no-cache'});
+    const res = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/voice/${user_id}/${title}`, { cache: "no-store" });
     const data = await res.json();
     return { ok: res.ok, ...data };
   } catch (err) {

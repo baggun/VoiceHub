@@ -2,20 +2,26 @@
 
 import React from "react";
 
-import Post from "../community/Post";
-import ScriptCard from "../script/ScriptCard";
-import { AudioFileBar } from "../audio/AudioFile";
+import Post from "@components/community/Post";
+import ScriptCard from "@components/script/ScriptCard";
 import ProfileCard from "@components/profile/ProfileCard";
+import AudioBar from "@components/audio/player/AudioBar";
 
 import { getPostsProcess } from "@utils/apis/services/post";
 import { getScriptsProcess } from "@utils/apis/services/script";
 import { getVoicesProcess } from "@utils/apis/services/voice";
-import { getUserLikePosts, getUserLikeScripts, getUserLikeVoices, getUserPosts, getUserVoices } from "@/utils/apis/api/users";
-import { UserData } from "@/types/user";
-import { PostType } from "@/types/post";
-import { TabObjType } from "@/types/tab";
-import { VoiceInfo } from "@/types/voice";
-import { ScriptType } from "@/types/scripts";
+import {
+  getUserLikePosts,
+  getUserLikeScripts,
+  getUserLikeVoices,
+  getUserPosts,
+  getUserVoices,
+} from "@utils/apis/api/users";
+import { UserData } from "@type/user";
+import { PostType } from "@type/post";
+import { TabObjType } from "@type/tab";
+import { VoiceInfo } from "@type/voice";
+import { ScriptType } from "@type/scripts";
 
 import { ProfileNavCollapse, ProfileNavLink } from "./UserWorks.styled";
 
@@ -35,7 +41,7 @@ const UserWorks = async ({ user_id, tab }: UserWorksProps) => {
       tab: "voices",
       title: "녹음",
       api: async (user_id: string) => {
-        await getUserVoices(user_id)
+        await getUserVoices({ user_id })
           .then(res => getVoicesProcess(res.data))
           .then(res => {
             tracks = res;
@@ -84,8 +90,15 @@ const UserWorks = async ({ user_id, tab }: UserWorksProps) => {
     },
   };
 
-  await tabList[tab].api(user_id);
-  console.log(scripts);
+  try {
+    if (["followers", "followings"].includes(tab)) {
+    } else {
+      await tabList[tab].api(user_id);
+    }
+  } catch (err) {
+    await tabList["voices"].api(user_id);
+  }
+
   return (
     <>
       {/* 동적 페이지 (작업물, 팔로워, 좋아요 목록 등등..) */}
@@ -113,17 +126,17 @@ const UserWorks = async ({ user_id, tab }: UserWorksProps) => {
                 ))}
               </div>
             ),
-            following: (
+            followings: (
               <div>
                 {followers?.map(following => (
-                  <ProfileCard key={`following-${following.id}`} {...following} isFollowed={true} />
+                  <ProfileCard key={`followings-${following.id}`} {...following} isFollowed={true} />
                 ))}
               </div>
             ),
             voices: (
               <>
                 {tracks?.map(track => (
-                  <AudioFileBar
+                  <AudioBar
                     key={`track-${track.id}`}
                     audioSrc={track.url}
                     userId={track.ownerID}
@@ -139,7 +152,7 @@ const UserWorks = async ({ user_id, tab }: UserWorksProps) => {
             like_voices: (
               <>
                 {tracks?.map(track => (
-                  <AudioFileBar
+                  <AudioBar
                     key={`like-track-${track.id}`}
                     audioSrc={track.url}
                     userId={track.ownerID}

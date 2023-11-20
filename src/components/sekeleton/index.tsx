@@ -31,6 +31,10 @@ type SkeletonProps = {
   /**
    * 상세 스타일
    */
+  borderRadius?: string;
+  /**
+   * 상세 스타일
+   */
   style?: object;
 };
 
@@ -41,39 +45,15 @@ const Skeleton = ({
   height,
   style,
   width,
+  borderRadius,
   variant = "rect",
 }: SkeletonProps) => {
-  //   const { animation = true, children, className, height, style, width, variant = "rect" } = props;
-  const classes = [];
-  const hasChildren = Boolean(children);
-
-  if (variant === "rect") {
-    if ((!width && !height) || (width && !height)) {
-      classes.push("skeleton--default-content");
-    }
-  }
-
-  if (variant === "circle") {
-    classes.push("skeleton--circle");
-  }
-
-  if (hasChildren) {
-    classes.push("skeleton--with-children");
-
-    if (!height) {
-      classes.push("skeleton--height-auto");
-    }
-
-    if (!width) {
-      classes.push("skeleton--width-fit");
-    }
-  }
-
   return (
     <SkeletonElement
       className={className}
       $animation={$animation}
       variant={variant}
+      borderRadius={borderRadius}
       style={{ height, width, ...style }}
     >
       {children}
@@ -121,6 +101,12 @@ export const SkeletonElement = styled.span<SkeletonProps>`
   ${props => props.$animation && skeletonAnimation} 
 
   ${props => props.variant && VARIANTS[props.variant]}
+
+  ${props =>
+    props.borderRadius &&
+    css`
+      border-radius: ${props.borderRadius};
+    `}
 `;
 
 type SkeletonGroupProps = {

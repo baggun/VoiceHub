@@ -19,3 +19,9 @@ export const RecommendH2 = styled.h2<HeadingProps>`
   margin-top: ${props => props.$marginTop || "2rem"};
   margin-bottom: ${props => props.$marginBottom || "0rem"};
 `;
+export const RecommendH3 = styled.h2<HeadingProps>`
+  font-size: 1.5em;
+  margin-top: ${props => props.$marginTop || "2rem"};
+  margin-bottom: ${props => props.$marginBottom || "0rem"};
+`;
+

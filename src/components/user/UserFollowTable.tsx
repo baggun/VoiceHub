@@ -15,7 +15,7 @@ const UserFollowTable = ({ tab, followers, followings }: UserFollowTableProps) =
       title: "팔로워",
     },
     {
-      tab: "following",
+      tab: "followings",
       title: "팔로윙",
     },
   ];

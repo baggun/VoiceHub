@@ -73,7 +73,6 @@ export const getRecommendUser = async () => {
   }
 };
 
-
 /**
  * 유저 기본정보
  * @param {string} user_id user 아이디
@@ -81,7 +80,7 @@ export const getRecommendUser = async () => {
  */
 export const getUser = async (user_id: string) => {
   try {
-    const res = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/user/${user_id}`, { cache: 'no-cache'});
+    const res = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/user/${user_id}`, { cache: "no-store" });
     const data = await res.json();
     return { ok: res.ok, ...data };
   } catch (err) {
@@ -94,9 +93,9 @@ export const getUser = async (user_id: string) => {
  * @param {string} user_id user 아이디
  * @returns 성공 여부
  */
-export const getUserVoices = async (user_id: string) => {
+export const getUserVoices = async ({ user_id, limit }: { user_id: string; limit?: number }) => {
   try {
-    const res = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/user/${user_id}/voices`);
+    const res = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/user/${user_id}/voices?limit=${limit}` );
     if (!res.ok) throw new Error("Failed to fetch data");
     return res.json();
   } catch (err) {

@@ -25,7 +25,7 @@ export const DefaultLayout = ({ children, className }: { children: React.ReactNo
   );
 };
 
-export const MainLayout = ({ children }: { children: React.ReactNode }) => {
+export const MainLayout = ({ children }: { children?: React.ReactNode }) => {
   return (
     <div className="main-layout">
       <Header />

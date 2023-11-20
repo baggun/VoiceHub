@@ -1,4 +1,4 @@
-import { AudioFileBar } from "@components/audio/AudioFile";
+import AudioBar from "@/components/audio/player/AudioBar";
 import ProfileCard from "@components/profile/ProfileCard";
 import ScriptBar from "@components/script/ScriptBar";
 import { IconHeadphones, IconScript, IconUser } from "@tabler/icons-react";
@@ -22,7 +22,7 @@ export const VoiceList = ({ voices }: { voices: VoiceInfo[] }) => {
       </SearchLabel>
       {voices.length > 0 ? (
         voices.map(voice => (
-          <AudioFileBar
+          <AudioBar
             key={voice.id}
             audioSrc={voice.url}
             userId={voice.ownerID}

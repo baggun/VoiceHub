@@ -1,6 +1,6 @@
 "use client";
 
-import React from "react";
+import React, { Suspense } from "react";
 import styled, { css } from "styled-components";
 
 import Search from "@components/search";
@@ -14,7 +14,7 @@ type HeaderProps = {
   hideNavItems?: boolean;
 };
 
-const Header = ({ hideNavItems }: HeaderProps) => { 
+const Header = ({ hideNavItems }: HeaderProps) => {
   const [openSearchModal, setOpenSearchModal] = React.useState<boolean>(false);
   const menus = [
     {
@@ -58,7 +58,9 @@ const Header = ({ hideNavItems }: HeaderProps) => {
             >
               <IconSearch strokeWidth={1.5} />
             </ActButton>
-            <NavBarLogged />
+            <Suspense fallback={<p>sdf</p>}>
+              <NavBarLogged />
+            </Suspense>
           </div>
         </NavBar>
 
@@ -91,6 +93,7 @@ export default Header;
 const HeaderStyled = styled.header`
   border-bottom: 1px solid #d7d7d7;
   background: white;
+  height: 4rem;
 `;
 const HeaderContainer = styled(Container)`
   padding: 1rem;

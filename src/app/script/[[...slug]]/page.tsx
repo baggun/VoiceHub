@@ -7,7 +7,7 @@ import Like from "@/components/common/like";
 import { MainLayout } from "@components/layout";
 import ScriptCard from "@components/script/ScriptCard";
 import ScriptBlock from "@components/script/ScriptBlock";
-import { AudioFileBar } from "@components/audio/AudioFile";
+import AudioBar from "@/components/audio/player/AudioBar";
 import { Container, ContainerFluid } from "@components/common/Grid";
 
 import { getUsersProcess } from "@utils/apis/services/user";
@@ -64,6 +64,8 @@ const Script = async ({ params }: { params: PageProps }) => {
       url: "https://www.mfiles.co.uk/mp3-downloads/franz-schubert-standchen-serenade.mp3",
     },
   ];
+
+  
   return (
     <MainLayout>
       {script_id && curScript && (
@@ -85,7 +87,7 @@ const Script = async ({ params }: { params: PageProps }) => {
                     <h2>관련 목소리</h2>
                     <AudioScroller className="scroll dark">
                       {relationTracks.map(track => (
-                        <AudioFileBar
+                        <AudioBar
                           key={`track-${track.id}`}
                           audioSrc={track.url}
                           userId={track.ownerID}

@@ -81,7 +81,7 @@ export default function AudioWave({
           barWidth: 5,
           barRadius: 5,
           // responsive: true,
-          height: 150,
+          height: 200,
           normalize: true,
           // partialRender: true,
           plugins: [

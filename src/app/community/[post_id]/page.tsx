@@ -59,7 +59,12 @@ const View = async ({ params }: { params: PageProps }) => {
               <PostH1>{post?.title}</PostH1>
               {post?.tags && <PostTags>{post?.tags.map(t => <Tag key={t} tag={t} />)}</PostTags>}
               {post && (
-                <ProfileInfo profileID={post.user_id} profile_url={post.user_profile} nickname={post.user_nickname} size={3}>
+                <ProfileInfo
+                  profileID={post.user_id}
+                  profile_url={post.user_profile}
+                  nickname={post.user_nickname}
+                  size={3}
+                >
                   <Date>{post && dateFormat(post?.createdAt)}</Date>
                 </ProfileInfo>
               )}

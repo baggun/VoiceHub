@@ -10,7 +10,7 @@ import { H1 } from "@common/Heading";
 import { Button } from "@common/button";
 import { Input } from "@components/common/input";
 import { UploadLayout } from "@components/layout";
-import AudioWave from "@components/audio/AudioWave";
+import AudioWave from "@/components/audio/player/AudioWave";
 import { UploadCard } from "@components/common/card";
 import { Container, ContainerFluid } from "@common/Grid";
 import { FormGroup } from "@components/common/form/Form";

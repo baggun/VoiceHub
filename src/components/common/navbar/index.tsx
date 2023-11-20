@@ -17,7 +17,7 @@ const NavBarStyle = styled.nav`
   display: flex;
   padding-left: 0;
   margin-top: 0;
-  margin-bottom: 0;
+  margin-bottom: 0; 
   list-style: none;
   align-items: center;
 `;

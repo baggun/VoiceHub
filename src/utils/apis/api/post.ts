@@ -9,7 +9,7 @@ import { ErrorMsg } from "@utils/error";
  */
 export const getPosts = async (tag: string = "", skip: number = 0, limit: number = 0) => {
   try {
-    const res = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/post?tag=${tag}&skip=${skip}&limit=${limit}`, { cache: 'no-cache'});
+    const res = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/post?tag=${tag}&skip=${skip}&limit=${limit}`, { cache: 'no-store'});
     if (!res.ok) throw new Error("Failed to fetch data");
     return res.json();
   } catch (err) {
@@ -24,7 +24,7 @@ export const getPosts = async (tag: string = "", skip: number = 0, limit: number
  */
 export const getPost = async (post_id: string) => {
   try {
-    const res = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/post/${post_id}`, { cache: 'no-cache'});
+    const res = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/post/${post_id}`, { cache: 'no-store'});
     const data = await res.json();
     return { ok: res.ok, ...data };
   } catch (err) {

@@ -1,4 +1,3 @@
-"use client";
 import Carousel from "../carousel";
 import { ScriptType } from "@/types/scripts";
 import ScriptCard from "./ScriptCard";

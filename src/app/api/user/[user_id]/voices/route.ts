@@ -5,6 +5,9 @@ import Voice from "@models/voice.model";
 
 export async function GET(request: NextRequest, { params }: { params: { user_id: string } }) {
   const { user_id } = params;
+  const searchParams = request.nextUrl.searchParams;
+  const skip: number = parseInt(searchParams.get("skip") as string) || 0;
+  const limit: number = parseInt(searchParams.get("limit") as string) || 10;
 
   try {
     await dbConnect();
@@ -23,10 +26,13 @@ export async function GET(request: NextRequest, { params }: { params: { user_id:
       );
     }
 
-    const voices = await Voice.find({ author: user._id }, "title tags voice_src createdAt").populate({
-      path: "author",
-      select: ["user_id", "user_nickname"],
-    });
+    const voices = await Voice.find({ author: user._id }, "title tags voice_src createdAt")
+      .populate({
+        path: "author",
+        select: ["user_id", "user_nickname"],
+      })
+      .limit(10)
+      .skip(skip * limit);
 
     return Response.json({
       success: true,
