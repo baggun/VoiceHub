@@ -4,13 +4,14 @@ import { notFound } from "next/navigation";
 
 import { PostH1 } from "@common/Heading";
 import { Container } from "@common/Grid";
+import Comment from "@components/comment";
 import Tag from "@/components/common/tag";
 import Like from "@/components/common/like";
 import { MainLayout } from "@components/layout";
 import { IconArrowNarrowLeft } from "@tabler/icons-react";
 import ProfileInfo from "@components/profile/ProfileInfo";
-import PostSetting from "@/components/community/PostSetting";
-import PostCommentForm from "@/components/common/form/PostCommentForm";
+import PostSetting from "@components/community/PostSetting";
+import PostCommentForm from "@components/common/form/PostCommentForm";
 
 import { getPost } from "@utils/apis/api/post";
 import { getPostProcess } from "@utils/apis/services/post";
@@ -19,15 +20,7 @@ import { getCommentProcess } from "@utils/apis/services/comment";
 import { UserData } from "@type/user";
 import { dateFormat } from "@utils/format";
 import { CommentType } from "@type/comment";
-import {
-  ViewContainer,
-  ContentBlock,
-  Date,
-  PostTags,
-  CommentBlock,
-  CommentContentBlock,
-  PostFooter,
-} from "./page.styled";
+import { ViewContainer, ContentBlock, Date, PostTags, PostFooter } from "./page.styled";
 
 interface PageProps {
   post_id: string;
@@ -87,14 +80,7 @@ const View = async ({ params }: { params: PageProps }) => {
             <PostCommentForm post_id={post_id} />
 
             {comments.map((c, idx) => {
-              return (
-                <CommentBlock key={`c-${idx}`}>
-                  <ProfileInfo profileID={c.user.id} profile_url={c.user.profile} nickname={c.user.nickname} size={3}>
-                    <Date>{dateFormat(c.date)}</Date>
-                  </ProfileInfo>
-                  <CommentContentBlock>{c.content}</CommentContentBlock>
-                </CommentBlock>
-              );
+              return <Comment key={`c-${idx}`} comment={c} />;
             })}
           </div>
           <div className="col-md-2"></div>
