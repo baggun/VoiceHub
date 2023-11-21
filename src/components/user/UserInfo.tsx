@@ -1,5 +1,5 @@
 import Tag from "@/components/common/tag";
-import { RecommendH2 } from "@common/Heading";
+import { RecommendH3 } from "@common/Heading";
 import { IconMail, IconMapPin, IconPhone } from "@tabler/icons-react";
 import { UserAboutMe, UserInfoListBlock, UserInfoList, UserAssociatedTags } from "./UserInfo.styled";
 import { UserProfileData } from "@type/user";
@@ -33,7 +33,7 @@ const UserInfo = ({ profieData, className, associatedTags }: UserInfoProps) => {
         </ul>
       </UserInfoListBlock>
       <UserAssociatedTags>
-        <RecommendH2>관련 태그</RecommendH2>
+        <RecommendH3>관련 태그</RecommendH3>
         {associatedTags?.map(tag => <Tag key={tag} tag={tag} />)}
       </UserAssociatedTags>
     </div>
