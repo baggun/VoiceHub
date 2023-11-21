@@ -21,7 +21,7 @@ const handleDeletePost = async (e: React.MouseEvent<HTMLButtonElement>) => {
 
   const ok = window.confirm("정말 삭제하시겠습니까?");
   if (ok) {
-    await deletePostComment().then(res => {
+    await deletePostComment(comment).then(res => {
       if (res && res.success) router.push("/community");
     });
   }
