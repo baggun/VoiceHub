@@ -39,7 +39,7 @@ export const AudioBarListSkeleton = () => {
       <Skeleton
         height="35px"
         width="10rem"
-        borderRadius="0.5rem"
+        $borderRadius="0.5rem"
         style={{
           margin: "1.75rem 0rem 0.25rem 0rem",
         }}
@@ -48,7 +48,7 @@ export const AudioBarListSkeleton = () => {
         <Skeleton
           height="4.5rem"
           width="100%"
-          borderRadius="0.5rem"
+          $borderRadius="0.5rem"
           style={{
             margin: "0.125rem 0rem",
           }}

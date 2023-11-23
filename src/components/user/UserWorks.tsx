@@ -11,6 +11,8 @@ import { getPostsProcess } from "@utils/apis/services/post";
 import { getScriptsProcess } from "@utils/apis/services/script";
 import { getVoicesProcess } from "@utils/apis/services/voice";
 import {
+  getUserFollowers,
+  getUserFollowings,
   getUserLikePosts,
   getUserLikeScripts,
   getUserLikeVoices,
@@ -24,6 +26,7 @@ import { VoiceInfo } from "@type/voice";
 import { ScriptType } from "@type/scripts";
 
 import { ProfileNavCollapse, ProfileNavLink } from "./UserWorks.styled";
+import { getUsersProcess } from "@/utils/apis/services/user";
 
 type UserWorksProps = {
   user_id: string;
@@ -90,13 +93,17 @@ const UserWorks = async ({ user_id, tab }: UserWorksProps) => {
     },
   };
 
-  try {
-    if (["followers", "followings"].includes(tab)) {
-    } else {
-      await tabList[tab].api(user_id);
-    }
-  } catch (err) {
-    await tabList["voices"].api(user_id);
+  // "followers", "followings" 면 따로 처리함
+  if (["followers", "followings"].includes(tab)) {
+    await (tab === "followers" ? getUserFollowers(user_id) : getUserFollowings(user_id))
+      .then(res => getUsersProcess(res.data))
+      .then(res => {
+        followers = res;
+      });
+  } else {
+    // 정해진 포맷이 아니면 "voices"로,
+    if (!Object.keys(tabList).includes(tab)) tab = "voices";
+    await tabList[tab].api(user_id);
   }
 
   return (
