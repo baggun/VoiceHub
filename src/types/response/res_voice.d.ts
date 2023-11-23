@@ -20,6 +20,7 @@ export type CommentResponseData = {
   content: string;
   date: string;
   user: {
+    _id: string;
     user_id: string;
     user_nickname: string;
     user_profile: string;

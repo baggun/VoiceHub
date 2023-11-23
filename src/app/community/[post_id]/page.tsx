@@ -79,9 +79,9 @@ const View = async ({ params }: { params: PageProps }) => {
           <div className="col-md-8">
             <PostCommentForm post_id={post_id} />
 
-            {comments.map((c, idx) => {
-              return <Comment key={`c-${idx}`} comment={c} />;
-            })}
+            {comments.map((c, idx) => (
+              <Comment key={`c-${idx}`} post_id={post_id} comment={c} />
+            ))}
           </div>
           <div className="col-md-2"></div>
         </div>

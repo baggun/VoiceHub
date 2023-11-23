@@ -12,6 +12,7 @@ import { Container, ContainerFluid } from "@common/Grid";
 import ProfileInfo from "@components/profile/ProfileInfo";
 import ScriptBlock from "@components/script/ScriptBlock";
 import ProfileCard from "@components/profile/ProfileCard";
+import Comment from "@components/comment";
 import AudioBar from "@/components/audio/player/AudioBar";
 
 import { getVoice } from "@utils/apis/api/voice";
@@ -22,7 +23,7 @@ import { UserData } from "@type/user";
 import { VoiceInfo } from "@type/voice";
 import { CommentType } from "@type/comment";
 
-import { VoiceTitle, VoiceBG, VoiceFooter, Commet } from "./page.styled";
+import { VoiceTitle, VoiceBG, VoiceFooter } from "./page.styled";
 import AudioBarList, { AudioBarListSkeleton } from "@/components/audio/AudioBarList";
 
 interface PageProps {
@@ -109,20 +110,9 @@ const Voice = async ({ params }: { params: PageProps }) => {
             <hr />
             <CommentForm voice_id={voiceData.id} />
             <div>
-              {comments.map((comment, idx) => {
-                return (
-                  <Commet key={`comment_${idx}`}>
-                    <ProfileInfo
-                      profileID={comment.user.id}
-                      profile_url={comment.user.profile}
-                      nickname={comment.user.nickname}
-                      size={3}
-                    >
-                      <p>{comment.content}</p>
-                    </ProfileInfo>
-                  </Commet>
-                );
-              })}
+              {comments.map((c, idx) => (
+                <Comment key={`c-${idx}`} post_id={voiceData.id} comment={c} type="voice" />
+              ))}
             </div>
           </div>
           <div className="col-md-5">
