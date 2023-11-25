@@ -69,7 +69,7 @@ export async function POST(request: NextRequest) {
         },
       );
     }
-
+    
     // 기타 오류 처리
     return Response.json(
       {

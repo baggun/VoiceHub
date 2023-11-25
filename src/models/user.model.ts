@@ -35,7 +35,6 @@ export const userSchema = new Schema({
   // 자기소개
   user_desc: {
     type: String,
-    required: true,
     default: "",
   },
 

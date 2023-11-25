@@ -19,8 +19,7 @@ const NotFoundLayout = ({
   message = "존재하는 컨텐츠가 아니거나 삭제된 컨텐츠입니다.",
   redirect = "/",
 }: NotFoundProps) => {
-  return (
-    <MainLayout>
+  return ( 
       <ContainerFluid className="pd-none">
         <NotFoundContainer>
           <CodeH1>404</CodeH1>
@@ -30,8 +29,7 @@ const NotFoundLayout = ({
             <Button $borderRadius="0.5rem">돌아가기</Button>
           </Link>
         </NotFoundContainer>
-      </ContainerFluid>
-    </MainLayout>
+      </ContainerFluid> 
   );
 };
 export default NotFoundLayout;

@@ -18,6 +18,7 @@ import { UserData } from "@type/user";
 
 import { AudioScroller, ScriptBG, ScriptBody, ScriptHeader, ScriptTitle } from "./page.styled";
 import { AudioInfo } from "@/types/voice";
+import { getVoicesProcess } from "@/utils/apis/services/voice";
 
 interface PageProps {
   slug?: string[];
@@ -36,6 +37,7 @@ const Script = async ({ params }: { params: PageProps }) => {
 
   let curScript: ScriptType | null = null;
   let likers!: UserData[];
+  let relationTracks: RelationType[] = [];
 
   if (script_id) {
     const res = await getScript(script_id);
@@ -44,26 +46,27 @@ const Script = async ({ params }: { params: PageProps }) => {
     curScript = getScriptProcess(res.script);
 
     if (res.likes) likers = getUsersProcess(res.likes);
+    if (res.voices) relationTracks = getVoicesProcess(res.voices);
   }
 
-  const relationTracks: RelationType[] = [
-    {
-      id: "1",
-      ownerID: "asdf",
-      ownerName: "가나다",
-      ownerProfile: "",
-      title: "Hello .. - Voice (Clarinet) & Piano",
-      url: "https://api.twilio.com//2010-04-01/Accounts/AC25aa00521bfac6d667f13fec086072df/Recordings/RE6d44bc34911342ce03d6ad290b66580c.mp3",
-    },
-    {
-      id: "0",
-      ownerID: "aaa",
-      ownerName: "xvxvxv",
-      ownerProfile: "",
-      title: "Brahms: St Anthony Chorale - Theme, Two Pianos Op.56b",
-      url: "https://www.mfiles.co.uk/mp3-downloads/franz-schubert-standchen-serenade.mp3",
-    },
-  ];
+  // const relationTracks: RelationType[] = [
+  //   {
+  //     id: "1",
+  //     ownerID: "asdf",
+  //     ownerName: "가나다",
+  //     ownerProfile: "",
+  //     title: "Hello .. - Voice (Clarinet) & Piano",
+  //     url: "https://api.twilio.com//2010-04-01/Accounts/AC25aa00521bfac6d667f13fec086072df/Recordings/RE6d44bc34911342ce03d6ad290b66580c.mp3",
+  //   },
+  //   {
+  //     id: "0",
+  //     ownerID: "aaa",
+  //     ownerName: "xvxvxv",
+  //     ownerProfile: "",
+  //     title: "Brahms: St Anthony Chorale - Theme, Two Pianos Op.56b",
+  //     url: "https://www.mfiles.co.uk/mp3-downloads/franz-schubert-standchen-serenade.mp3",
+  //   },
+  // ];
 
   
   return (

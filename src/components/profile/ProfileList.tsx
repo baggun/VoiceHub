@@ -68,7 +68,7 @@ export const ProfileListSkeleton = () => {
           <Skeleton
             height="5.25rem"
             width="5.25rem"
-            variant="circle"
+            $variant="circle"
             style={{
               margin: "0rem 0.5rem 0rem 0.5rem",
             }}

@@ -1,6 +1,7 @@
 import dbConnect from "@lib/db/dbConnect";
 import { NextRequest } from "next/server";
-import Script from "@/models/script.model";
+import Script from "@models/script.model";
+import Voice from "@models/voice.model";
 import ScriptLike from "@models/script_like.model";
 
 export async function GET(request: NextRequest, { params }: { params: { id: string } }) {
@@ -19,9 +20,19 @@ export async function GET(request: NextRequest, { params }: { params: { id: stri
         })
         .lean();
 
+        const voices = await Voice.find({ script: id, deleted: { $ne: true } }, "-comments")
+        .populate({
+          path: "author",
+          select: ["user_id", "user_nickname", "user_profile"],
+        })
+        .sort("-createdAt")
+        .limit(5)
+        .lean();
+
       return Response.json({
         success: true,
         script,
+        voices,
         likes,
       });
     }
