@@ -65,7 +65,7 @@ export const register = async (userData: UserRegisterData) => {
  */
 export const getRecommendUser = async () => {
   try {
-    const res = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/user`);
+    const res = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/user`, { cache: "no-store" });
     const data = await res.json();
     return { ok: res.ok, ...data };
   } catch (err) {

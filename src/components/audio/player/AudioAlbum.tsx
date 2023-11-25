@@ -1,15 +1,10 @@
 "use client";
 
-import Link from "next/link";
 import styled, { css } from "styled-components";
-import { useRecoilState, useSetRecoilState } from "recoil";
-import { audioCurTimeState, audioInfoState, audioPlayState, audioState } from "@/recoil/audio/atom";
 
-import { IconPlayerPauseFilled, IconPlayerPlayFilled } from "@tabler/icons-react";
-import { AudioInfo } from "@type/voice";
-import Image from "next/image";
-import { profileURL } from "@/utils/url";
-import Tag from "../../common/tag";
+import Tag from "@components/common/tag";
+
+import { profileURL } from "@utils/url";
 import Player, { AudioLikeStyle, AudioName, AudioPlayButton, AudioProps } from ".";
 
 const AudioAlbum = ({ audioSrc, info, tags, userId, audioId, likes, $darkmode = false }: AudioProps) => {
@@ -23,7 +18,7 @@ const AudioAlbum = ({ audioSrc, info, tags, userId, audioId, likes, $darkmode = 
         <AudioName href={`/${userId}/${info.title}`} $darkmode={$darkmode}>
           {info.title}
         </AudioName>
-        <div>{tags && tags.map(t => <Tag tag={t} key={`audioId-${t}`} />)}</div>
+        <AudioTags>{tags && tags.map(t => <Tag tag={t} key={`audioId-${t}`} />)}</AudioTags>
       </div>
       {likes && <AudioLikeStyle>{likes} LIKE</AudioLikeStyle>}
     </AudioAlbumStyle>
@@ -35,28 +30,29 @@ const AudioAlbumStyle = styled.div<{ $darkmode: boolean }>`
   display: inline-flex;
   flex-direction: column;
   /* background-color: ${({ theme }) => theme.colors.minute_bg}; */
+  width: 11rem;
+  margin: 0.5rem 1.5rem 0.5rem 0rem;
   ${props =>
     props.$darkmode &&
     css`
       background-color: #2a2a2a;
     `}
-  /* padding: 0.5rem 0rem; */
-  /* border-radius: 0.5rem; */
-  /* align-items: center; */
-  margin: 0.5rem 1.5rem 0.5rem 0rem;
   &:first-child {
-    /* margin-left: 0rem; */
     margin-top: 0rem;
   }
   &:last-child {
     margin-bottom: 0rem;
   }
-  /* &+& {
-    margin-left: 1rem;
-  } */
   ${AudioName} {
     font-weight: 400;
     font-size: 1.125rem;
+    display: -webkit-box;
+    overflow: hidden;
+    -webkit-box-orient: vertical;
+    -webkit-line-clamp: 1;
+    white-space: normal;
+    overflow-wrap: break-word;
+    padding-right: 0px;
   }
   .tag {
     opacity: 0.8;
@@ -69,6 +65,10 @@ const AudioProfileImage = styled.img`
   border: 1px solid #efefef;
   /* cursor: pointer; */
   border-radius: 0.5rem;
+	-webkit-filter: blur(0);
+	filter: blur(0);
+	-webkit-transition: .2s ease-in-out;
+	transition: .2s ease-in-out;
 `;
 const Album = styled.div`
   position: relative;
@@ -76,6 +76,10 @@ const Album = styled.div`
   &:hover {
     ${AudioPlayButton} {
       display: flex;
+    }
+    ${AudioProfileImage} {
+      -webkit-filter: blur(1px);
+      filter: blur(1px) brightness(90%);;
     }
   }
   ${AudioPlayButton} {
@@ -93,4 +97,15 @@ const Album = styled.div`
       color: white;
     }
   }
+`;
+
+const AudioTags = styled.div`
+  display: -webkit-box;
+  overflow: hidden;
+  -webkit-box-orient: vertical;
+  -webkit-line-clamp: 1;
+  white-space: normal;
+  overflow-wrap: break-word;
+  padding-right: 0px;
+  font-size: 0.5rem;
 `;

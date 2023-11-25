@@ -1,3 +1,5 @@
+import { DateType } from "@type/date";
+
 /**
  * 마감날짜 이전인지
  * @param deadline 마감 날짜
@@ -25,27 +27,20 @@ export const remainingDeadline = (date: Date): string => {
  * @param date 마간 날짜
  * @returns days, hours, minutes | undefined
  */
-export const calculateRemainingDeadline = (
-  date: Date,
-):
-  | {
-      days: number;
-      hours: number;
-      minutes: number;
-    }
-  | undefined => {
+export const calculateRemainingDeadline = (date: Date): DateType => {
   // 현재 시간과 목표 날짜 사이의 차이 계산
   const timeDiff = date.getTime() - Date.now();
 
   // 차이가 음수인 경우: 목표 날짜가 이미 지났음
   if (timeDiff < 0) {
-    return undefined;
+    return { days: 0, hours: 0, minutes: 0, seconds: 0 };
   }
 
   // 일, 시간, 분 계산
   const days = Math.floor(timeDiff / (1000 * 60 * 60 * 24));
   const hours = Math.floor((timeDiff % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
   const minutes = Math.floor((timeDiff % (1000 * 60 * 60)) / (1000 * 60));
+  const seconds = Math.floor((timeDiff % (1000 * 60)) / 1000);
 
-  return { days, hours, minutes };
+  return { days, hours, minutes, seconds };
 };

@@ -82,7 +82,7 @@ export async function GET(request: NextRequest) {
         path: "author",
         select: ["user_id", "user_nickname", "user_profile"],
       })
-      .sort("createdAt")
+      .sort("-createdAt")
       .limit(10)
       .skip(skip * limit)
       .lean();

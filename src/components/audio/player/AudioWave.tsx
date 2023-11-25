@@ -50,7 +50,6 @@ export default function AudioWave({
   };
 
   const setPlay = (isPlay: boolean, isWave: boolean = false) => {
-    console.log("s p");
     setAudio({
       ...audio,
       isControlWave: isWave || audio.isControlWave,
@@ -63,7 +62,6 @@ export default function AudioWave({
       // 일시정지 중이었는데 플레이 요청이 들어오면 wavesurfer 도 플레이 시작
       if (audioPlay && audio.isControlWave) {
         wavesurfer.current?.play();
-        console.log("시작2222");
       } else if (wavesurfer && wavesurfer.current) wavesurfer.current.pause();
     } catch (e) {
       console.error("개발중 AudioPlayer 재렌더링시 생기는 에러", e);
@@ -141,8 +139,7 @@ export default function AudioWave({
 
   const handlePlay = (e: React.MouseEvent<HTMLButtonElement>) => {
     e.preventDefault();
-
-    console.log("1111111", audio.audio, "222222", audioSrc);
+ 
     if (audio.audio !== audioSrc) {
       changeAudio(audioSrc, info, true);
     } else {

@@ -6,10 +6,11 @@ import { DefaultLayout } from "@components/layout";
 import ContestThumbnail from "@components/contest/ContestThumbnail";
 import ContestDeadline from "@components/contest/ContestDeadline";
 
-import { getContest } from "@utils/apis/api/contest";
-import { getContestProcess } from "@utils/apis/services/contest";
 import { dateFormat } from "@utils/format";
-import { isDeadline, calculateRemainingDeadline } from "@utils/deadline";
+import { getContestProcess } from "@utils/apis/services/contest";
+import { getContest, getContestList } from "@utils/apis/api/contest";
+import { isDeadline } from "@utils/deadline";
+import { ContestData } from "@type/contest";
 
 import {
   ContestCard,
@@ -26,13 +27,24 @@ import {
 interface PageProps {
   contest_id: string;
 }
+
+export const dynamicParams = true;
+
+//! [SSG] 로 생성하려다가, hit 및 정보 수정이 있을지도 몰라 일단 ISR 로 변경
+export async function generateStaticParams() {
+  const res = await getContestList();
+  const contests: ContestData[] = res.contests;
+  return contests.map(contest => ({
+    contest_id: contest.id,
+  }));
+}
+
 const Contest = async ({ params }: { params: PageProps }) => {
   const { contest_id } = params;
 
   const res = await getContest(contest_id);
   if (!res.ok) return notFound();
 
-  console.log(res);
   const contestData = getContestProcess(res.contest);
 
   return (
@@ -56,7 +68,7 @@ const Contest = async ({ params }: { params: PageProps }) => {
           </ContestInfoBlock>
         </div>
         <ContestFocusBlock>
-          <ContestDeadline deadline={calculateRemainingDeadline(contestData.endDate)} />
+          <ContestDeadline endDate={contestData.endDate} />
           <Button variant="primary" $padding="0.5rem 3rem" $borderRadius="0.5rem">
             응모하기
           </Button>

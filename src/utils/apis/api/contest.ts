@@ -8,7 +8,9 @@ import { ErrorMsg } from "@utils/error";
  */
 export const getContestList = async (skip: number = 0, limit: number = 0) => {
   try {
-    const res = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/contest?skip=${skip}&limit=${limit}`, { cache: 'no-store'});
+    const res = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/contest?skip=${skip}&limit=${limit}`, {
+      cache: "no-store"
+    });
     if (!res.ok) throw new Error("Failed to fetch data");
     return res.json();
   } catch (err) {
@@ -23,7 +25,11 @@ export const getContestList = async (skip: number = 0, limit: number = 0) => {
  */
 export const getContest = async (contest_id: string) => {
   try {
-    const res = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/contest/${contest_id}`);
+    const res = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/contest/${contest_id}`, {
+      next: {
+        revalidate: 3600, // 1 시간 간격 
+      },
+    });
     const data = await res.json();
     return { ok: res.ok, ...data };
   } catch (err) {

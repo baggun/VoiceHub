@@ -52,7 +52,7 @@ export async function GET(request: NextRequest) {
         },
       },
       {
-        $sort: { createdAt: 1 },
+        $sort: { createdAt: -1 },
       },
       {
         $limit: 10,
