@@ -125,16 +125,14 @@ export const patchVoiceComment = async (voice_oid: string, user_oid: string, com
 /**
  * 댓글 수정
  * @param {string} voice_oid voice _id
- * @param {string} user_oid user _id
  * @param {string} comment_oid comment _id
  * @returns 성공 여부
  */
-export const deleteVoiceComment = async (voice_oid: string, user_oid: string, comment_oid: string) => {
+export const deleteVoiceComment = async (voice_oid: string, comment_oid: string) => {
   try {
     const res = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/voice/${voice_oid}/comment`, {
       method: "DELETE",
       body: JSON.stringify({
-        user_oid,
         comment_oid,
       }),
     });

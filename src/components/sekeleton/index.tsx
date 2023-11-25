@@ -27,11 +27,11 @@ type SkeletonProps = {
   /**
    * 타입
    */
-  variant?: "circle" | "rect";
+  $variant?: "circle" | "rect";
   /**
    * 상세 스타일
    */
-  borderRadius?: string;
+  $borderRadius?: string;
   /**
    * 상세 스타일
    */
@@ -45,15 +45,15 @@ const Skeleton = ({
   height,
   style,
   width,
-  borderRadius,
-  variant = "rect",
+  $borderRadius,
+  $variant = "rect",
 }: SkeletonProps) => {
   return (
     <SkeletonElement
       className={className}
       $animation={$animation}
-      variant={variant}
-      borderRadius={borderRadius}
+      $variant={$variant}
+      $borderRadius={$borderRadius}
       style={{ height, width, ...style }}
     >
       {children}
@@ -100,12 +100,12 @@ export const SkeletonElement = styled.span<SkeletonProps>`
 
   ${props => props.$animation && skeletonAnimation} 
 
-  ${props => props.variant && VARIANTS[props.variant]}
+  ${props => props.$variant && VARIANTS[props.$variant]}
 
   ${props =>
-    props.borderRadius &&
+    props.$borderRadius &&
     css`
-      border-radius: ${props.borderRadius};
+      border-radius: ${props.$borderRadius};
     `}
 `;
 

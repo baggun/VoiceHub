@@ -23,19 +23,6 @@ export const PostTags = styled.div`
   margin-bottom: 1rem;
 `;
 
-export const CommentBlock = styled.div`
-  margin: 2rem 0rem;
-`;
-export const CommentContentBlock = styled.div`
-  margin-left: 4rem;
-  margin-bottom: 1rem;
-  background-color: white;
-  padding: 1rem;
-  border-radius: 0.5rem;
-  border: 1px solid ${({ theme }) => theme.colors.lightGrey};
-  white-space: pre-wrap;
-`;
-
 export const PostFooter = styled.div`
   display: flex;
   justify-content: space-between;

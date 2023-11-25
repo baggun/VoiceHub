@@ -1,9 +1,9 @@
 "use client";
 
-import React from "react"; 
-import { useRouter } from "next/navigation"; 
-import { useSession } from "next-auth/react"; 
-import styled, { css } from "styled-components"; 
+import React from "react";
+import { useRouter } from "next/navigation";
+import { useSession } from "next-auth/react";
+import styled, { css } from "styled-components";
 
 import { Card } from "@common/card";
 import { Button } from "@common/button";
