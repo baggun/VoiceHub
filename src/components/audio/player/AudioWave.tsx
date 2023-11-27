@@ -13,15 +13,13 @@ import { timeFormat } from "@utils/format";
 import { AudioInfo } from "@type/voice";
 import { voiceURL } from "@/utils/url";
 
-export default function AudioWave({
-  audioSrc,
-  info,
-  $darkmode = true,
-}: {
+export type AudioWaveProps = {
   audioSrc: string;
   info: AudioInfo;
   $darkmode?: boolean;
-}) {
+};
+
+export default function AudioWave({ audioSrc, info, $darkmode = true }: AudioWaveProps) {
   const [audio, setAudio] = useRecoilState(audioState);
   const [audioPlay, setAudioPlay] = useRecoilState(audioPlayState);
   const setAudioInfo = useSetRecoilState(audioInfoState);
@@ -98,7 +96,6 @@ export default function AudioWave({
           // maxCanvasWidth: 200
         });
 
-
         /* TODO:
           S3 파일을 사용하면서 부터, S3 CORS 를 설정해야함.
           개발 환경과 voiceHub 배포가 beta 인 관계로 전체 설정되어있지만 이후 바꿔야함
@@ -143,7 +140,7 @@ export default function AudioWave({
 
   const handlePlay = (e: React.MouseEvent<HTMLButtonElement>) => {
     e.preventDefault();
- 
+
     if (audio.audio !== audioSrc) {
       changeAudio(audioSrc, info, true);
     } else {

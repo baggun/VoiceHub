@@ -4,7 +4,7 @@ import styled from "styled-components";
 
 import { TagStyled } from "./index.styled";
 
-type TagProps = {
+export type TagProps = {
   tag: string;
   $darkmode?: boolean;
 };

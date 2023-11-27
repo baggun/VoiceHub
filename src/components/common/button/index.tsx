@@ -80,7 +80,6 @@ const VARIANTS_OUTLINE = {
 };
 
 export interface CustomButtonProps extends StyledButtonProps {
-  type?: "button" | "reset" | "submit";
   /**
    * Button disabled
    */
@@ -91,12 +90,8 @@ export interface CustomButtonProps extends StyledButtonProps {
   variant?: "primary" | "secondary" | "grey" | "black" | "transparent";
   outline?: boolean;
   $withIcon?: boolean;
-  className?: string;
-  onClick?: (e: React.MouseEvent<HTMLButtonElement>) => void;
-  children?: React.ReactNode;
 };
 export const Button = ({
-  type = "button",
   variant = "primary",
   $borderRadius,
   width,
@@ -109,7 +104,6 @@ export const Button = ({
   $customStyle,
   disabled,
   className,
-  onClick,
   children,
 }: CustomButtonProps) => {
   const $variantStyle = outline ? VARIANTS_OUTLINE[variant] : VARIANTS[variant];
@@ -117,7 +111,6 @@ export const Button = ({
   return (
     <StyledButton
       className={className ? `btn ${className}` : "btn"}
-      type={type}
       disabled={disabled}
       $variantStyle={$variantStyle}
       $borderRadius={$borderRadius}
@@ -128,14 +121,13 @@ export const Button = ({
       $float={$float}
       $customStyle={$customStyle}
       $withIcon={$withIcon}
-      onClick={onClick}
     >
       {children}
     </StyledButton>
   );
 };
 
-interface StyledButtonProps  {
+interface StyledButtonProps extends React.ComponentProps<'button'>  {
   $borderRadius?: string;
   width?: string;
   height?: string;

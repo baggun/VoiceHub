@@ -3,7 +3,7 @@
 import React from "react";
 import styled, { css, keyframes } from "styled-components";
 
-type SkeletonProps = {
+export interface SkeletonProps extends React.ComponentProps<'div'> {
   /**
    * 애니메이션 활성화 여부
    */
@@ -32,10 +32,6 @@ type SkeletonProps = {
    * 상세 스타일
    */
   $borderRadius?: string;
-  /**
-   * 상세 스타일
-   */
-  style?: object;
 };
 
 const Skeleton = ({
@@ -43,7 +39,6 @@ const Skeleton = ({
   children,
   className,
   height,
-  style,
   width,
   $borderRadius,
   $variant = "rect",
@@ -54,7 +49,7 @@ const Skeleton = ({
       $animation={$animation}
       $variant={$variant}
       $borderRadius={$borderRadius}
-      style={{ height, width, ...style }}
+      style={{ height, width }}
     >
       {children}
     </SkeletonElement>

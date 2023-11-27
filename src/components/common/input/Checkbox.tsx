@@ -1,25 +1,32 @@
 import styled from "styled-components";
 
-type CheckboxProps = {
+export type CheckboxProps = {
   checked: boolean;
   label?: string;
   className?: string;
-  onChange?: (e: React.ChangeEvent<HTMLInputElement>) => void;
+  onChange: (e: boolean) => void;
 };
 
-const Checkbox = ({ className, checked, label, onChange }: CheckboxProps) => (
-  <label>
-    <CheckboxContainer className={className}>
-      <HiddenCheckbox checked={checked} onChange={onChange} />
-      <StyledCheckbox checked={checked}>
-        <Icon viewBox="0 0 24 24">
-          <path d="M5 12l5 5l10 -10"></path>
-        </Icon>
-      </StyledCheckbox>
-      {label && <CheckboxLabel>{label}</CheckboxLabel>}
-    </CheckboxContainer>
-  </label>
-);
+const Checkbox = ({ className, checked, label, onChange }: CheckboxProps) => {
+  const onChangeHandler = (e: React.ChangeEvent<HTMLInputElement>) => {
+    e.preventDefault();
+    onChange(e.target.checked);
+  };
+
+  return (
+    <label>
+      <CheckboxContainer className={className}>
+        <HiddenCheckbox checked={checked} onChange={onChangeHandler} />
+        <StyledCheckbox checked={checked}>
+          <Icon viewBox="0 0 24 24">
+            <path d="M5 12l5 5l10 -10"></path>
+          </Icon>
+        </StyledCheckbox>
+        {label && <CheckboxLabel>{label}</CheckboxLabel>}
+      </CheckboxContainer>
+    </label>
+  );
+};
 
 export default Checkbox;
 

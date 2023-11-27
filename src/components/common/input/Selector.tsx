@@ -9,7 +9,7 @@ export interface OptionType {
   readonly value: string;
 }
 
-type SelectorProps = {
+export type SelectorProps = {
   id?: string;
   value: readonly OptionType[];
   setValue: React.Dispatch<React.SetStateAction<readonly OptionType[]>>;

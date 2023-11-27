@@ -128,19 +128,17 @@ const VoiceUpload = () => {
                   </FormGroup>
                   <FormGroup>
                     <Label htmlFor="inputScript">대사</Label>
-                    <ScriptBlock>
-                      <ScriptTextarea
-                        id="inputScript"
-                        value={voiceData.script}
-                        onChange={e =>
-                          setVoiceData({
-                            ...voiceData,
-                            script: e.target.value,
-                          })
-                        }
-                        disabled={script !== null}
-                      />
-                    </ScriptBlock>
+                    <ScriptTextarea
+                      id="inputScript"
+                      value={voiceData.script}
+                      onChange={e =>
+                        setVoiceData({
+                          ...voiceData,
+                          script: e.target.value,
+                        })
+                      }
+                      disabled={script !== null}
+                    />
                   </FormGroup>
                 </div>
                 <div className="col-lg-5" {...ifStage("detail")}>

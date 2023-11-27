@@ -11,7 +11,7 @@ import { IconBinaryTree2 } from "@tabler/icons-react";
 import { ScriptType } from "@type/scripts";
 import Link from "next/link";
 
-type ScriptCardProps = {
+export type ScriptCardProps = {
   script: ScriptType;
   className?: string;
   $fixedWidth?: string;

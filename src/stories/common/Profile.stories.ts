@@ -1,10 +1,10 @@
-import SwitchCheckbox, { SwitchCheckboxProps } from "@/components/common/checkbox/SwitchCheckbox";
+
 import Profile, { ProfileProps } from "@/components/profile";
 import type { Meta, StoryObj } from "@storybook/react";
 
 const meta = {
-  title: "common/SwitchCheckbox",
-  component: SwitchCheckbox,
+  title: "common/Profile",
+  component: Profile, 
   tags: ["autodocs"],
   argTypes: {},
   parameters: {
@@ -18,7 +18,7 @@ const meta = {
       },
     },
   },
-} satisfies Meta<SwitchCheckboxProps>;
+} satisfies Meta<ProfileProps>;
 
 export default meta;
 
@@ -26,14 +26,19 @@ type Story = StoryObj<typeof meta>;
 
 export const Default: Story = {
   args: {
-    id: "default",
-    checked: false,
+    profileID: "asdf",
+    profile_url: "base_profile.png",
+    nickname: "닉네임"  
   },
 };
 
-export const Checked: Story = {
+
+export const Size: Story = {
   args: {
-    id: "default",
-    checked: true,
+    profileID: "asdf",
+    profile_url: "base_profile.png",
+    nickname: "닉네임",
+    size: 6,
   },
 };
+
