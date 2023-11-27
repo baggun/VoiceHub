@@ -44,7 +44,7 @@ export async function generateMetadata({ params }: { params: PageProps }): Promi
       images: [
         contestData.thumbnail
           ? contestData.thumbnail
-          : "https://raw.githubusercontent.com/baggun/VoiceHub/master/public/thumbnail.png",
+          : "/thumbnail.png",
       ],
       type: "website",
     },

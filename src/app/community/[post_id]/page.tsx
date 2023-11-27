@@ -21,9 +21,34 @@ import { UserData } from "@type/user";
 import { dateFormat } from "@utils/format";
 import { CommentType } from "@type/comment";
 import { ViewContainer, ContentBlock, Date, PostTags, PostFooter } from "./page.styled";
+import { Metadata } from "next";
+import { profileURL } from "@/utils/url";
 
 interface PageProps {
   post_id: string;
+}
+
+export async function generateMetadata({ params }: { params: PageProps }): Promise<Metadata> {
+  const { post_id } = params;
+
+  const res = await getPost(post_id);
+  const post = getPostProcess(res.post);
+
+  return {
+    title: post.title,
+    openGraph: {
+      title: post.title,
+      description: post.content.slice(0, 90),
+      siteName: "VoiceHub",
+      images: [
+        {
+          url: profileURL(post.user_profile),
+          alt: post.user_profile,
+        },
+      ],
+      type: "website",
+    },
+  };
 }
 
 const View = async ({ params }: { params: PageProps }) => {

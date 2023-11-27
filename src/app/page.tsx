@@ -28,19 +28,19 @@ const SuspenseScriptList = Dynamic(() => import("@components/script/ScriptList")
 
 export const dynamic = "force-dynamic";
 
-// export const metadata: Metadata = {
-//   title: "보이스허브",
-//   description: "성우들을 위한 공간, VoiceHub",
-//   // metadataBase: new URL('/'),
-//   openGraph: {
-//     url: "https://voice-hub-beta.vercel.app",
-//     title: "VoiceHub",
-//     description: "성우들을 위한 공간, VoiceHub",
-//     siteName: "VoiceHub",
-//     images: ['/thumbnail.png'],
-//     type: "website",
-//   },
-// };
+export const metadata: Metadata = {
+  title: "보이스허브",
+  description: "성우들을 위한 공간, VoiceHub",
+  // metadataBase: new URL('/'),
+  openGraph: {
+    url: "https://voice-hub-beta.vercel.app",
+    title: "VoiceHub",
+    description: "성우들을 위한 공간, VoiceHub",
+    siteName: "VoiceHub",
+    images: ['/thumbnail.png'],
+    type: "website",
+  },
+};
 
 const Home = async () => {
   return (
