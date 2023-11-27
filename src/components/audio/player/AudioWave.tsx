@@ -11,6 +11,7 @@ import { IconPlayerPauseFilled, IconPlayerPlayFilled } from "@tabler/icons-react
 
 import { timeFormat } from "@utils/format";
 import { AudioInfo } from "@type/voice";
+import { voiceURL } from "@/utils/url";
 
 export default function AudioWave({
   audioSrc,
@@ -97,9 +98,12 @@ export default function AudioWave({
           // maxCanvasWidth: 200
         });
 
-        // console.log("11111", audioSrc);
 
-        if (audioSrc) wavesurfer.current.load(audioSrc);
+        /* TODO:
+          S3 파일을 사용하면서 부터, S3 CORS 를 설정해야함.
+          개발 환경과 voiceHub 배포가 beta 인 관계로 전체 설정되어있지만 이후 바꿔야함
+        */
+        if (audioSrc) wavesurfer.current.load(voiceURL(audioSrc));
         // wavesurfer.current.load(
         //   "https://www.mfiles.co.uk/mp3-downloads/brahms-st-anthony-chorale-theme-two-pianos.mp3"
         // );

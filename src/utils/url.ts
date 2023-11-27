@@ -16,3 +16,12 @@ export const contestURL = (contest: string): string => {
   return `${process.env.NEXT_PUBLIC_S3_URL}/img/contest/${contest}`;
 };
 
+/**
+ * 목소리 주소
+ * @param voice 파일 이름
+ * @returns 목소리 정식 주소
+ */
+export const voiceURL = (voice: string): string => {
+  return `${process.env.NEXT_PUBLIC_S3_URL}/voice/${voice}`;
+};
+

@@ -6,6 +6,7 @@ import { useRecoilState, useRecoilValue } from "recoil";
 import { audioCurTimeState, audioDurationState, audioPlayState, audioState } from "@/recoil/audio/atom";
 
 import { timeFormat } from "@utils/format";
+import { voiceURL } from "@/utils/url";
 
 const ProgressBar = () => {
   const _audio = useRef<HTMLAudioElement | undefined>(typeof Audio !== "undefined" ? new Audio("") : undefined);
@@ -18,7 +19,7 @@ const ProgressBar = () => {
 
   React.useEffect(() => {
     if (!_audio.current) return;
-    if (_audio.current.src !== audio.audio) _audio.current.src = audio.audio;
+    if (_audio.current.src !== audio.audio) _audio.current.src = voiceURL(audio.audio);
     if (!audio.isControlWave) {
       // _audio.current.src = audio.audio;
       if (play) {

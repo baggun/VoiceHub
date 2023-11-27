@@ -29,27 +29,27 @@ interface PageProps {
   contest_id: string;
 }
 
-// export async function generateMetadata({ params }: { params: PageProps }): Promise<Metadata> {
-//   const { contest_id } = params;
+export async function generateMetadata({ params }: { params: PageProps }): Promise<Metadata> {
+  const { contest_id } = params;
 
-//   const res = await getContest(contest_id);
-//   const contestData = getContestProcess(res.contest);
+  const res = await getContest(contest_id);
+  const contestData = getContestProcess(res.contest);
 
-//   return {
-//     title: contestData.contest,
-//     openGraph: {
-//       title: contestData.contest,
-//       description: contestData.company,
-//       siteName: "VoiceHub",
-//       images: [
-//         contestData.thumbnail
-//           ? contestData.thumbnail
-//           : "https://raw.githubusercontent.com/baggun/VoiceHub/master/public/thumbnail.png",
-//       ],
-//       type: "website",
-//     },
-//   };
-// }
+  return {
+    title: contestData.contest,
+    openGraph: {
+      title: contestData.contest,
+      description: contestData.company,
+      siteName: "VoiceHub",
+      images: [
+        contestData.thumbnail
+          ? contestData.thumbnail
+          : "https://raw.githubusercontent.com/baggun/VoiceHub/master/public/thumbnail.png",
+      ],
+      type: "website",
+    },
+  };
+}
 
 export const dynamicParams = true;
 

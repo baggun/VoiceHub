@@ -19,31 +19,31 @@ interface PageProps {
   user_id: string;
 }
 
-// export async function generateMetadata(
-//   { params }: { params: PageProps },
-//   parent: ResolvingMetadata,
-// ): Promise<Metadata> {
-//   const { user_id } = params;
+export async function generateMetadata(
+  { params }: { params: PageProps },
+  parent: ResolvingMetadata,
+): Promise<Metadata> {
+  const { user_id } = params;
 
-//   const res = await getUser(user_id);
-//   const profileData: UserProfileData = res.user;
+  const res = await getUser(user_id);
+  const profileData: UserProfileData = res.user;
 
-//   return {
-//     title: profileData.user_nickname,
-//     openGraph: {
-//       title: profileData.user_nickname,
-//       description: profileData.user_desc !== "" ? profileData.user_desc : `${profileData.user_nickname} 프로필 페이지`,
-//       siteName: "VoiceHub",
-//       images: [
-//         {
-//           url: profileURL(profileData.user_profile),
-//           alt: profileData.user_profile,
-//         },
-//       ],
-//       type: "website",
-//     },
-//   };
-// }
+  return {
+    title: profileData.user_nickname,
+    openGraph: {
+      title: profileData.user_nickname,
+      description: profileData.user_desc !== "" ? profileData.user_desc : `${profileData.user_nickname} 프로필 페이지`,
+      siteName: "VoiceHub",
+      images: [
+        {
+          url: profileURL(profileData.user_profile),
+          alt: profileData.user_profile,
+        },
+      ],
+      type: "website",
+    },
+  };
+}
 
 const User = async ({ params, searchParams }: { params: PageProps; searchParams: { tab: string } }) => {
   const { user_id } = params;

@@ -29,40 +29,40 @@ type RelationType = AudioInfo & {
   url: string;
 };
 
-// export async function generateMetadata({ params }: { params: PageProps }): Promise<Metadata> {
-//   const script_id = params?.slug?.[0] || "";
+export async function generateMetadata({ params }: { params: PageProps }): Promise<Metadata> {
+  const script_id = params?.slug?.[0] || "";
 
-//   if (script_id) {
-//     const res = await getScript(script_id);
-//     if (!res.ok) return notFound();
+  if (script_id) {
+    const res = await getScript(script_id);
+    if (!res.ok) return notFound();
 
-//     const curScript = getScriptProcess(res.script);
+    const curScript = getScriptProcess(res.script);
 
-//     return {
-//       title: curScript.title,
-//       openGraph: {
-//         title: curScript.title,
-//         description: curScript.script ? curScript.script.slice(0, 90) : `${"#" + curScript.tags.join(" #")}`,
-//         siteName: "VoiceHub",
-//         images: ["https://raw.githubusercontent.com/baggun/VoiceHub/master/public/thumbnail.png"],
-//         type: "website",
-//       },
-//     };
-//   }
+    return {
+      title: curScript.title,
+      openGraph: {
+        title: curScript.title,
+        description: curScript.script ? curScript.script.slice(0, 90) : `${"#" + curScript.tags.join(" #")}`,
+        siteName: "VoiceHub",
+        images: ["https://raw.githubusercontent.com/baggun/VoiceHub/master/public/thumbnail.png"],
+        type: "website",
+      },
+    };
+  }
 
-//   return {
-//     title: "보이스허브",
-//     description: "성우들을 위한 공간, VoiceHub",
-//     openGraph: {
-//       url: "https://voice-hub-beta.vercel.app",
-//       title: "VoiceHub | 대본",
-//       description: "성우들을 위한 공간, VoiceHub",
-//       siteName: "VoiceHub",
-//       images: ["https://raw.githubusercontent.com/baggun/VoiceHub/master/public/thumbnail.png"],
-//       type: "website",
-//     },
-//   };
-// }
+  return {
+    title: "보이스허브",
+    description: "성우들을 위한 공간, VoiceHub",
+    openGraph: {
+      url: "https://voice-hub-beta.vercel.app",
+      title: "VoiceHub | 대본",
+      description: "성우들을 위한 공간, VoiceHub",
+      siteName: "VoiceHub",
+      images: ["https://raw.githubusercontent.com/baggun/VoiceHub/master/public/thumbnail.png"],
+      type: "website",
+    },
+  };
+}
 
 const Script = async ({ params }: { params: PageProps }) => {
   const script_id = params?.slug?.[0] || "";
