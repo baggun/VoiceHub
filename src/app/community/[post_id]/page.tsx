@@ -39,7 +39,7 @@ const View = async ({ params }: { params: PageProps }) => {
   if (res.likes) likers = getUsersProcess(res.likes);
 
   return (
-    <MainLayout>
+    <>
       <ViewContainer>
         <Container>
           <div className="row">
@@ -86,7 +86,7 @@ const View = async ({ params }: { params: PageProps }) => {
           <div className="col-md-2"></div>
         </div>
       </Container>
-    </MainLayout>
+    </>
   );
 };
 

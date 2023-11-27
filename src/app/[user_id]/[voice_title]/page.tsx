@@ -1,5 +1,6 @@
-import React, { Suspense } from "react";
 import Link from "next/link";
+import { Metadata, ResolvingMetadata } from "next";
+import React, { Suspense } from "react";
 import { notFound } from "next/navigation";
 
 import Tag from "@/components/common/tag";
@@ -13,18 +14,20 @@ import ProfileInfo from "@components/profile/ProfileInfo";
 import ScriptBlock from "@components/script/ScriptBlock";
 import ProfileCard from "@components/profile/ProfileCard";
 import Comment from "@components/comment";
+import AudioBarList, { AudioBarListSkeleton } from "@/components/audio/AudioBarList";
 import AudioBar from "@/components/audio/player/AudioBar";
 
 import { getVoice } from "@utils/apis/api/voice";
 import { getUsersProcess } from "@utils/apis/services/user";
 import { getVoiceProcess } from "@utils/apis/services/voice";
 import { getCommentProcess } from "@utils/apis/services/comment";
-import { UserData } from "@type/user";
+import { UserData, UserProfileData } from "@type/user";
 import { VoiceInfo } from "@type/voice";
 import { CommentType } from "@type/comment";
+import { SearchParamsProps } from "@/types/props";
 
 import { VoiceTitle, VoiceBG, VoiceFooter } from "./page.styled";
-import AudioBarList, { AudioBarListSkeleton } from "@/components/audio/AudioBarList";
+import { profileURL } from "@utils/url";
 
 interface PageProps {
   user_id: string;
@@ -32,6 +35,32 @@ interface PageProps {
 }
 
 export const dynamic = "force-dynamic";
+
+export async function generateMetadata(
+  { params }: { params: PageProps },
+  parent: ResolvingMetadata,
+): Promise<Metadata> {
+  const { user_id, voice_title } = params;
+
+  const res = await getVoice(user_id, voice_title);
+  const voiceData: VoiceInfo = getVoiceProcess(res.data);
+
+  return {
+    title: voiceData.title,
+    openGraph: {
+      title: voiceData.title,
+      description: voiceData.script ? voiceData.script.slice(0, 90) : `${voiceData.ownerName} - ${voiceData.title}`,
+      siteName: "VoiceHub",
+      images: [
+        {
+          url: profileURL(voiceData.ownerProfile),
+          alt: voiceData.ownerName,
+        },
+      ],
+      type: "website",
+    },
+  };
+}
 
 const Voice = async ({ params }: { params: PageProps }) => {
   const { user_id, voice_title } = params;

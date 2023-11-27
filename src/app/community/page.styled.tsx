@@ -71,5 +71,6 @@ export const Advertisement = styled(Link)`
   overflow: hidden;
   .ad-img {
     width: 100%;
+    border-radius: 1rem;
   }
 `;

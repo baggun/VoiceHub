@@ -81,7 +81,7 @@ export const AudioAlbumListSkeleton = () => {
               margin: "0rem 0.5rem 0rem 0rem",
             }}
           />
-          <Skeleton height="1rem" width="6rem" style={{ margin: "0.5rem 0rem 0rem 0rem" }} />
+          <Skeleton height="1.25rem" width="6rem" style={{ margin: "0.5rem 0rem 0rem 0rem" }} />
           <Skeleton height="1rem" width="3rem" style={{ margin: "0.5rem 0rem 0rem 0rem" }} />
         </SkeletonGroup>
       ))}

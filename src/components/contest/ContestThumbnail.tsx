@@ -1,9 +1,11 @@
 "use client";
 
-import Link from "next/link";
 import React from "react";
+import Link from "next/link";
+import Image from "next/image";
 // import { Link } from "react-router-dom";
 import styled, { css } from "styled-components";
+import { contestURL } from "@/utils/url";
 
 type ContestThumbnailProps = {
   id: string | number | undefined;
@@ -16,7 +18,7 @@ const ContestThumbnail = ({ id, $active, thumbnail, disabled = false }: ContestT
   return (
     <Thumbnail href={`/contest/${id}`} className={disabled ? "contest-thumbnail disabled" : "contest-thumbnail"}>
       <Mark $active={$active}>접수중</Mark>
-      <img src={thumbnail} alt="img" />
+      <Image src={contestURL(thumbnail)} alt="img" fill />
     </Thumbnail>
   );
 };

@@ -1,5 +1,6 @@
 "use client";
 
+import Image from "next/image";
 import styled, { css } from "styled-components";
 
 import Tag from "@components/common/tag";
@@ -11,7 +12,7 @@ const AudioAlbum = ({ audioSrc, info, tags, userId, audioId, likes, $darkmode = 
   return (
     <AudioAlbumStyle $darkmode={$darkmode}>
       <Album>
-        <AudioProfileImage src={profileURL(info.ownerProfile)} alt="profile" />
+        <AudioProfileImage src={profileURL(info.ownerProfile)} alt="profile" width={176} height={176}/>
         <Player audioSrc={audioSrc} info={info} $darkmode={$darkmode} />
       </Album>
       <div>
@@ -59,7 +60,7 @@ const AudioAlbumStyle = styled.div<{ $darkmode: boolean }>`
   }
 `;
 
-const AudioProfileImage = styled.img`
+const AudioProfileImage = styled(Image)`
   width: 11rem;
   height: 11rem;
   border: 1px solid #efefef;

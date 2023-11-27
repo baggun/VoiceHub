@@ -1,5 +1,6 @@
 "use client";
 
+import Image from "next/image";
 import Slider from "react-slick";
 import styled from "styled-components";
 import { useRouter } from "next/navigation";
@@ -202,6 +203,7 @@ const SliderContent = styled.div`
   }
 `;
 
+// TODO : 외부 이미지 사용말고 나중에 자체 이미지 사용으로 바꿀떄 next/image 로 변경 
 const SliderImage = styled.img`
   height: 80%;
   width: auto;

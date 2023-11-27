@@ -12,10 +12,38 @@ import { getUser } from "@utils/apis/api/users";
 import { UserProfileData } from "@type/user";
 
 import { ProfileBG, ProfileContents, ProfileName, ProfileInfo } from "./page.styled";
+import { Metadata, ResolvingMetadata } from "next";
+import { profileURL } from "@utils/url";
 
 interface PageProps {
   user_id: string;
 }
+
+// export async function generateMetadata(
+//   { params }: { params: PageProps },
+//   parent: ResolvingMetadata,
+// ): Promise<Metadata> {
+//   const { user_id } = params;
+
+//   const res = await getUser(user_id);
+//   const profileData: UserProfileData = res.user;
+
+//   return {
+//     title: profileData.user_nickname,
+//     openGraph: {
+//       title: profileData.user_nickname,
+//       description: profileData.user_desc !== "" ? profileData.user_desc : `${profileData.user_nickname} 프로필 페이지`,
+//       siteName: "VoiceHub",
+//       images: [
+//         {
+//           url: profileURL(profileData.user_profile),
+//           alt: profileData.user_profile,
+//         },
+//       ],
+//       type: "website",
+//     },
+//   };
+// }
 
 const User = async ({ params, searchParams }: { params: PageProps; searchParams: { tab: string } }) => {
   const { user_id } = params;

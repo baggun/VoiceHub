@@ -1,5 +1,6 @@
 import React from "react";
 import Link from "next/link";
+import Image from "next/image";
 
 import Post from "@components/community/Post";
 import { DefaultLayout } from "@components/layout"; 
@@ -62,7 +63,7 @@ const Community = async () => {
         </div>
         <div className="col-md-3">
           <Advertisement href="/">
-            <img className="ad-img" src="https://dummyimage.com/420x320/ff7f7f/333333.png&text=Sample" alt="ad-img" />
+            <Image className="ad-img" src="/img/base_profile.png" alt="ad-img" fill/>
           </Advertisement>
         </div>
       </div>

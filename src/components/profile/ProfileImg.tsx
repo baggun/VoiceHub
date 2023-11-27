@@ -1,7 +1,9 @@
 "use client";
 
-import { profileURL } from "@/utils/url";
+import Image from "next/image";
 import styled, { css } from "styled-components";
+
+import { profileURL } from "@utils/url";
 
 type ProfileImgProps = {
   className?: string;
@@ -12,7 +14,7 @@ type ProfileImgProps = {
 
 export const ProfileImg = (props: ProfileImgProps) => {
   if (!props.src) return <ProfileImgSkeleton {...props} />;
-  return <ProfileImgStyled {...props} src={profileURL(props.src)} />;
+  return <ProfileImgStyled {...props} src={profileURL(props.src)} width={100} height={100}/>;
 };
 
 const ProfileImgStyles = css<ProfileImgProps>`
@@ -28,7 +30,7 @@ const ProfileImgStyles = css<ProfileImgProps>`
     `}
 `;
 
-const ProfileImgStyled = styled.img<ProfileImgProps>`
+const ProfileImgStyled = styled(Image)<ProfileImgProps>`
   ${ProfileImgStyles}
 `;
 

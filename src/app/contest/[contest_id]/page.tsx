@@ -23,10 +23,33 @@ import {
   ContestTitle,
   DetailH3,
 } from "./page.styled";
+import { Metadata } from "next";
 
 interface PageProps {
   contest_id: string;
 }
+
+// export async function generateMetadata({ params }: { params: PageProps }): Promise<Metadata> {
+//   const { contest_id } = params;
+
+//   const res = await getContest(contest_id);
+//   const contestData = getContestProcess(res.contest);
+
+//   return {
+//     title: contestData.contest,
+//     openGraph: {
+//       title: contestData.contest,
+//       description: contestData.company,
+//       siteName: "VoiceHub",
+//       images: [
+//         contestData.thumbnail
+//           ? contestData.thumbnail
+//           : "https://raw.githubusercontent.com/baggun/VoiceHub/master/public/thumbnail.png",
+//       ],
+//       type: "website",
+//     },
+//   };
+// }
 
 export const dynamicParams = true;
 
@@ -48,38 +71,38 @@ const Contest = async ({ params }: { params: PageProps }) => {
   const contestData = getContestProcess(res.contest);
 
   return (
-    <DefaultLayout>
-      <ContestCard>
-        <div className="row">
-          <ContestThumbnailBlock className="col-lg-5">
-            <ContestThumbnail
-              id={contest_id}
-              $active={isDeadline(contestData.endDate)}
-              thumbnail={contestData.thumbnail || ""}
-            />
-          </ContestThumbnailBlock>
-          <ContestInfoBlock className="col-lg-7">
-            <ContestTitle>{contestData.contest}</ContestTitle>
-            <ContestDetail>주최/주관 : {contestData.company}</ContestDetail>
-            <ContestDetail>
-              접수기간 : {dateFormat(contestData.startDate)} ~ {dateFormat(contestData.endDate)}
-            </ContestDetail>
-            <ContestDetail>조회수 : {contestData.hit}</ContestDetail>
-          </ContestInfoBlock>
-        </div>
-        <ContestFocusBlock>
-          <ContestDeadline endDate={contestData.endDate} />
-          <Button variant="primary" $padding="0.5rem 3rem" $borderRadius="0.5rem">
-            응모하기
-          </Button>
-        </ContestFocusBlock>
-        <ContestContentBlock>
-          <DetailH3>상세내용</DetailH3>
-          <hr />
-          <ContestContent>{contestData.content}</ContestContent>
-        </ContestContentBlock>
-      </ContestCard>
-    </DefaultLayout>
+    <ContestCard>
+      <div className="row">
+        <ContestThumbnailBlock className="col-lg-5">
+          <ContestThumbnail
+            id={contest_id}
+            $active={isDeadline(contestData.endDate)}
+            thumbnail={contestData.thumbnail || ""}
+          />
+        </ContestThumbnailBlock>
+        <ContestInfoBlock className="col-lg-7">
+          <ContestTitle>{contestData.contest}</ContestTitle>
+          <ContestDetail>주최/주관 : {contestData.company}</ContestDetail>
+          <ContestDetail>
+            접수기간 : {dateFormat(contestData.startDate)} ~ {dateFormat(contestData.endDate)}
+          </ContestDetail>
+          <ContestDetail>조회수 : {contestData.hit}</ContestDetail>
+        </ContestInfoBlock>
+      </div>
+
+      <ContestFocusBlock>
+        <ContestDeadline endDate={contestData.endDate} />
+        <Button variant="primary" $padding="0.5rem 3rem" $borderRadius="0.5rem">
+          응모하기
+        </Button>
+      </ContestFocusBlock>
+      
+      <ContestContentBlock>
+        <DetailH3>상세내용</DetailH3>
+        <hr />
+        <ContestContent>{contestData.content}</ContestContent>
+      </ContestContentBlock>
+    </ContestCard>
   );
 };
 export default Contest;
