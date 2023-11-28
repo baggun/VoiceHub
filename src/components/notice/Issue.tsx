@@ -29,9 +29,9 @@ const Issue = ({
   const [bChecked, setChecked] = React.useState<boolean>(false);
   const [isHover, setIsHover] = React.useState<boolean>(false);
 
-  const checkHandler = (e: React.ChangeEvent<HTMLInputElement>) => {
+  const checkHandler = (checked: boolean) => {
     setChecked(!bChecked);
-    checkedItemHandler(issue.id, e.target.checked);
+    checkedItemHandler(issue.id, checked);
   };
 
   React.useEffect(() => setChecked(isAllChecked), [isAllChecked]);
@@ -45,7 +45,7 @@ const Issue = ({
 
   return (
     <IssueBlock $isRead={issue.$isRead} onMouseOver={() => setIsHover(true)} onMouseOut={() => setIsHover(false)}>
-      <Checkbox checked={bChecked} onChange={e => checkHandler(e)} />
+      <Checkbox checked={bChecked} onChange={checkHandler} />
       <IssueLink href={issue.link} onClick={readIssue}>
         <p className="message">{issue.message}</p>
       </IssueLink>
