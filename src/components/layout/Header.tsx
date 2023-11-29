@@ -1,7 +1,9 @@
 "use client";
 
 import React, { Suspense } from "react";
+import { useSetRecoilState } from "recoil";
 import styled, { css } from "styled-components";
+import { searchModalState } from "@/recoil/search/atom";
 
 import Search from "@components/search";
 import { Container } from "@common/Grid";
@@ -9,13 +11,15 @@ import { ModalBackground } from "@common/modal";
 import NavBarLogged from "@common/navbar/NavBarLogged";
 import { NavBar, NavBarCollapse, NavBarNavLink, NavBarNav, NavLinkItemStyled } from "@components/common/navbar";
 import { IconSearch } from "@tabler/icons-react";
+import SearchModal from "../search/SearchModal";
 
 type HeaderProps = {
   hideNavItems?: boolean;
 };
 
 const Header = ({ hideNavItems }: HeaderProps) => {
-  const [openSearchModal, setOpenSearchModal] = React.useState<boolean>(false);
+  const setOpenSearchModal = useSetRecoilState(searchModalState);
+
   const menus = [
     {
       name: "채용공고",
@@ -64,12 +68,8 @@ const Header = ({ hideNavItems }: HeaderProps) => {
           </div>
         </NavBar>
 
-        {openSearchModal && (
-          <>
-            <Search />
-            <ModalBackground onClick={setOpenSearchModal} />
-          </>
-        )}
+        <SearchModal />
+        
       </HeaderContainer>
       <HeaderDivider className="show-lg" />
       <SubHeaderContainer className="show-lg">

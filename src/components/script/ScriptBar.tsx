@@ -18,7 +18,7 @@ const ScriptBar = ({ script, className }: ScriptCardProps) => {
           <IconScript className="icon" width={"1rem"} height={"1rem"} /> {script.title}
         </p>
         {script.tags.map(t => (
-          <Tag tag={t} />
+          <Tag key={`scr-t${script.id}-${t}`} tag={t} />
         ))}
       </ScriptBarProps>
     </Link>

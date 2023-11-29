@@ -1,21 +1,26 @@
+"use client";
+
 import React from "react";
-import { Input } from "@common/input";
 import styled from "styled-components";
-import { IconSearch, IconScript, IconUser } from "@tabler/icons-react";
+
 import { Nav } from "@common/nav";
+import Badge from "@common/badge";
+import { Input } from "@common/input";
+import { Button } from "@common/button";
 import { NavItemActive } from "@common/nav";
 import { IconHeadphones } from "@tabler/icons-react";
-import Badge from "@common/badge";
-import { ModalBackground } from "@common/modal";
+import { ScriptList, VoiceList, UserList } from "./SearchList";
+import { IconSearch, IconScript, IconUser } from "@tabler/icons-react";
+
 import { search } from "@utils/apis/api/search";
-import { ScriptBaseType } from "@type/scripts";
-import { VoiceInfo } from "@type/voice";
 import { getVoicesProcess } from "@utils/apis/services/voice";
 import { getScriptBaseProcess } from "@utils/apis/services/script";
-import { ScriptList, VoiceList, UserList } from "./SearchList";
-import { Button } from "@common/button";
-import { UserData } from "@type/user";
 import { getUsersPureProcess } from "@utils/apis/services/user";
+import { ScriptBaseType } from "@type/scripts";
+import { VoiceInfo } from "@type/voice";
+import { UserData } from "@type/user";
+import { useRecoilState, useRecoilValue } from "recoil";
+import { searchModalState, searchState } from "@/recoil/search/atom";
 
 const iconProps = {
   className: "icon",
@@ -23,11 +28,20 @@ const iconProps = {
 };
 
 const Search = () => {
-  const [searchTxt, setSearchTxt] = React.useState<string>("");
+  const [searchTxt, setSearchTxt] = useRecoilState(searchState);
+  const searchModal = useRecoilValue(searchModalState);
+
+  // const [searchTxt, setSearchTxt] = React.useState<string>("");
   const [searchFilter, setSearchFilter] = React.useState<"all" | "voice" | "script" | "profile">("all");
-  const [scripts, setScripts] = React.useState<ScriptBaseType[]>();
-  const [voices, setVoices] = React.useState<VoiceInfo[]>();
-  const [users, setUsers] = React.useState<UserData[]>();
+  const [scripts, setScripts] = React.useState<ScriptBaseType[]>([]);
+  const [voices, setVoices] = React.useState<VoiceInfo[]>([]);
+  const [users, setUsers] = React.useState<UserData[]>([]);
+
+  React.useEffect(() => {
+    if (searchModal) {
+      searchAPI();
+    }
+  }, [searchModal]);
 
   const searchInputHandler = (e: React.ChangeEvent<HTMLInputElement>) => {
     e.preventDefault();
@@ -46,7 +60,6 @@ const Search = () => {
   };
 
   const searchAPI = async () => {
-    console.log("1");
     if (!searchTxt) {
       return;
     }
@@ -88,15 +101,15 @@ const Search = () => {
           <NavItemActive {...itemProps("all")}>전체</NavItemActive>
           <NavItemActive {...itemProps("voice")}>
             <IconHeadphones {...iconProps} /> 목소리
-            {voices && <Badge>{voices?.length}</Badge>}
+            <Badge>{voices.length}</Badge>
           </NavItemActive>
           <NavItemActive {...itemProps("script")}>
             <IconScript {...iconProps} /> 대사
-            {scripts && <Badge>{scripts?.length}</Badge>}
+            <Badge>{scripts.length}</Badge>
           </NavItemActive>
           <NavItemActive {...itemProps("profile")}>
             <IconUser {...iconProps} /> 성우
-            <Badge>{users?.length}</Badge>
+            <Badge>{users.length}</Badge>
           </NavItemActive>
         </Nav>
       </SearchNav>

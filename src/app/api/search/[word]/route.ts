@@ -7,7 +7,7 @@ import User from "@models/user.model";
 export async function GET(request: NextRequest, { params }: { params: { word: string } }) {
   const { word } = params;
   const decodedWord = decodeURIComponent(word);
-  const RegWord = new RegExp(decodedWord);
+  const RegWord = new RegExp(decodedWord, "i");
 
   const searchParams = request.nextUrl.searchParams;
   const skip: number = parseInt(searchParams.get("skip") as string) || 0;
@@ -15,7 +15,13 @@ export async function GET(request: NextRequest, { params }: { params: { word: st
 
   try {
     await dbConnect();
-    const voices = await Voice.find({ title: RegWord, deleted: { $ne: true } }, "-comments")
+    const voices = await Voice.find(
+      {
+        $or: [{ title: RegWord }, { tags: { $in: [RegWord] } }],
+        deleted: { $ne: true },
+      },
+      "-comments",
+    )
       .populate({
         path: "author",
         select: ["user_id", "user_nickname"],
@@ -25,7 +31,12 @@ export async function GET(request: NextRequest, { params }: { params: { word: st
       .skip(skip * limit)
       .lean();
 
-    const scripts = await Script.find({ title: RegWord }, "-script")
+    const scripts = await Script.find(
+      {
+        $or: [{ title: RegWord }, { tags: { $in: [RegWord] } }],
+      },
+      "-script",
+    )
       .sort("createdAt")
       .limit(10)
       .skip(skip * limit)

@@ -1,8 +1,8 @@
-import Link from "next/link";
-import styled from "styled-components";
-// import { Link } from "react-router-dom";
+"use client";
 
 import { TagStyled } from "./index.styled";
+import { useSetRecoilState } from "recoil";
+import { searchModalState, searchState } from "@/recoil/search/atom";
 
 export type TagProps = {
   tag: string;
@@ -10,8 +10,16 @@ export type TagProps = {
 };
 
 const Tag = ({ tag, $darkmode = false }: TagProps) => {
+  const setSearchTxt = useSetRecoilState(searchState);
+  const setSearchModal = useSetRecoilState(searchModalState);
+
+  const searchTag = () => {
+    setSearchTxt(tag);
+    setSearchModal(true);
+  };
+
   return (
-    <TagStyled href="#" className="tag" $darkmode={$darkmode}>
+    <TagStyled onClick={searchTag} className="tag" $darkmode={$darkmode}>
       #{tag}
     </TagStyled>
   );

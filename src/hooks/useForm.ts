@@ -1,6 +1,4 @@
 import { ChangeEvent, useState } from "react";
-import { LoginValidation, RegisterValidation } from "@utils/validate";
-import { UserChangePasswordData, UserLoginData, UserRegisterData } from "@type/user";
 
 type useFormProps<FormType> = {
   initValues: FormType;

@@ -1,13 +1,13 @@
+import { getToken } from "next-auth/jwt";
 import { NextResponse } from "next/server";
 import type { NextRequest, NextFetchEvent } from "next/server";
-import { getToken } from "next-auth/jwt";
 import { withAuth } from "next-auth/middleware";
 
 const secret = process.env.NEXTAUTH_SECRET;
 
 const blockedPaths = ["/auth/login", "/auth/register"];
 const protectedPaths = ["/notifications", "/voice/upload", "/setting"];
-const matcher = ["/auth/login", "/auth/register", "/notifications", "/voice/upload", "/setting"];
+const matcher = [...blockedPaths, ...protectedPaths];
 
 export async function middleware(req: NextRequest, event: NextFetchEvent) {
   const session = await getToken({ req, secret, raw: true });
@@ -27,5 +27,5 @@ export async function middleware(req: NextRequest, event: NextFetchEvent) {
 }
 
 export const config = {
-  matcher: ["/auth/login", "/auth/register", "/notifications", "/voice/upload", "/setting"],
+  matcher,
 };
