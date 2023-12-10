@@ -1,7 +1,7 @@
 import { NextRequest } from "next/server";
 
 import dbConnect from "@lib/db/dbConnect";
-import Script from "@/models/script.model";
+import Script from "@models/script.model";
 
 export async function GET(request: NextRequest) {
   const searchParams = request.nextUrl.searchParams;
@@ -82,7 +82,7 @@ export async function GET(request: NextRequest) {
       },
       {
         status: 500,
-      },
+      }
     );
   }
 }
@@ -116,7 +116,7 @@ export async function POST(request: NextRequest) {
       },
       {
         status: 500,
-      },
+      }
     );
   }
 }

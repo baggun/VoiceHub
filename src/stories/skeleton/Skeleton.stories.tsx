@@ -8,7 +8,8 @@ const meta = {
   argTypes: {},
   parameters: {
     // 추가
-    componentSubtitle: "community 에서 게시물로 이동하기 위한 Post 컴포넌트입니다.",
+    componentSubtitle:
+      "community 에서 게시물로 이동하기 위한 Post 컴포넌트입니다.",
     docs: {
       description: {
         // 추가

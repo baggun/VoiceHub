@@ -2,7 +2,7 @@
 
 import { TagStyled } from "./index.styled";
 import { useSetRecoilState } from "recoil";
-import { searchModalState, searchState } from "@/recoil/search/atom";
+import { searchModalState, searchState } from "@recoil/search/atom";
 
 export type TagProps = {
   tag: string;

@@ -2,7 +2,7 @@ import dbConnect from "@lib/db/dbConnect";
 import { NextRequest } from "next/server";
 import User from "@models/user.model";
 import { getServerSession } from "next-auth";
-import { authOptions } from "@/app/api/auth/[...nextauth]/route";
+import { authOptions } from "@app/api/auth/[...nextauth]/route";
 import bcrypt from "bcrypt";
 
 export async function PATCH(request: NextRequest) {
@@ -17,7 +17,7 @@ export async function PATCH(request: NextRequest) {
       },
       {
         status: 403,
-      },
+      }
     );
   }
 
@@ -36,7 +36,7 @@ export async function PATCH(request: NextRequest) {
           message: "비밀번호가 일치하지 않습니다.",
           error: "password",
         },
-        { status: 400 },
+        { status: 400 }
       );
 
     const hashedPassword = await bcrypt.hash(repassword, 5);
@@ -55,7 +55,7 @@ export async function PATCH(request: NextRequest) {
       },
       {
         status: 500,
-      },
+      }
     );
   }
 }

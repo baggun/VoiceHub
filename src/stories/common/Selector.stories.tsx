@@ -2,7 +2,7 @@ import type { Meta, StoryObj } from "@storybook/react";
 import { useArgs } from "@storybook/preview-api";
 import React from "react";
 import Selector, { SelectorProps } from "@components/common/input/Selector";
-import { OptionType } from "@/types/option";
+import { OptionType } from "@type/option";
 
 const meta = {
   title: "common/Selector",
@@ -35,7 +35,9 @@ export const Default: Story = {
 
     const [, setArgs] = useArgs();
 
-    const setValueCHange = (value: React.SetStateAction<readonly OptionType[]>) => {
+    const setValueCHange = (
+      value: React.SetStateAction<readonly OptionType[]>
+    ) => {
       setArgs({ value });
     };
 

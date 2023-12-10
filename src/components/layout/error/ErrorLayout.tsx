@@ -4,13 +4,19 @@ import Image from "next/image";
 import styled from "styled-components";
 
 import { Button } from "../../common/button";
-import { MainLayout } from "@/components/layout";
-import { ContainerFluid } from "@/components/common/Grid";
+import { MainLayout } from "@components/layout";
+import { ContainerFluid } from "@components/common/Grid";
 
 import auth_bg from "/public/img/auth_bg.png";
 import React from "react";
 
-const ErrorLayout = ({ error, reset }: { error: Error & { digest?: string }; reset: () => void }) => {
+const ErrorLayout = ({
+  error,
+  reset,
+}: {
+  error: Error & { digest?: string };
+  reset: () => void;
+}) => {
   React.useEffect(() => {
     console.error("에러!", error);
   }, [error]);

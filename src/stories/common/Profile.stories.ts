@@ -1,10 +1,9 @@
-
-import Profile, { ProfileProps } from "@/components/profile";
+import Profile, { ProfileProps } from "@components/profile";
 import type { Meta, StoryObj } from "@storybook/react";
 
 const meta = {
   title: "common/Profile",
-  component: Profile, 
+  component: Profile,
   tags: ["autodocs"],
   argTypes: {},
   parameters: {
@@ -28,10 +27,9 @@ export const Default: Story = {
   args: {
     profileID: "asdf",
     profile_url: "base_profile.png",
-    nickname: "닉네임"  
+    nickname: "닉네임",
   },
 };
-
 
 export const Size: Story = {
   args: {
@@ -41,4 +39,3 @@ export const Size: Story = {
     size: 6,
   },
 };
-

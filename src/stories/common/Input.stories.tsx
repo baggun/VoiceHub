@@ -1,4 +1,4 @@
-import { Input } from "@/components/common/input";
+import { Input } from "@components/common/input";
 import type { Meta, StoryObj } from "@storybook/react";
 import React from "react";
 

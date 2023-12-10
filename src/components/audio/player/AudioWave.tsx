@@ -3,15 +3,23 @@
 import styled from "styled-components";
 import { useEffect, useRef, useState } from "react";
 import { useRecoilState, useSetRecoilState } from "recoil";
-import { audioCurTimeState, audioInfoState, audioPlayState, audioState } from "@/recoil/audio/atom";
+import {
+  audioCurTimeState,
+  audioInfoState,
+  audioPlayState,
+  audioState,
+} from "@recoil/audio/atom";
 
 import WaveSurfer from "wavesurfer.js";
 import PlayButton from "@components/common/button/PlayButton";
-import { IconPlayerPauseFilled, IconPlayerPlayFilled } from "@tabler/icons-react";
+import {
+  IconPlayerPauseFilled,
+  IconPlayerPlayFilled,
+} from "@tabler/icons-react";
 
 import { timeFormat } from "@utils/format";
 import { AudioInfo } from "@type/voice";
-import { voiceURL } from "@/utils/url";
+import { voiceURL } from "@utils/url";
 
 export type AudioWaveProps = {
   audioSrc: string;
@@ -19,7 +27,11 @@ export type AudioWaveProps = {
   $darkmode?: boolean;
 };
 
-export default function AudioWave({ audioSrc, info, $darkmode = true }: AudioWaveProps) {
+export default function AudioWave({
+  audioSrc,
+  info,
+  $darkmode = true,
+}: AudioWaveProps) {
   const [audio, setAudio] = useRecoilState(audioState);
   const [audioPlay, setAudioPlay] = useRecoilState(audioPlayState);
   const setAudioInfo = useSetRecoilState(audioInfoState);
@@ -36,7 +48,11 @@ export default function AudioWave({ audioSrc, info, $darkmode = true }: AudioWav
     setAudioCurTime(t);
   };
 
-  const changeAudio = (src: string, info: AudioInfo, isWave: boolean = false) => {
+  const changeAudio = (
+    src: string,
+    info: AudioInfo,
+    isWave: boolean = false
+  ) => {
     if (info.title === "") info.title = "(알수없음)";
     setAudio({
       ...audio,
@@ -177,7 +193,8 @@ const WaveForm = styled.div<{ $darkmode?: boolean }>`
   display: inline-flex;
   flex-direction: row;
   align-items: center;
-  background: ${props => (props.$darkmode ? props.theme.colors.grey_bg : props.theme.colors.bg)};
+  background: ${(props) =>
+    props.$darkmode ? props.theme.colors.grey_bg : props.theme.colors.bg};
   ${({ theme }) => theme.devices.max_tablet} {
     padding: 1rem;
   }

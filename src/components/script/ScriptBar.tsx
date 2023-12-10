@@ -1,4 +1,4 @@
-import Tag from "@/components/common/tag";
+import Tag from "@components/common/tag";
 import { IconScript } from "@tabler/icons-react";
 import { ScriptBaseType } from "@type/scripts";
 // import { Link } from "react-router-dom";
@@ -15,9 +15,10 @@ const ScriptBar = ({ script, className }: ScriptCardProps) => {
     <Link href={`/script/${script.id}`}>
       <ScriptBarProps className={className}>
         <p>
-          <IconScript className="icon" width={"1rem"} height={"1rem"} /> {script.title}
+          <IconScript className="icon" width={"1rem"} height={"1rem"} />{" "}
+          {script.title}
         </p>
-        {script.tags.map(t => (
+        {script.tags.map((t) => (
           <Tag key={`scr-t${script.id}-${t}`} tag={t} />
         ))}
       </ScriptBarProps>

@@ -1,4 +1,6 @@
-import ScriptTextarea, { ScriptTextareaProps } from "@/components/common/textarea/ScriptTextarea";
+import ScriptTextarea, {
+  ScriptTextareaProps,
+} from "@components/common/textarea/ScriptTextarea";
 import type { Meta, StoryObj } from "@storybook/react";
 import React from "react";
 
@@ -22,7 +24,7 @@ const meta = {
 
 export default meta;
 import { useArgs } from "@storybook/preview-api";
-import ScriptBlock from "@/components/script/ScriptBlock";
+import ScriptBlock from "@components/script/ScriptBlock";
 
 type Story = StoryObj<typeof meta>;
 

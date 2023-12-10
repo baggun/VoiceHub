@@ -3,10 +3,13 @@ import { NextRequest } from "next/server";
 import User from "@models/user.model";
 import Follow from "@models/follow.model";
 import { getServerSession } from "next-auth";
-import { authOptions } from "@/app/api/auth/[...nextauth]/route";
+import { authOptions } from "@app/api/auth/[...nextauth]/route";
 import { addNotification } from "../../notification/route";
 
-export async function POST(request: NextRequest, { params }: { params: { user_id: string } }) {
+export async function POST(
+  request: NextRequest,
+  { params }: { params: { user_id: string } }
+) {
   const { user_id } = params;
   const session = await getServerSession(authOptions);
 
@@ -18,7 +21,7 @@ export async function POST(request: NextRequest, { params }: { params: { user_id
       },
       {
         status: 403,
-      },
+      }
     );
   }
 
@@ -41,7 +44,12 @@ export async function POST(request: NextRequest, { params }: { params: { user_id
 
       if (!followStatus) throw new Error("실패");
 
-      await addNotification(targetUser._id, "follow", "follow", session.user.oid);
+      await addNotification(
+        targetUser._id,
+        "follow",
+        "follow",
+        session.user.oid
+      );
     } else {
       const followStatus = await Follow.deleteOne({
         user: session.user.oid,
@@ -64,7 +72,7 @@ export async function POST(request: NextRequest, { params }: { params: { user_id
       },
       {
         status: 500,
-      },
+      }
     );
   }
 }

@@ -2,7 +2,7 @@
 
 // import { useRouter } from "next/navigation";
 import Profile from "@components/profile";
-import Tag from "@/components/common/tag";
+import Tag from "@components/common/tag";
 import { IconMessage2 } from "@tabler/icons-react";
 import { PostType } from "@type/post";
 
@@ -36,7 +36,7 @@ const Post = ({ post }: PostProps) => {
       </PostTitle>
       {post.tags && (
         <div>
-          {post.tags.map(t => (
+          {post.tags.map((t) => (
             <Tag key={t} tag={t} />
           ))}
         </div>

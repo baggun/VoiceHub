@@ -1,10 +1,10 @@
 import Carousel from "../carousel";
-import { ScriptType } from "@/types/scripts";
+import { ScriptType } from "@type/scripts";
 import ScriptCard from "./ScriptCard";
 import Skeleton, { SkeletonGroup, SkeletonWrapper } from "../sekeleton";
 
-import { getScripts } from "@/utils/apis/api/script";
-import { getScriptsProcess } from "@/utils/apis/services/script";
+import { getScripts } from "@utils/apis/api/script";
+import { getScriptsProcess } from "@utils/apis/services/script";
 
 const ScriptList = async () => {
   const reses = await getScripts();
@@ -17,7 +17,7 @@ const ScriptList = async () => {
 
   return (
     <Carousel setting={setting}>
-      {scripts.map(sc => (
+      {scripts.map((sc) => (
         <ScriptCard key={`script-${sc.id}`} script={sc} $fixedWidth="30rem" />
       ))}
     </Carousel>

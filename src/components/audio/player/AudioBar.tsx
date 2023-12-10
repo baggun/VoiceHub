@@ -1,10 +1,18 @@
 "use client";
 
 import styled, { css } from "styled-components";
-import Tag from "@/components/common/tag";
+import Tag from "@components/common/tag";
 import Player, { AudioLikeStyle, AudioName, AudioProps } from ".";
 
-const AudioBar = ({ audioSrc, info, userId, audioId, likes, tags, $darkmode = false }: AudioProps) => {
+const AudioBar = ({
+  audioSrc,
+  info,
+  userId,
+  audioId,
+  likes,
+  tags,
+  $darkmode = false,
+}: AudioProps) => {
   return (
     <AudioBarStyle $darkmode={$darkmode}>
       <Player audioSrc={audioSrc} info={info} $darkmode={$darkmode} />
@@ -29,7 +37,7 @@ const AudioBarBody = styled.div`
 const AudioBarStyle = styled.div<{ $darkmode: boolean }>`
   display: flex;
   background-color: ${({ theme }) => theme.colors.minute_bg};
-  ${props =>
+  ${(props) =>
     props.$darkmode &&
     css`
       background-color: #2a2a2a;

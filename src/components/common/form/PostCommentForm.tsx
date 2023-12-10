@@ -4,9 +4,9 @@ import React from "react";
 import styled from "styled-components";
 import SubmitButton from "../button/SubmitButton";
 import { usePathname, useRouter } from "next/navigation";
-// import { postPostComment } from "@/utils/apis/api/post";
+// import { postPostComment } from "@utils/apis/api/post";
 import { useSession } from "next-auth/react";
-import { postPostComment } from "@/utils/apis/api/post";
+import { postPostComment } from "@utils/apis/api/post";
 
 type PostCommentForm = {
   post_id: string;
@@ -43,9 +43,14 @@ const PostCommentForm = ({ post_id }: PostCommentForm) => {
         cols={33}
         spellCheck="false"
         value={commentContent}
-        onChange={e => setCommentContent(e.target.value)}
+        onChange={(e) => setCommentContent(e.target.value)}
       />
-      <SubmitButton width="5rem" $padding="0.5rem" margin="0.5rem 0rem" disabled={commentContent === ""}>
+      <SubmitButton
+        width="5rem"
+        $padding="0.5rem"
+        margin="0.5rem 0rem"
+        disabled={commentContent === ""}
+      >
         작성
       </SubmitButton>
     </CommentForm>

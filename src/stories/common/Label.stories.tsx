@@ -1,7 +1,7 @@
-import Label from "@/components/common/Label";
+import Label from "@components/common/Label";
 import type { Meta, StoryObj } from "@storybook/react";
-import { FormGroup } from "@/components/common/form/Form";
-import { Input } from "@/components/common/input";
+import { FormGroup } from "@components/common/form/Form";
+import { Input } from "@components/common/input";
 import React from "react";
 
 const meta = {
@@ -35,7 +35,7 @@ const TemplateLabelForm = ({ ...args }) => {
       <Input id="inputTitle" />
     </FormGroup>
   );
-}
+};
 
 export const Default: Story = {
   args: {},

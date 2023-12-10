@@ -2,23 +2,32 @@ import React from "react";
 import Link from "next/link";
 import { notFound } from "next/navigation";
 
-import Tag from "@/components/common/tag";
-import Like from "@/components/common/like";
+import Tag from "@components/common/tag";
+import Like from "@components/common/like";
 import { MainLayout } from "@components/layout";
 import ScriptCard from "@components/script/ScriptCard";
 import ScriptBlock from "@components/script/ScriptBlock";
-import AudioBar from "@/components/audio/player/AudioBar";
+import AudioBar from "@components/audio/player/AudioBar";
 import { Container, ContainerFluid } from "@components/common/Grid";
 
 import { getUsersProcess } from "@utils/apis/services/user";
 import { getScript, getScripts } from "@utils/apis/api/script";
-import { getScriptProcess, getScriptsProcess } from "@utils/apis/services/script";
+import {
+  getScriptProcess,
+  getScriptsProcess,
+} from "@utils/apis/services/script";
 import { ScriptType } from "@type/scripts";
 import { UserData } from "@type/user";
 
-import { AudioScroller, ScriptBG, ScriptBody, ScriptHeader, ScriptTitle } from "./page.styled";
-import { AudioInfo } from "@/types/voice";
-import { getVoicesProcess } from "@/utils/apis/services/voice";
+import {
+  AudioScroller,
+  ScriptBG,
+  ScriptBody,
+  ScriptHeader,
+  ScriptTitle,
+} from "./page.styled";
+import { AudioInfo } from "@type/voice";
+import { getVoicesProcess } from "@utils/apis/services/voice";
 import { Metadata } from "next";
 
 interface PageProps {
@@ -29,7 +38,11 @@ type RelationType = AudioInfo & {
   url: string;
 };
 
-export async function generateMetadata({ params }: { params: PageProps }): Promise<Metadata> {
+export async function generateMetadata({
+  params,
+}: {
+  params: PageProps;
+}): Promise<Metadata> {
   const script_id = params?.slug?.[0] || "";
 
   if (script_id) {
@@ -42,9 +55,13 @@ export async function generateMetadata({ params }: { params: PageProps }): Promi
       title: curScript.title,
       openGraph: {
         title: curScript.title,
-        description: curScript.script ? curScript.script.slice(0, 90) : `${"#" + curScript.tags.join(" #")}`,
+        description: curScript.script
+          ? curScript.script.slice(0, 90)
+          : `${"#" + curScript.tags.join(" #")}`,
         siteName: "VoiceHub",
-        images: ["https://raw.githubusercontent.com/baggun/VoiceHub/master/public/thumbnail.png"],
+        images: [
+          "https://raw.githubusercontent.com/baggun/VoiceHub/master/public/thumbnail.png",
+        ],
         type: "website",
       },
     };
@@ -58,7 +75,9 @@ export async function generateMetadata({ params }: { params: PageProps }): Promi
       title: "VoiceHub | 대본",
       description: "성우들을 위한 공간, VoiceHub",
       siteName: "VoiceHub",
-      images: ["https://raw.githubusercontent.com/baggun/VoiceHub/master/public/thumbnail.png"],
+      images: [
+        "https://raw.githubusercontent.com/baggun/VoiceHub/master/public/thumbnail.png",
+      ],
       type: "website",
     },
   };
@@ -114,17 +133,21 @@ const Script = async ({ params }: { params: PageProps }) => {
                 <div className="col-lg-6">
                   <ScriptTitle>{curScript.title}</ScriptTitle>
                   <ScriptBlock height="450px">{curScript.script}</ScriptBlock>
-                  {curScript.tags?.map(tag => <Tag key={tag} tag={tag} $darkmode />)}
+                  {curScript.tags?.map((tag) => (
+                    <Tag key={tag} tag={tag} $darkmode />
+                  ))}
                 </div>
                 <div className="col-lg-6">
                   <ScriptHeader>
-                    <Link href={`/voice/upload?script=${curScript.id}`}>이 대사로 업로드</Link>
+                    <Link href={`/voice/upload?script=${curScript.id}`}>
+                      이 대사로 업로드
+                    </Link>
                     <Like type="Script" target_id={script_id} likers={likers} />
                   </ScriptHeader>
                   <ScriptBody>
                     <h2>관련 목소리</h2>
                     <AudioScroller className="scroll dark">
-                      {relationTracks.map(track => (
+                      {relationTracks.map((track) => (
                         <AudioBar
                           key={`track-${track.id}`}
                           audioSrc={track.url}
@@ -143,8 +166,12 @@ const Script = async ({ params }: { params: PageProps }) => {
       )}
       <Container>
         <div className="row">
-          {scripts.map(sc => (
-            <ScriptCard key={`script-${sc.id}`} className="col-md-6" script={sc} />
+          {scripts.map((sc) => (
+            <ScriptCard
+              key={`script-${sc.id}`}
+              className="col-md-6"
+              script={sc}
+            />
           ))}
         </div>
       </Container>

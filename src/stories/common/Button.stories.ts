@@ -1,4 +1,4 @@
-import { Button, CustomButtonProps } from "@/components/common/button";
+import { Button, CustomButtonProps } from "@components/common/button";
 import type { Meta, StoryObj } from "@storybook/react";
 
 const meta = {
@@ -10,7 +10,10 @@ const meta = {
       table: {
         category: "Customize Design",
         subcategory: "CSS",
-        defaultValue: { summary: "", detail: "단위까지 입력해야 합니다. e.g. 1rem" },
+        defaultValue: {
+          summary: "",
+          detail: "단위까지 입력해야 합니다. e.g. 1rem",
+        },
         type: { summary: "string" },
       },
     },
@@ -18,7 +21,10 @@ const meta = {
       table: {
         category: "Customize Design",
         subcategory: "CSS",
-        defaultValue: { summary: "", detail: "단위까지 입력해야 합니다. e.g. 1rem" },
+        defaultValue: {
+          summary: "",
+          detail: "단위까지 입력해야 합니다. e.g. 1rem",
+        },
         type: { summary: "string" },
       },
     },
@@ -26,7 +32,10 @@ const meta = {
       table: {
         category: "Customize Design",
         subcategory: "CSS",
-        defaultValue: { summary: "", detail: "단위까지 입력해야 합니다. e.g. 1rem" },
+        defaultValue: {
+          summary: "",
+          detail: "단위까지 입력해야 합니다. e.g. 1rem",
+        },
         type: { summary: "string" },
       },
     },
@@ -34,7 +43,10 @@ const meta = {
       table: {
         category: "Customize Design",
         subcategory: "CSS",
-        defaultValue: { summary: "", detail: "정령 방법이 없을떄 임시로 사용합니다." },
+        defaultValue: {
+          summary: "",
+          detail: "정령 방법이 없을떄 임시로 사용합니다.",
+        },
         type: { summary: "string" },
       },
     },
@@ -42,7 +54,8 @@ const meta = {
   parameters: {
     layout: "fullscreen",
     // 추가
-    componentSubtitle: "기본적인 상호작용을 위한 버튼은 이 컴포넌트를 사용합니다.",
+    componentSubtitle:
+      "기본적인 상호작용을 위한 버튼은 이 컴포넌트를 사용합니다.",
     docs: {
       description: {
         // 추가

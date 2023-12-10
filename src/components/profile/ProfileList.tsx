@@ -1,9 +1,9 @@
-import { UserData } from "@/types/user";
+import { UserData } from "@type/user";
 import Profile from ".";
 import Carousel from "../carousel";
 
-import { getRecommendUser } from "@/utils/apis/api/users";
-import { getUsersPureProcess } from "@/utils/apis/services/user";
+import { getRecommendUser } from "@utils/apis/api/users";
+import { getUsersPureProcess } from "@utils/apis/services/user";
 import Skeleton, { SkeletonGroup, SkeletonWrapper } from "../sekeleton";
 
 const ProfileList = async () => {
@@ -43,7 +43,7 @@ const ProfileList = async () => {
 
   return (
     <Carousel setting={setting}>
-      {users.map(user => (
+      {users.map((user) => (
         <Profile
           key={`rec-user-${user.id}`}
           profileID={user.id}
@@ -73,7 +73,11 @@ export const ProfileListSkeleton = () => {
               margin: "0rem 0.5rem 0rem 0.5rem",
             }}
           />
-          <Skeleton height="1rem" width="3rem" style={{ margin: "0.5rem 0rem 0rem 0rem" }} />
+          <Skeleton
+            height="1rem"
+            width="3rem"
+            style={{ margin: "0.5rem 0rem 0rem 0rem" }}
+          />
         </SkeletonGroup>
       ))}
     </SkeletonWrapper>

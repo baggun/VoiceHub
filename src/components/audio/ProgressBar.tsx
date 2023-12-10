@@ -3,13 +3,20 @@
 import React, { useRef } from "react";
 import styled from "styled-components";
 import { useRecoilState, useRecoilValue } from "recoil";
-import { audioCurTimeState, audioDurationState, audioPlayState, audioState } from "@/recoil/audio/atom";
+import {
+  audioCurTimeState,
+  audioDurationState,
+  audioPlayState,
+  audioState,
+} from "@recoil/audio/atom";
 
 import { timeFormat } from "@utils/format";
-import { voiceURL } from "@/utils/url";
+import { voiceURL } from "@utils/url";
 
 const ProgressBar = () => {
-  const _audio = useRef<HTMLAudioElement | undefined>(typeof Audio !== "undefined" ? new Audio("") : undefined);
+  const _audio = useRef<HTMLAudioElement | undefined>(
+    typeof Audio !== "undefined" ? new Audio("") : undefined
+  );
 
   const audio = useRecoilValue(audioState);
   const inputRef = React.useRef<any>(null);
@@ -19,12 +26,15 @@ const ProgressBar = () => {
 
   React.useEffect(() => {
     if (!_audio.current) return;
-    if (_audio.current.src !== audio.audio) _audio.current.src = voiceURL(audio.audio);
+    if (_audio.current.src !== audio.audio)
+      _audio.current.src = voiceURL(audio.audio);
     if (!audio.isControlWave) {
       // _audio.current.src = audio.audio;
       if (play) {
         // 10초 이하의 오디오는 currentTime 조절시 자동으로 0으로 가는 문제 있음
-        if (audioDuration > 10) _audio.current.currentTime = audioCurTime >= audioDuration ? 0 : audioCurTime;
+        if (audioDuration > 10)
+          _audio.current.currentTime =
+            audioCurTime >= audioDuration ? 0 : audioCurTime;
         _audio.current.play();
       } else {
         _audio.current.pause();
@@ -43,9 +53,11 @@ const ProgressBar = () => {
     const timeUpdate = () => {
       if (!_audio.current) return;
 
-      if (_audio.current?.currentTime !== 0) setAudioCurTime(_audio.current?.currentTime);
+      if (_audio.current?.currentTime !== 0)
+        setAudioCurTime(_audio.current?.currentTime);
 
-      const per = (_audio.current?.currentTime / _audio.current?.duration) * 100;
+      const per =
+        (_audio.current?.currentTime / _audio.current?.duration) * 100;
 
       drawProgress(per);
     };
@@ -68,7 +80,9 @@ const ProgressBar = () => {
     if (_audio.current) _audio.current.currentTime = +e.target.value;
 
     if (audio.isControlWave) {
-      audio.waveRef?.seekTo((_audio.current ? _audio.current.currentTime : 0) / audioDuration);
+      audio.waveRef?.seekTo(
+        (_audio.current ? _audio.current.currentTime : 0) / audioDuration
+      );
     }
   };
 
@@ -89,7 +103,9 @@ const ProgressBar = () => {
       <Timer>
         {_audio.current && (
           <>
-            <span className="time current">{timeFormat(_audio.current?.currentTime)}</span>
+            <span className="time current">
+              {timeFormat(_audio.current?.currentTime)}
+            </span>
             <span> / </span>
             <span className="time">{timeFormat(_audio.current?.duration)}</span>
           </>

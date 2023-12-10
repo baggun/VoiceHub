@@ -5,8 +5,8 @@ import { notFound } from "next/navigation";
 import { PostH1 } from "@common/Heading";
 import { Container } from "@common/Grid";
 import Comment from "@components/comment";
-import Tag from "@/components/common/tag";
-import Like from "@/components/common/like";
+import Tag from "@components/common/tag";
+import Like from "@components/common/like";
 import { MainLayout } from "@components/layout";
 import { IconArrowNarrowLeft } from "@tabler/icons-react";
 import ProfileInfo from "@components/profile/ProfileInfo";
@@ -20,15 +20,25 @@ import { getCommentProcess } from "@utils/apis/services/comment";
 import { UserData } from "@type/user";
 import { dateFormat } from "@utils/format";
 import { CommentType } from "@type/comment";
-import { ViewContainer, ContentBlock, Date, PostTags, PostFooter } from "./page.styled";
+import {
+  ViewContainer,
+  ContentBlock,
+  Date,
+  PostTags,
+  PostFooter,
+} from "./page.styled";
 import { Metadata } from "next";
-import { profileURL } from "@/utils/url";
+import { profileURL } from "@utils/url";
 
 interface PageProps {
   post_id: string;
 }
 
-export async function generateMetadata({ params }: { params: PageProps }): Promise<Metadata> {
+export async function generateMetadata({
+  params,
+}: {
+  params: PageProps;
+}): Promise<Metadata> {
   const { post_id } = params;
 
   const res = await getPost(post_id);
@@ -75,7 +85,11 @@ const View = async ({ params }: { params: PageProps }) => {
             </div>
             <div className="col-md-8">
               <PostH1>{post?.title}</PostH1>
-              {post?.tags && <PostTags>{post?.tags.map(t => <Tag key={t} tag={t} />)}</PostTags>}
+              {post?.tags && (
+                <PostTags>
+                  {post?.tags.map((t) => <Tag key={t} tag={t} />)}
+                </PostTags>
+              )}
               {post && (
                 <ProfileInfo
                   profileID={post.user_id}

@@ -2,10 +2,13 @@ import dbConnect from "@lib/db/dbConnect";
 import { NextRequest } from "next/server";
 import PostLike from "@models/post_like.model";
 import { getServerSession } from "next-auth";
-import { authOptions } from "@/app/api/auth/[...nextauth]/route";
-import { addNotification } from "@/app/api/notification/route";
+import { authOptions } from "@app/api/auth/[...nextauth]/route";
+import { addNotification } from "@app/api/notification/route";
 
-export async function POST(request: NextRequest, { params }: { params: { post_id: string } }) {
+export async function POST(
+  request: NextRequest,
+  { params }: { params: { post_id: string } }
+) {
   const { post_id } = params;
   const session = await getServerSession(authOptions);
 
@@ -17,7 +20,7 @@ export async function POST(request: NextRequest, { params }: { params: { post_id
       },
       {
         status: 403,
-      },
+      }
     );
   }
   try {
@@ -37,7 +40,12 @@ export async function POST(request: NextRequest, { params }: { params: { post_id
       if (!likeStatus) throw new Error("like 실행 에러");
 
       const post = await likeStatus.populate({ path: "post" });
-      await addNotification(post.post.author, "like-post", post_id, session.user.oid);
+      await addNotification(
+        post.post.author,
+        "like-post",
+        post_id,
+        session.user.oid
+      );
     } else {
       const likeStatus = await PostLike.deleteOne({
         user: session.user.oid,
@@ -58,7 +66,7 @@ export async function POST(request: NextRequest, { params }: { params: { post_id
       },
       {
         status: 500,
-      },
+      }
     );
   }
 }

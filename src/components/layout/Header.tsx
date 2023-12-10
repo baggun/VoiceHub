@@ -3,13 +3,19 @@
 import React, { Suspense } from "react";
 import { useSetRecoilState } from "recoil";
 import styled, { css } from "styled-components";
-import { searchModalState } from "@/recoil/search/atom";
+import { searchModalState } from "@recoil/search/atom";
 
 import Search from "@components/search";
 import { Container } from "@common/Grid";
 import { ModalBackground } from "@common/modal";
 import NavBarLogged from "@common/navbar/NavBarLogged";
-import { NavBar, NavBarCollapse, NavBarNavLink, NavBarNav, NavLinkItemStyled } from "@components/common/navbar";
+import {
+  NavBar,
+  NavBarCollapse,
+  NavBarNavLink,
+  NavBarNav,
+  NavLinkItemStyled,
+} from "@components/common/navbar";
 import { IconSearch } from "@tabler/icons-react";
 import SearchModal from "../search/SearchModal";
 
@@ -46,7 +52,7 @@ const Header = ({ hideNavItems }: HeaderProps) => {
           <NavBarCollapse>
             <NavBarNav className="hide-lg">
               {!hideNavItems &&
-                menus.map(menu => (
+                menus.map((menu) => (
                   <NavBarNavLink to={menu.link} key={menu.link}>
                     {menu.name}
                   </NavBarNavLink>
@@ -69,14 +75,13 @@ const Header = ({ hideNavItems }: HeaderProps) => {
         </NavBar>
 
         <SearchModal />
-        
       </HeaderContainer>
       <HeaderDivider className="show-lg" />
       <SubHeaderContainer className="show-lg">
         <NavBarCollapse>
           <NavBarNav>
             {!hideNavItems &&
-              menus.map(menu => (
+              menus.map((menu) => (
                 <NavBarNavLink to={menu.link} key={menu.link}>
                   {menu.name}
                 </NavBarNavLink>

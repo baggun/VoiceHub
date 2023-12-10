@@ -4,7 +4,7 @@ import React from "react";
 import styled, { css } from "styled-components";
 // import { Link } from "react-router-dom";
 
-import Tag from "@/components/common/tag";
+import Tag from "@components/common/tag";
 import { Button } from "@common/button";
 import { IconHeart, IconHeartFilled } from "@tabler/icons-react";
 import { IconBinaryTree2 } from "@tabler/icons-react";
@@ -34,17 +34,25 @@ const ScriptCard = ({ script, className, $fixedWidth }: ScriptCardProps) => {
           </Link>
           {script.tags.length > 0 && (
             <div>
-              {script.tags.map(t => (
+              {script.tags.map((t) => (
                 <Tag key={t} tag={t}></Tag>
               ))}
             </div>
           )}
-          <ScriptContent className="scroll" onClick={scrollContentHandler} $enableScroll={scrollContent}>
+          <ScriptContent
+            className="scroll"
+            onClick={scrollContentHandler}
+            $enableScroll={scrollContent}
+          >
             {script.script}
           </ScriptContent>
           <ScriptFooter>
             <ScriptChallenge>
-              {script.likedByUser ? <IconHeartFilled className="icon" /> : <IconHeart className="icon" />}
+              {script.likedByUser ? (
+                <IconHeartFilled className="icon" />
+              ) : (
+                <IconHeart className="icon" />
+              )}
               {script.likeCount}
             </ScriptChallenge>
             <ScriptChallenge>
@@ -82,7 +90,7 @@ const ScriptBody = styled.div<{ $fixedWidth?: string }>`
   -moz-box-shadow: 0px 0px 25px 5px rgba(50, 50, 50, 0.05);
   background-color: white;
 
-  ${props =>
+  ${(props) =>
     props.$fixedWidth &&
     css`
       width: ${props.$fixedWidth};
@@ -131,7 +139,7 @@ const ScriptContent = styled.div<{ $enableScroll: boolean }>`
     background-color: ${({ theme }) => theme.colors.hover};
   }
 
-  ${props => {
+  ${(props) => {
     if (props.$enableScroll)
       return css`
         -webkit-line-clamp: 12;

@@ -7,7 +7,7 @@ import { usePathname } from "next/navigation";
 import { css, styled } from "styled-components";
 
 import { NavBarNavLink } from ".";
-import ProfileNav from "@/components/profile/ProfileNav";
+import ProfileNav from "@components/profile/ProfileNav";
 import { IconBell, IconPlus } from "@tabler/icons-react";
 
 const NavBarLogged = () => {

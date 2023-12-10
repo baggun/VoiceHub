@@ -1,10 +1,13 @@
 import dbConnect from "@lib/db/dbConnect";
 import { NextRequest } from "next/server";
 import User from "@models/user.model";
-import Script from "@/models/script.model";
+import Script from "@models/script.model";
 import ScriptLike from "@models/script_like.model";
 
-export async function GET(request: NextRequest, { params }: { params: { user_id: string } }) {
+export async function GET(
+  request: NextRequest,
+  { params }: { params: { user_id: string } }
+) {
   const { user_id } = params;
 
   try {
@@ -20,10 +23,12 @@ export async function GET(request: NextRequest, { params }: { params: { user_id:
         },
         {
           status: 400,
-        },
+        }
       );
     }
-    const scripts = await ScriptLike.find({ user: user._id }).distinct("script");
+    const scripts = await ScriptLike.find({ user: user._id }).distinct(
+      "script"
+    );
 
     const useLikedScripts = await Script.aggregate([
       {
@@ -77,7 +82,7 @@ export async function GET(request: NextRequest, { params }: { params: { user_id:
       },
       {
         status: 500,
-      },
+      }
     );
   }
 }

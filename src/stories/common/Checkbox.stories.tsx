@@ -1,4 +1,4 @@
-import Checkbox, { CheckboxProps } from "@/components/common/input/Checkbox";
+import Checkbox, { CheckboxProps } from "@components/common/input/Checkbox";
 import type { Meta, StoryObj } from "@storybook/react";
 import { useArgs } from "@storybook/preview-api";
 import React from "react";

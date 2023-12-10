@@ -26,7 +26,7 @@ import { VoiceInfo } from "@type/voice";
 import { ScriptType } from "@type/scripts";
 
 import { ProfileNavCollapse, ProfileNavLink } from "./UserWorks.styled";
-import { getUsersProcess } from "@/utils/apis/services/user";
+import { getUsersProcess } from "@utils/apis/services/user";
 
 type UserWorksProps = {
   user_id: string;
@@ -45,8 +45,8 @@ const UserWorks = async ({ user_id, tab }: UserWorksProps) => {
       title: "녹음",
       api: async (user_id: string) => {
         await getUserVoices({ user_id })
-          .then(res => getVoicesProcess(res.data))
-          .then(res => {
+          .then((res) => getVoicesProcess(res.data))
+          .then((res) => {
             tracks = res;
           });
       },
@@ -56,8 +56,8 @@ const UserWorks = async ({ user_id, tab }: UserWorksProps) => {
       title: "게시글",
       api: async (user_id: string) => {
         await getUserPosts(user_id)
-          .then(res => getPostsProcess(res.data))
-          .then(res => {
+          .then((res) => getPostsProcess(res.data))
+          .then((res) => {
             posts = res;
           });
       },
@@ -67,8 +67,8 @@ const UserWorks = async ({ user_id, tab }: UserWorksProps) => {
       title: "관심 대사",
       api: async (user_id: string) => {
         await getUserLikeScripts(user_id)
-          .then(res => getScriptsProcess(res.data))
-          .then(res => (scripts = res));
+          .then((res) => getScriptsProcess(res.data))
+          .then((res) => (scripts = res));
       },
     },
     like_voices: {
@@ -76,8 +76,8 @@ const UserWorks = async ({ user_id, tab }: UserWorksProps) => {
       title: "관심 녹음",
       api: async (user_id: string) => {
         await getUserLikeVoices(user_id)
-          .then(res => getVoicesProcess(res.data))
-          .then(res => {
+          .then((res) => getVoicesProcess(res.data))
+          .then((res) => {
             tracks = res;
           });
       },
@@ -87,17 +87,20 @@ const UserWorks = async ({ user_id, tab }: UserWorksProps) => {
       title: "관심 게시글",
       api: async (user_id: string) => {
         await getUserLikePosts(user_id)
-          .then(res => getPostsProcess(res.data))
-          .then(res => (posts = res));
+          .then((res) => getPostsProcess(res.data))
+          .then((res) => (posts = res));
       },
     },
   };
 
   // "followers", "followings" 면 따로 처리함
   if (["followers", "followings"].includes(tab)) {
-    await (tab === "followers" ? getUserFollowers(user_id) : getUserFollowings(user_id))
-      .then(res => getUsersProcess(res.data))
-      .then(res => {
+    await (tab === "followers"
+      ? getUserFollowers(user_id)
+      : getUserFollowings(user_id)
+    )
+      .then((res) => getUsersProcess(res.data))
+      .then((res) => {
         followers = res;
       });
   } else {
@@ -111,7 +114,7 @@ const UserWorks = async ({ user_id, tab }: UserWorksProps) => {
       {/* 동적 페이지 (작업물, 팔로워, 좋아요 목록 등등..) */}
       <div className="col-md-7">
         <ProfileNavCollapse>
-          {Object.values(tabList).map(t => (
+          {Object.values(tabList).map((t) => (
             <ProfileNavLink
               key={t.tab}
               href={{
@@ -128,21 +131,29 @@ const UserWorks = async ({ user_id, tab }: UserWorksProps) => {
           {
             followers: (
               <div>
-                {followers?.map(follower => (
-                  <ProfileCard key={`follower-${follower.id}`} {...follower} isFollowed={true} />
+                {followers?.map((follower) => (
+                  <ProfileCard
+                    key={`follower-${follower.id}`}
+                    {...follower}
+                    isFollowed={true}
+                  />
                 ))}
               </div>
             ),
             followings: (
               <div>
-                {followers?.map(following => (
-                  <ProfileCard key={`followings-${following.id}`} {...following} isFollowed={true} />
+                {followers?.map((following) => (
+                  <ProfileCard
+                    key={`followings-${following.id}`}
+                    {...following}
+                    isFollowed={true}
+                  />
                 ))}
               </div>
             ),
             voices: (
               <>
-                {tracks?.map(track => (
+                {tracks?.map((track) => (
                   <AudioBar
                     key={`track-${track.id}`}
                     audioSrc={track.url}
@@ -154,11 +165,23 @@ const UserWorks = async ({ user_id, tab }: UserWorksProps) => {
                 ))}
               </>
             ),
-            posts: <>{posts?.map(post => <Post key={`post-${post.id}`} post={post} />)}</>,
-            like_scripts: <>{scripts?.map(sc => <ScriptCard key={`script-${sc.id}`} script={sc} />)}</>,
+            posts: (
+              <>
+                {posts?.map((post) => (
+                  <Post key={`post-${post.id}`} post={post} />
+                ))}
+              </>
+            ),
+            like_scripts: (
+              <>
+                {scripts?.map((sc) => (
+                  <ScriptCard key={`script-${sc.id}`} script={sc} />
+                ))}
+              </>
+            ),
             like_voices: (
               <>
-                {tracks?.map(track => (
+                {tracks?.map((track) => (
                   <AudioBar
                     key={`like-track-${track.id}`}
                     audioSrc={track.url}
@@ -170,7 +193,13 @@ const UserWorks = async ({ user_id, tab }: UserWorksProps) => {
                 ))}
               </>
             ),
-            like_posts: <>{posts?.map(post => <Post key={`like-post-${post.id}`} post={post} />)}</>,
+            like_posts: (
+              <>
+                {posts?.map((post) => (
+                  <Post key={`like-post-${post.id}`} post={post} />
+                ))}
+              </>
+            ),
           }[tab ?? "voices"]
         }
       </div>

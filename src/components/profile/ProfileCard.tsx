@@ -3,8 +3,13 @@ import Link from "next/link";
 
 import FollowButton from "@common/button/FollowButton";
 import Profile from ".";
-import { ProfileCardStyled, ProfileInfo, ProfileNameLink, ProfileAboutMe } from "./Profile.styled";
-import { isAliveUser, userNickname } from "@/utils/validate";
+import {
+  ProfileCardStyled,
+  ProfileInfo,
+  ProfileNameLink,
+  ProfileAboutMe,
+} from "./Profile.styled";
+import { isAliveUser, userNickname } from "@utils/validate";
 
 type ProfileCardProps = {
   id: string;
@@ -54,18 +59,24 @@ const ProfileCard = ({
 }: ProfileCardProps) => {
   return (
     <ProfileCardStyled $margin={sizeGroup[size].margin}>
-      <Profile profileID={id} profile_url={profile} size={sizeGroup[size].profileSize}></Profile>
+      <Profile
+        profileID={id}
+        profile_url={profile}
+        size={sizeGroup[size].profileSize}
+      ></Profile>
       <ProfileInfo>
         <span>
           <ProfileNameLink
             href={`/${id}`}
-            className={`profile-name ${isAliveUser(id) ? "": "disabled-link"}`}
+            className={`profile-name ${isAliveUser(id) ? "" : "disabled-link"}`}
             size={sizeGroup[size].nameSize}
           >
             {userNickname(nickname)} 성우
           </ProfileNameLink>
         </span>
-        <ProfileAboutMe size={sizeGroup[size].aboutMeSize}>{aboutMe}</ProfileAboutMe>
+        <ProfileAboutMe size={sizeGroup[size].aboutMeSize}>
+          {aboutMe}
+        </ProfileAboutMe>
       </ProfileInfo>
       {!disabledFollow && <FollowButton target={id} isFollowed={isFollowed} />}
     </ProfileCardStyled>

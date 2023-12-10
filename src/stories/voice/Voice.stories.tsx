@@ -1,5 +1,5 @@
 import type { Meta, StoryObj } from "@storybook/react";
-import AudioWave, { AudioWaveProps } from "@/components/audio/player/AudioWave";
+import AudioWave, { AudioWaveProps } from "@components/audio/player/AudioWave";
 import { RecoilRoot } from "recoil";
 
 const meta = {

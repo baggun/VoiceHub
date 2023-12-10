@@ -1,5 +1,5 @@
 import type { Meta, StoryObj } from "@storybook/react";
-import { PostType } from "@/types/post";
+import { PostType } from "@type/post";
 import Post from "@components/community/Post";
 
 const meta = {
@@ -9,7 +9,8 @@ const meta = {
   argTypes: {},
   parameters: {
     // 추가
-    componentSubtitle: "community 에서 게시물로 이동하기 위한 Post 컴포넌트입니다.",
+    componentSubtitle:
+      "community 에서 게시물로 이동하기 위한 Post 컴포넌트입니다.",
     docs: {
       description: {
         // 추가

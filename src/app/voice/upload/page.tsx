@@ -5,19 +5,19 @@ import { useRouter } from "next/navigation";
 import { useSession } from "next-auth/react";
 import { useSearchParams } from "next/navigation";
 
-import Label from "@/components/common/Label";
+import Label from "@components/common/Label";
 import { H1 } from "@common/Heading";
 import { Button } from "@common/button";
 import { Input } from "@components/common/input";
 import { UploadLayout } from "@components/layout";
-import AudioWave from "@/components/audio/player/AudioWave";
+import AudioWave from "@components/audio/player/AudioWave";
 import { UploadCard } from "@components/common/card";
 import { Container, ContainerFluid } from "@common/Grid";
 import { FormGroup } from "@components/common/form/Form";
 import Selector, { OptionType } from "@common/input/Selector";
 import DragDropFile from "@components/common/input/DragDropFile";
 import ScriptBlock from "@components/script/ScriptBlock";
-import ScriptTextarea from "@/components/common/textarea/ScriptTextarea";
+import ScriptTextarea from "@components/common/textarea/ScriptTextarea";
 
 import useStage from "@hooks/useStage";
 import { postVoice } from "@utils/apis/api/voice";
@@ -41,7 +41,9 @@ const VoiceUpload = () => {
     tags: [],
   });
 
-  const [selectorValue, setSelectorValue] = React.useState<readonly OptionType[]>([]);
+  const [selectorValue, setSelectorValue] = React.useState<
+    readonly OptionType[]
+  >([]);
   const [uploadFile, setUploadFiles] = React.useState<FileList>();
   const { stage, nextStage, ifStage } = useStage({
     // stages: ["voice", "detail"],
@@ -55,15 +57,24 @@ const VoiceUpload = () => {
   const submitHandler = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
 
-    const voiceTags: string[] = selectorValue.map(v => v.value);
+    const voiceTags: string[] = selectorValue.map((v) => v.value);
     let script_id = script || "";
 
     if (!script) {
-      const scriptRes = await postScript(voiceData.title, voiceData.script || "", voiceTags);
+      const scriptRes = await postScript(
+        voiceData.title,
+        voiceData.script || "",
+        voiceTags
+      );
       if (scriptRes && scriptRes.success) script_id = scriptRes.data;
     }
 
-    const res = await postVoice(voiceData.title, voiceData.url, script_id, voiceTags);
+    const res = await postVoice(
+      voiceData.title,
+      voiceData.url,
+      script_id,
+      voiceTags
+    );
     if (res && res.success) {
       router.push(res.data);
     }
@@ -118,7 +129,9 @@ const VoiceUpload = () => {
                   <FormGroup>
                     <Label>목소리</Label>
                     <AudioWave
-                      audioSrc={"https://www.mfiles.co.uk/mp3-downloads/franz-schubert-standchen-serenade.mp3"}
+                      audioSrc={
+                        "https://www.mfiles.co.uk/mp3-downloads/franz-schubert-standchen-serenade.mp3"
+                      }
                       info={{
                         ...voiceData,
                         ownerName: session?.user.nickname || "",
@@ -131,7 +144,7 @@ const VoiceUpload = () => {
                     <ScriptTextarea
                       id="inputScript"
                       value={voiceData.script}
-                      onChange={e =>
+                      onChange={(e) =>
                         setVoiceData({
                           ...voiceData,
                           script: e.target.value,
@@ -147,7 +160,7 @@ const VoiceUpload = () => {
                     <Input
                       id="inputTitle"
                       value={voiceData.title}
-                      onChange={e =>
+                      onChange={(e) =>
                         setVoiceData({
                           ...voiceData,
                           title: e.target.value,
@@ -158,7 +171,11 @@ const VoiceUpload = () => {
 
                   <FormGroup>
                     <Label>태그</Label>
-                    <Selector id="inputTags" value={selectorValue} setValue={setSelectorValue} />
+                    <Selector
+                      id="inputTags"
+                      value={selectorValue}
+                      setValue={setSelectorValue}
+                    />
                   </FormGroup>
                   <Button
                     type="submit"

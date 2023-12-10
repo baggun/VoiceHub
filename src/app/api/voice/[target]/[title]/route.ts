@@ -3,12 +3,15 @@ import { NextRequest } from "next/server";
 import User from "@models/user.model";
 import Voice from "@models/voice.model";
 import VoiceLike from "@models/voice_like.model";
-// import script from "@/models/script.model";
+// import script from "@models/script.model";
 import Follow from "@models/follow.model";
 import { getServerSession } from "next-auth";
-import { authOptions } from "@/app/api/auth/[...nextauth]/route";
+import { authOptions } from "@app/api/auth/[...nextauth]/route";
 
-export async function GET(request: NextRequest, { params }: { params: { target: string; title: string } }) {
+export async function GET(
+  request: NextRequest,
+  { params }: { params: { target: string; title: string } }
+) {
   const { target, title } = params;
   const session = await getServerSession(authOptions);
 
@@ -25,7 +28,7 @@ export async function GET(request: NextRequest, { params }: { params: { target: 
         },
         {
           status: 400,
-        },
+        }
       );
     }
 
@@ -57,11 +60,14 @@ export async function GET(request: NextRequest, { params }: { params: { target: 
         },
         {
           status: 400,
-        },
+        }
       );
     }
 
-    const likes = await VoiceLike.find({ voice: voice._id }, { user: true, _id: false })
+    const likes = await VoiceLike.find(
+      { voice: voice._id },
+      { user: true, _id: false }
+    )
       .populate({
         path: "user",
         select: ["user_id", "user_nickname", "user_profile"],
@@ -94,12 +100,15 @@ export async function GET(request: NextRequest, { params }: { params: { target: 
       },
       {
         status: 500,
-      },
+      }
     );
   }
 }
 
-export async function DELETE(request: NextRequest, { params }: { params: { target: string; title: string } }) {
+export async function DELETE(
+  request: NextRequest,
+  { params }: { params: { target: string; title: string } }
+) {
   const { target, title } = params;
   const session = await getServerSession(authOptions);
 
@@ -111,7 +120,7 @@ export async function DELETE(request: NextRequest, { params }: { params: { targe
       },
       {
         status: 403,
-      },
+      }
     );
   }
 
@@ -128,7 +137,7 @@ export async function DELETE(request: NextRequest, { params }: { params: { targe
         },
         {
           status: 400,
-        },
+        }
       );
     }
 
@@ -150,7 +159,7 @@ export async function DELETE(request: NextRequest, { params }: { params: { targe
       },
       {
         status: 500,
-      },
+      }
     );
   }
 }

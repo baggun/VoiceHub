@@ -1,10 +1,13 @@
 import dbConnect from "@lib/db/dbConnect";
 import { NextRequest } from "next/server";
 import Voice from "@models/voice.model";
-import Script from "@/models/script.model";
+import Script from "@models/script.model";
 import User from "@models/user.model";
 
-export async function GET(request: NextRequest, { params }: { params: { word: string } }) {
+export async function GET(
+  request: NextRequest,
+  { params }: { params: { word: string } }
+) {
   const { word } = params;
   const decodedWord = decodeURIComponent(word);
   const RegWord = new RegExp(decodedWord, "i");
@@ -20,7 +23,7 @@ export async function GET(request: NextRequest, { params }: { params: { word: st
         $or: [{ title: RegWord }, { tags: { $in: [RegWord] } }],
         deleted: { $ne: true },
       },
-      "-comments",
+      "-comments"
     )
       .populate({
         path: "author",
@@ -35,7 +38,7 @@ export async function GET(request: NextRequest, { params }: { params: { word: st
       {
         $or: [{ title: RegWord }, { tags: { $in: [RegWord] } }],
       },
-      "-script",
+      "-script"
     )
       .sort("createdAt")
       .limit(10)
@@ -44,7 +47,7 @@ export async function GET(request: NextRequest, { params }: { params: { word: st
 
     const users = await User.find(
       { user_nickname: RegWord, deleted: { $ne: true } },
-      "user_id user_nickname user_email user_profile",
+      "user_id user_nickname user_email user_profile"
     )
       .sort("user_updatedAt")
       .limit(10)
@@ -66,7 +69,7 @@ export async function GET(request: NextRequest, { params }: { params: { word: st
       },
       {
         status: 500,
-      },
+      }
     );
   }
 }

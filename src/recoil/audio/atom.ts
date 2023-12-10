@@ -1,6 +1,6 @@
 import { DefaultValue, atom, atomFamily, selector } from "recoil";
-import { AudioState } from "@/types/audio";
-import { AudioInfo } from "@/types/voice";
+import { AudioState } from "@type/audio";
+import { AudioInfo } from "@type/voice";
 
 /********************************************
  *

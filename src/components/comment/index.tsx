@@ -8,9 +8,15 @@ import ProfileInfo from "@components/profile/ProfileInfo";
 import { CommentType } from "@type/comment";
 import { dateFormat } from "@utils/format";
 
-import { CommentBlock, CommentHeadBlock, CommentContentBlock, CommentDate, RemovePostButton } from "./index.styled";
+import {
+  CommentBlock,
+  CommentHeadBlock,
+  CommentContentBlock,
+  CommentDate,
+  RemovePostButton,
+} from "./index.styled";
 import { deletePostComment } from "@utils/apis/api/post";
-import { deleteVoiceComment } from "@/utils/apis/api/voice";
+import { deleteVoiceComment } from "@utils/apis/api/voice";
 // import { useRouter } from "next/router";
 
 type CommentProps = {
@@ -30,7 +36,10 @@ const Comment = ({ post_id, comment, type = "post" }: CommentProps) => {
 
     const ok = window.confirm("정말 삭제하시겠습니까?");
     if (ok) {
-      await (type === "post" ? deletePostComment : deleteVoiceComment)(post_id, comment.id).then(res => {
+      await (type === "post" ? deletePostComment : deleteVoiceComment)(
+        post_id,
+        comment.id
+      ).then((res) => {
         if (res && res.success) router.refresh();
       });
     }

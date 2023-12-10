@@ -3,19 +3,21 @@ import { Metadata, ResolvingMetadata } from "next";
 import React, { Suspense } from "react";
 import { notFound } from "next/navigation";
 
-import Tag from "@/components/common/tag";
+import Tag from "@components/common/tag";
 import Profile from "@components/profile";
-import Like from "@/components/common/like";
+import Like from "@components/common/like";
 import { RecommendH3 } from "@common/Heading";
 import CommentForm from "@common/form/CommentForm";
-import AudioWave from "@/components/audio/player/AudioWave";
+import AudioWave from "@components/audio/player/AudioWave";
 import { Container, ContainerFluid } from "@common/Grid";
 import ProfileInfo from "@components/profile/ProfileInfo";
 import ScriptBlock from "@components/script/ScriptBlock";
 import ProfileCard from "@components/profile/ProfileCard";
 import Comment from "@components/comment";
-import AudioBarList, { AudioBarListSkeleton } from "@/components/audio/AudioBarList";
-import AudioBar from "@/components/audio/player/AudioBar";
+import AudioBarList, {
+  AudioBarListSkeleton,
+} from "@components/audio/AudioBarList";
+import AudioBar from "@components/audio/player/AudioBar";
 
 import { getVoice } from "@utils/apis/api/voice";
 import { getUsersProcess } from "@utils/apis/services/user";
@@ -24,7 +26,7 @@ import { getCommentProcess } from "@utils/apis/services/comment";
 import { UserData, UserProfileData } from "@type/user";
 import { VoiceInfo } from "@type/voice";
 import { CommentType } from "@type/comment";
-import { SearchParamsProps } from "@/types/props";
+import { SearchParamsProps } from "@type/props";
 
 import { VoiceTitle, VoiceBG, VoiceFooter } from "./page.styled";
 import { profileURL } from "@utils/url";
@@ -38,7 +40,7 @@ export const dynamic = "force-dynamic";
 
 export async function generateMetadata(
   { params }: { params: PageProps },
-  parent: ResolvingMetadata,
+  parent: ResolvingMetadata
 ): Promise<Metadata> {
   const { user_id, voice_title } = params;
 
@@ -49,7 +51,9 @@ export async function generateMetadata(
     title: voiceData.title,
     openGraph: {
       title: voiceData.title,
-      description: voiceData.script ? voiceData.script.slice(0, 90) : `${voiceData.ownerName} - ${voiceData.title}`,
+      description: voiceData.script
+        ? voiceData.script.slice(0, 90)
+        : `${voiceData.ownerName} - ${voiceData.title}`,
       siteName: "VoiceHub",
       images: [
         {
@@ -107,11 +111,19 @@ const Voice = async ({ params }: { params: PageProps }) => {
         <VoiceBG>
           <Container>
             <div className="row">
-              <div className={`${voiceData.script !== "" ? "col-md-7" : "col-12"} audio-info`}>
+              <div
+                className={`${
+                  voiceData.script !== "" ? "col-md-7" : "col-12"
+                } audio-info`}
+              >
                 <VoiceTitle>{voiceData.title}</VoiceTitle>
-                {voiceData.url && <AudioWave audioSrc={voiceData.url} info={{ ...voiceData }} />}
+                {voiceData.url && (
+                  <AudioWave audioSrc={voiceData.url} info={{ ...voiceData }} />
+                )}
                 <VoiceFooter>
-                  {voiceData.tags?.map(tag => <Tag key={tag} tag={tag} $darkmode />)}
+                  {voiceData.tags?.map((tag) => (
+                    <Tag key={tag} tag={tag} $darkmode />
+                  ))}
                   <Like type="Voice" target_id={voiceData.id} likers={likers} />
                 </VoiceFooter>
               </div>
@@ -140,16 +152,28 @@ const Voice = async ({ params }: { params: PageProps }) => {
             <CommentForm voice_id={voiceData.id} />
             <div>
               {comments.map((c, idx) => (
-                <Comment key={`c-${idx}`} post_id={voiceData.id} comment={c} type="voice" />
+                <Comment
+                  key={`c-${idx}`}
+                  post_id={voiceData.id}
+                  comment={c}
+                  type="voice"
+                />
               ))}
             </div>
           </div>
           <div className="col-md-5">
             {likers.length > 0 && (
               <>
-                <RecommendH3 $marginBottom="1rem">관심을 남긴 사람들</RecommendH3>
-                {likers.map(user => (
-                  <Profile profileID={user.id} profile_url={user.profile} key={`likers-${user.id}`} size={3}></Profile>
+                <RecommendH3 $marginBottom="1rem">
+                  관심을 남긴 사람들
+                </RecommendH3>
+                {likers.map((user) => (
+                  <Profile
+                    profileID={user.id}
+                    profile_url={user.profile}
+                    key={`likers-${user.id}`}
+                    size={3}
+                  ></Profile>
                 ))}
               </>
             )}

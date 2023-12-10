@@ -3,7 +3,7 @@ import { NextRequest } from "next/server";
 import User from "@models/user.model";
 import Follow from "@models/follow.model";
 import { getServerSession } from "next-auth";
-import { authOptions } from "@/app/api/auth/[...nextauth]/route";
+import { authOptions } from "@app/api/auth/[...nextauth]/route";
 import bcrypt from "bcrypt";
 
 export async function DELETE(request: NextRequest) {
@@ -18,7 +18,7 @@ export async function DELETE(request: NextRequest) {
       },
       {
         status: 403,
-      },
+      }
     );
   }
 
@@ -37,7 +37,7 @@ export async function DELETE(request: NextRequest) {
           message: "비밀번호가 일치하지 않습니다.",
           error: "password",
         },
-        { status: 400 },
+        { status: 400 }
       );
 
     user.user_id = `deleted_user_${session.user.oid}`;
@@ -52,11 +52,8 @@ export async function DELETE(request: NextRequest) {
     await user.save();
 
     const foll = await Follow.deleteMany({
-      $or: [
-        { user: session.user.oid },
-        { target: session.user.oid }
-      ]
-    })
+      $or: [{ user: session.user.oid }, { target: session.user.oid }],
+    });
 
     // const res = await User.deleteOne({ _id: session.user.oid });
     // if (!res || !res.deletedCount) throw new Error("계정 삭제 실패");
@@ -73,7 +70,7 @@ export async function DELETE(request: NextRequest) {
       },
       {
         status: 500,
-      },
+      }
     );
   }
 }

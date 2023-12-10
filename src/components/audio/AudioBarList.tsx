@@ -3,9 +3,9 @@
 import Skeleton, { SkeletonGroup, SkeletonWrapper } from "../sekeleton";
 
 import { getVoicesProcess } from "@utils/apis/services/voice";
-import { VoiceInfo } from "@/types/voice";
+import { VoiceInfo } from "@type/voice";
 import AudioBar from "./player/AudioBar";
-import { getUserVoices } from "@/utils/apis/api/users";
+import { getUserVoices } from "@utils/apis/api/users";
 
 type AudioBarListProps = {
   user_id: string;
@@ -18,7 +18,7 @@ const AudioBarList = async ({ user_id }: AudioBarListProps) => {
   return (
     <>
       {tracks &&
-        tracks.map(track => (
+        tracks.map((track) => (
           <AudioBar
             key={track.id}
             audioSrc={track.url}

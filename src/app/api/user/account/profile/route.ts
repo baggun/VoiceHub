@@ -2,7 +2,7 @@ import dbConnect from "@lib/db/dbConnect";
 import { NextRequest } from "next/server";
 import User from "@models/user.model";
 import { getServerSession } from "next-auth";
-import { authOptions } from "@/app/api/auth/[...nextauth]/route";
+import { authOptions } from "@app/api/auth/[...nextauth]/route";
 
 export async function PATCH(request: NextRequest) {
   const { email, nickname, desc, profile } = await request.json();
@@ -16,7 +16,7 @@ export async function PATCH(request: NextRequest) {
       },
       {
         status: 403,
-      },
+      }
     );
   }
 
@@ -30,7 +30,7 @@ export async function PATCH(request: NextRequest) {
         user_email: email,
         user_desc: desc,
         user_profile: profile,
-      },
+      }
     );
 
     if (!user) throw new Error("사용자 검색 실패");
@@ -47,7 +47,7 @@ export async function PATCH(request: NextRequest) {
       },
       {
         status: 500,
-      },
+      }
     );
   }
 }

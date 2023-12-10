@@ -1,6 +1,6 @@
-import Provider from "@/components/layout/Provider";
-import { GlobalStyle } from "@/styles/GlobalStyle";
-import FooterPlayer from "@/components/audio/FooterPlayer";
+import Provider from "@components/layout/Provider";
+import { GlobalStyle } from "@styles/GlobalStyle";
+import FooterPlayer from "@components/audio/FooterPlayer";
 import { Noto_Sans_KR } from "next/font/google";
 
 export const metadata = {
@@ -13,10 +13,13 @@ const notoSansKr = Noto_Sans_KR({
   weight: ["100", "300", "400", "500", "700", "900"],
 });
 
-export default function RootLayout({ children }: { children: React.ReactNode }) {
+export default function RootLayout({
+  children,
+}: {
+  children: React.ReactNode;
+}) {
   return (
     <html>
-      
       <body className={notoSansKr.className}>
         <Provider>
           <GlobalStyle />

@@ -3,7 +3,7 @@ import Skeleton, { SkeletonGroup, SkeletonWrapper } from "../sekeleton";
 
 import { getVoices } from "@utils/apis/api/voice";
 import { getVoicesProcess } from "@utils/apis/services/voice";
-import { VoiceInfo } from "@/types/voice";
+import { VoiceInfo } from "@type/voice";
 import AudioAlbum from "./player/AudioAlbum";
 
 const AudioAlbumList = async () => {
@@ -54,7 +54,7 @@ const AudioAlbumList = async () => {
   return (
     <Carousel setting={setting}>
       {tracks &&
-        tracks.map(track => (
+        tracks.map((track) => (
           <AudioAlbum
             key={track.id}
             audioSrc={track.url}
@@ -81,8 +81,16 @@ export const AudioAlbumListSkeleton = () => {
               margin: "0rem 0.5rem 0rem 0rem",
             }}
           />
-          <Skeleton height="1.25rem" width="6rem" style={{ margin: "0.5rem 0rem 0rem 0rem" }} />
-          <Skeleton height="1rem" width="3rem" style={{ margin: "0.5rem 0rem 0rem 0rem" }} />
+          <Skeleton
+            height="1.25rem"
+            width="6rem"
+            style={{ margin: "0.5rem 0rem 0rem 0rem" }}
+          />
+          <Skeleton
+            height="1rem"
+            width="3rem"
+            style={{ margin: "0.5rem 0rem 0rem 0rem" }}
+          />
         </SkeletonGroup>
       ))}
     </SkeletonWrapper>

@@ -1,4 +1,6 @@
-import SwitchCheckbox, { SwitchCheckboxProps } from "@/components/common/checkbox/SwitchCheckbox";
+import SwitchCheckbox, {
+  SwitchCheckboxProps,
+} from "@components/common/checkbox/SwitchCheckbox";
 import type { Meta, StoryObj } from "@storybook/react";
 import React from "react";
 

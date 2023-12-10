@@ -1,6 +1,6 @@
 import type { Meta, StoryObj } from "@storybook/react";
 import ContestCard from "@components/contest/ContestCard";
-import { ContestData } from "@/types/contest";
+import { ContestData } from "@type/contest";
 
 const meta = {
   title: "contest/Contest",
@@ -9,7 +9,8 @@ const meta = {
   argTypes: {},
   parameters: {
     // 추가
-    componentSubtitle: "contest(공고 목록) 에서 상세 공고로 이동하기 위한 Contest 컴포넌트입니다. 이 컴포넌트를 사용하기 위해 항상 부모 컴포넌트가 flex 를 지녀야 함 을 명시하세요",
+    componentSubtitle:
+      "contest(공고 목록) 에서 상세 공고로 이동하기 위한 Contest 컴포넌트입니다. 이 컴포넌트를 사용하기 위해 항상 부모 컴포넌트가 flex 를 지녀야 함 을 명시하세요",
     docs: {
       description: {
         // 추가
@@ -35,7 +36,7 @@ export const Default: Story = {
     hit: 111,
     company: "company",
   },
-  render: args => (
+  render: (args) => (
     <div className="row">
       <ContestCard {...args} />
     </div>

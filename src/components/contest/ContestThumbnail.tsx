@@ -5,7 +5,7 @@ import Link from "next/link";
 import Image from "next/image";
 // import { Link } from "react-router-dom";
 import styled, { css } from "styled-components";
-import { contestURL } from "@/utils/url";
+import { contestURL } from "@utils/url";
 
 type ContestThumbnailProps = {
   id: string | number | undefined;
@@ -14,9 +14,17 @@ type ContestThumbnailProps = {
   disabled?: boolean;
 };
 
-const ContestThumbnail = ({ id, $active, thumbnail, disabled = false }: ContestThumbnailProps) => {
+const ContestThumbnail = ({
+  id,
+  $active,
+  thumbnail,
+  disabled = false,
+}: ContestThumbnailProps) => {
   return (
-    <Thumbnail href={`/contest/${id}`} className={disabled ? "contest-thumbnail disabled" : "contest-thumbnail"}>
+    <Thumbnail
+      href={`/contest/${id}`}
+      className={disabled ? "contest-thumbnail disabled" : "contest-thumbnail"}
+    >
       <Mark $active={$active}>접수중</Mark>
       <Image src={contestURL(thumbnail)} alt="img" fill />
     </Thumbnail>
@@ -51,7 +59,7 @@ const Mark = styled.div<{ $active?: boolean }>`
   padding: 0.5rem 1rem;
   border-bottom-right-radius: 0.5rem;
   color: white;
-  ${props =>
+  ${(props) =>
     props.$active
       ? css`
           background-color: ${props.theme.colors.secondary};

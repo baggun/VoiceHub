@@ -1,6 +1,6 @@
 import styled from "styled-components";
 import { useRecoilValue, useRecoilState } from "recoil";
-import { audioState, audioVolumeState } from "@/recoil/audio/atom";
+import { audioState, audioVolumeState } from "@recoil/audio/atom";
 
 const Volume = () => {
   const audio = useRecoilValue(audioState);

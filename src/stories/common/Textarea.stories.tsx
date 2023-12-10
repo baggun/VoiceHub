@@ -1,4 +1,4 @@
-import Textarea from "@/components/common/textarea";
+import Textarea from "@components/common/textarea";
 import type { Meta, StoryObj } from "@storybook/react";
 import React from "react";
 

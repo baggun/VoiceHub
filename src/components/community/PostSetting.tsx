@@ -5,8 +5,8 @@ import { styled } from "styled-components";
 import { useRouter } from "next/navigation";
 import { useSession } from "next-auth/react";
 
-import { deletePost } from "@/utils/apis/api/post";
-import { PostType } from "@/types/post";
+import { deletePost } from "@utils/apis/api/post";
+import { PostType } from "@type/post";
 
 type PostSettingProps = {
   post: PostType;
@@ -26,7 +26,7 @@ const PostSetting = ({ post, post_id }: PostSettingProps) => {
 
     const ok = window.confirm("정말 삭제하시겠습니까?");
     if (ok) {
-      await deletePost(post_id).then(res => {
+      await deletePost(post_id).then((res) => {
         if (res && res.success) router.push("/community");
       });
     }
@@ -36,7 +36,9 @@ const PostSetting = ({ post, post_id }: PostSettingProps) => {
     <>
       {session.user.oid === post?.user_oid && (
         <OwnerSettingGroup>
-          <EditPostButton href={`/community/write?edit=${post_id}`}>수정</EditPostButton>
+          <EditPostButton href={`/community/write?edit=${post_id}`}>
+            수정
+          </EditPostButton>
           <RemovePostButton onClick={handleDeletePost}>삭제</RemovePostButton>
         </OwnerSettingGroup>
       )}

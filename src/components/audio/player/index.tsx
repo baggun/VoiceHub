@@ -1,11 +1,19 @@
 "use client";
 
 import styled, { css } from "styled-components";
-import Tag from "@/components/common/tag";
+import Tag from "@components/common/tag";
 import { useRecoilState, useSetRecoilState } from "recoil";
-import { audioCurTimeState, audioInfoState, audioPlayState, audioState } from "@/recoil/audio/atom";
+import {
+  audioCurTimeState,
+  audioInfoState,
+  audioPlayState,
+  audioState,
+} from "@recoil/audio/atom";
 
-import { IconPlayerPauseFilled, IconPlayerPlayFilled } from "@tabler/icons-react";
+import {
+  IconPlayerPauseFilled,
+  IconPlayerPlayFilled,
+} from "@tabler/icons-react";
 import { AudioInfo } from "@type/voice";
 import Link from "next/link";
 
@@ -28,7 +36,7 @@ const Player = ({ audioSrc, info, $darkmode = false }: PlayerProps) => {
 
   const onClickHandler = () => {
     if (audio.audio !== audioSrc) {
-      setAudio(prev => {
+      setAudio((prev) => {
         return {
           ...prev,
           // ref: prev.ref ? prev.ref : new Audio(),
@@ -70,7 +78,7 @@ export const AudioPlayButton = styled.button<{ $darkmode: boolean }>`
   justify-content: center;
   color: black;
   background-color: #efefef;
-  ${props =>
+  ${(props) =>
     props.$darkmode &&
     css`
       color: white;
@@ -87,7 +95,7 @@ export const AudioName = styled(Link)<{ $darkmode: boolean }>`
   min-width: 0px;
   flex: 1 1 auto;
   padding-right: 1rem;
-  color: ${props => (props.$darkmode ? "#d5d5d5" : "black")};
+  color: ${(props) => (props.$darkmode ? "#d5d5d5" : "black")};
 `;
 
 export const AudioLikeStyle = styled.span`

@@ -2,9 +2,13 @@ import dbConnect from "@lib/db/dbConnect";
 // import { NextRequest } from "next/server";
 import Voice from "@models/voice.model";
 
-import { NextResponse, type NextFetchEvent, type NextRequest } from "next/server";
+import {
+  NextResponse,
+  type NextFetchEvent,
+  type NextRequest,
+} from "next/server";
 // import { createEdgeRouter } from "next-connect";
-// import { connectDB } from "@/utils/api_middleware";
+// import { connectDB } from "@utils/api_middleware";
 
 interface RequestContext {
   params: {};
@@ -77,7 +81,10 @@ export async function GET(request: NextRequest) {
   try {
     await dbConnect();
 
-    const voices = await Voice.find({ ...query, deleted: { $ne: true } }, "-comments")
+    const voices = await Voice.find(
+      { ...query, deleted: { $ne: true } },
+      "-comments"
+    )
       .populate({
         path: "author",
         select: ["user_id", "user_nickname", "user_profile"],
@@ -100,7 +107,7 @@ export async function GET(request: NextRequest) {
       },
       {
         status: 500,
-      },
+      }
     );
   }
 }

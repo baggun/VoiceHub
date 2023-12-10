@@ -20,7 +20,7 @@ import { ScriptBaseType } from "@type/scripts";
 import { VoiceInfo } from "@type/voice";
 import { UserData } from "@type/user";
 import { useRecoilState, useRecoilValue } from "recoil";
-import { searchModalState, searchState } from "@/recoil/search/atom";
+import { searchModalState, searchState } from "@recoil/search/atom";
 
 const iconProps = {
   className: "icon",
@@ -32,7 +32,9 @@ const Search = () => {
   const searchModal = useRecoilValue(searchModalState);
 
   // const [searchTxt, setSearchTxt] = React.useState<string>("");
-  const [searchFilter, setSearchFilter] = React.useState<"all" | "voice" | "script" | "profile">("all");
+  const [searchFilter, setSearchFilter] = React.useState<
+    "all" | "voice" | "script" | "profile"
+  >("all");
   const [scripts, setScripts] = React.useState<ScriptBaseType[]>([]);
   const [voices, setVoices] = React.useState<VoiceInfo[]>([]);
   const [users, setUsers] = React.useState<UserData[]>([]);
@@ -114,9 +116,15 @@ const Search = () => {
         </Nav>
       </SearchNav>
       <SearchResult className="scroll light">
-        {["all", "voice"].includes(searchFilter) && voices && <VoiceList voices={voices} />}
-        {["all", "script"].includes(searchFilter) && scripts && <ScriptList scripts={scripts} />}
-        {["all", "profile"].includes(searchFilter) && users && <UserList users={users} />}
+        {["all", "voice"].includes(searchFilter) && voices && (
+          <VoiceList voices={voices} />
+        )}
+        {["all", "script"].includes(searchFilter) && scripts && (
+          <ScriptList scripts={scripts} />
+        )}
+        {["all", "profile"].includes(searchFilter) && users && (
+          <UserList users={users} />
+        )}
       </SearchResult>
     </SearchModal>
   );

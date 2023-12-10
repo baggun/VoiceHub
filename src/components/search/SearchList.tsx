@@ -1,4 +1,4 @@
-import AudioBar from "@/components/audio/player/AudioBar";
+import AudioBar from "@components/audio/player/AudioBar";
 import ProfileCard from "@components/profile/ProfileCard";
 import ScriptBar from "@components/script/ScriptBar";
 import { IconHeadphones, IconScript, IconUser } from "@tabler/icons-react";
@@ -21,7 +21,7 @@ export const VoiceList = ({ voices }: { voices: VoiceInfo[] }) => {
         <IconHeadphones {...iconProps} /> 목소리
       </SearchLabel>
       {voices.length > 0 ? (
-        voices.map(voice => (
+        voices.map((voice) => (
           <AudioBar
             key={voice.id}
             audioSrc={voice.url}
@@ -44,7 +44,7 @@ export const ScriptList = ({ scripts }: { scripts: ScriptBaseType[] }) => {
         <IconScript {...iconProps} /> 대사
       </SearchLabel>
       {scripts.length > 0 ? (
-        scripts?.map(script => <ScriptBar key={script.id} script={script} />)
+        scripts?.map((script) => <ScriptBar key={script.id} script={script} />)
       ) : (
         <Empty>검색결과 없음</Empty>
       )}
@@ -59,7 +59,14 @@ export const UserList = ({ users }: { users: UserData[] }) => {
         <IconUser {...iconProps} /> 성우
       </SearchLabel>
       {users.length > 0 ? (
-        users?.map(user => <ProfileCard key={`search-user-${user.id}`} {...user} disabledFollow={true} size="sm" />)
+        users?.map((user) => (
+          <ProfileCard
+            key={`search-user-${user.id}`}
+            {...user}
+            disabledFollow={true}
+            size="sm"
+          />
+        ))
       ) : (
         <Empty>검색결과 없음</Empty>
       )}

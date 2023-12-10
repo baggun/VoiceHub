@@ -4,11 +4,11 @@ import React from "react";
 import styled from "styled-components";
 import { useRouter } from "next/navigation";
 import { IconHeart, IconHeartFilled } from "@tabler/icons-react";
-import { UserData } from "@/types/user";
+import { UserData } from "@type/user";
 import { Button, CustomButtonProps } from "../button";
-import { voiceLike } from "@/utils/apis/api/voice";
-import { setScriptLike } from "@/utils/apis/api/script_like";
-import { postLike } from "@/utils/apis/api/post";
+import { voiceLike } from "@utils/apis/api/voice";
+import { setScriptLike } from "@utils/apis/api/script_like";
+import { postLike } from "@utils/apis/api/post";
 import { useSession } from "next-auth/react";
 
 type LikeProps = {
@@ -49,7 +49,7 @@ const Like = ({ target_id, likers, type }: LikeProps) => {
 
   const [curLikers, setLikers] = React.useState<number>(likers.length);
   const [isLike, setIsLike] = React.useState<boolean>(() => {
-    if (likers.some(item => item.id === session?.user.id)) return true;
+    if (likers.some((item) => item.id === session?.user.id)) return true;
     return false;
   });
   const { Wrapper, likeController, styled } = Type(type);

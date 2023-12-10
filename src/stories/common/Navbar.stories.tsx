@@ -1,6 +1,11 @@
 import type { Meta, StoryObj } from "@storybook/react";
 import React from "react";
-import { NavBar, NavBarNav, NavBarCollapse, NavBarNavLink } from "@/components/common/navbar";
+import {
+  NavBar,
+  NavBarNav,
+  NavBarCollapse,
+  NavBarNavLink,
+} from "@components/common/navbar";
 
 const meta = {
   title: "common/NavBar",
@@ -27,7 +32,7 @@ export const Collapse: Story = {
     <NavBar>
       <NavBarCollapse>
         <NavBarNav className="hide-lg">
-          {["MENU_1", "MENU_2"].map(menu => (
+          {["MENU_1", "MENU_2"].map((menu) => (
             <NavBarNavLink to={menu} key={menu}>
               {menu}
             </NavBarNavLink>
@@ -46,7 +51,7 @@ export const CollapseSide: Story = {
     <NavBar>
       <NavBarCollapse>
         <NavBarNav className="hide-lg">
-          {["메뉴_1", "메뉴_2"].map(menu => (
+          {["메뉴_1", "메뉴_2"].map((menu) => (
             <NavBarNavLink to={menu} key={menu}>
               {menu}
             </NavBarNavLink>

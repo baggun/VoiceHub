@@ -5,7 +5,7 @@ import styled from "styled-components";
 import { useRouter } from "next/navigation";
 import { useSession } from "next-auth/react";
 
-import Label from "@/components/common/Label";
+import Label from "@components/common/Label";
 import { Button } from "@common/button";
 import Textarea from "@common/textarea";
 import Select from "@common/input/Select";
@@ -20,7 +20,9 @@ import { _CATEGORY_DATA_ } from "@data/category";
 const CommunityWrite = () => {
   const router = useRouter();
   const { data: session } = useSession();
-  const [selectorValue, setSelectorValue] = React.useState<readonly OptionType[]>([]);
+  const [selectorValue, setSelectorValue] = React.useState<
+    readonly OptionType[]
+  >([]);
   const [title, setTitle] = React.useState<string>("");
   const [content, setContent] = React.useState<string>("");
   const [category, setCategory] = React.useState(_CATEGORY_DATA_[0].value);
@@ -37,8 +39,8 @@ const CommunityWrite = () => {
       title: title,
       content: content,
       type: category,
-      tags: selectorValue.map(val => val.value),
-    }).then(res => {
+      tags: selectorValue.map((val) => val.value),
+    }).then((res) => {
       console.log(res);
       if (res.success) {
         router.push(`/community/${res.id}`);
@@ -58,19 +60,28 @@ const CommunityWrite = () => {
             <Label htmlFor="selectCategory" $require>
               카테고리
             </Label>
-            <Select id="selectCategory" value={category} onChange={onSelect} options={_CATEGORY_DATA_} />
+            <Select
+              id="selectCategory"
+              value={category}
+              onChange={onSelect}
+              options={_CATEGORY_DATA_}
+            />
           </FormGroup>
           <FormGroup>
             <Label htmlFor="inputTitle" $require>
               제목
             </Label>
-            <Input id="inputTitle" onChange={e => setTitle(e.target.value)} />
+            <Input id="inputTitle" onChange={(e) => setTitle(e.target.value)} />
           </FormGroup>
           <FormGroup>
             <Label htmlFor="inputContent" $require>
               내용
             </Label>
-            <Textarea rows={10} id="inputContent" onChange={e => setContent(e.target.value)} />
+            <Textarea
+              rows={10}
+              id="inputContent"
+              onChange={(e) => setContent(e.target.value)}
+            />
           </FormGroup>
           <FormGroup>
             <Label>태그</Label>

@@ -15,7 +15,8 @@
     "incremental": true,
     "types": ["graceful-fs"],
     "paths": {
-      "@/*": ["./src/*"],
+      // "@/*": ["./src/*"],
+      "@app/*": ["./src/app/*"],
       "@hooks/*": ["./src/hooks/*"],
       "@type/*": ["./src/types/*"],
       "@utils/*": ["./src/utils/*"],
@@ -24,6 +25,7 @@
       "@components/*": ["./src/components/*"],
       "@recoil/*": ["./src/recoil/*"],
       "@models/*": ["./src/models/*"],
+      "@styles/*": ["./src/styles/*"],
       "@lib/*": ["./src/lib/*"]
     },
     "plugins": [

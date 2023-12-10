@@ -4,14 +4,19 @@ import { notFound } from "next/navigation";
 import Profile from "@components/profile";
 import { MainLayout } from "@components/layout";
 import UserInfo from "@components/user/UserInfo";
-import UserWorks from "@/components/user/UserWorks";
+import UserWorks from "@components/user/UserWorks";
 import { Container, ContainerFluid } from "@common/Grid";
 import UserFollowTable from "@components/user/UserFollowTable";
 
 import { getUser } from "@utils/apis/api/users";
 import { UserProfileData } from "@type/user";
 
-import { ProfileBG, ProfileContents, ProfileName, ProfileInfo } from "./page.styled";
+import {
+  ProfileBG,
+  ProfileContents,
+  ProfileName,
+  ProfileInfo,
+} from "./page.styled";
 import { Metadata, ResolvingMetadata } from "next";
 import { profileURL } from "@utils/url";
 
@@ -21,7 +26,7 @@ interface PageProps {
 
 export async function generateMetadata(
   { params }: { params: PageProps },
-  parent: ResolvingMetadata,
+  parent: ResolvingMetadata
 ): Promise<Metadata> {
   const { user_id } = params;
 
@@ -32,7 +37,10 @@ export async function generateMetadata(
     title: profileData.user_nickname,
     openGraph: {
       title: profileData.user_nickname,
-      description: profileData.user_desc !== "" ? profileData.user_desc : `${profileData.user_nickname} 프로필 페이지`,
+      description:
+        profileData.user_desc !== ""
+          ? profileData.user_desc
+          : `${profileData.user_nickname} 프로필 페이지`,
       siteName: "VoiceHub",
       images: [
         {
@@ -45,7 +53,13 @@ export async function generateMetadata(
   };
 }
 
-const User = async ({ params, searchParams }: { params: PageProps; searchParams: { tab: string } }) => {
+const User = async ({
+  params,
+  searchParams,
+}: {
+  params: PageProps;
+  searchParams: { tab: string };
+}) => {
   const { user_id } = params;
   const tab: string = searchParams.tab || "voices";
 
@@ -66,7 +80,11 @@ const User = async ({ params, searchParams }: { params: PageProps; searchParams:
           {/* 상단 유저 이름 및 팔로우 버튼 */}
           {user_id && (
             <ProfileContents>
-              <Profile profileID={user_id} profile_url={profileData.user_profile} size={6}></Profile>
+              <Profile
+                profileID={user_id}
+                profile_url={profileData.user_profile}
+                size={6}
+              ></Profile>
               <ProfileInfo>
                 <div className="d-flex align-content-center">
                   <ProfileName>{profileData.user_nickname} 성우</ProfileName>
@@ -90,7 +108,11 @@ const User = async ({ params, searchParams }: { params: PageProps; searchParams:
       <Container className="mg-t-2">
         <div className="row">
           {/* 유저 기본 정보 */}
-          <UserInfo profieData={profileData} className="col-md-5" associatedTags={associatedTags} />
+          <UserInfo
+            profieData={profileData}
+            className="col-md-5"
+            associatedTags={associatedTags}
+          />
 
           <UserWorks tab={tab} user_id={user_id} />
         </div>

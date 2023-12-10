@@ -5,7 +5,7 @@ import styled from "styled-components";
 import { useRouter } from "next/navigation";
 import { useSession } from "next-auth/react";
 
-import Label from "@/components/common/Label";
+import Label from "@components/common/Label";
 import Textarea from "@common/textarea";
 import { Input, InputGroup } from "@common/input";
 import SubmitButton from "@common/button/SubmitButton";
@@ -13,48 +13,54 @@ import { ProfileImg } from "@components/profile/ProfileImg";
 import { IconPencil } from "@tabler/icons-react";
 
 import { getUser } from "@utils/apis/api/users";
-import { uploadImage } from "@/utils/apis/api/upload";
+import { uploadImage } from "@utils/apis/api/upload";
 import { changeProfile } from "@utils/apis/api/setting";
-import { SettingProfileData } from "@/types/user";
+import { SettingProfileData } from "@type/user";
 import useForm from "@hooks/useForm";
 
 const SettingProfile = () => {
   const router = useRouter();
   const { data: session, update: sessionUpdate } = useSession();
-  // if (!session) return <></>; 
+  // if (!session) return <></>;
   const fileInputRef = React.useRef<any>(null);
 
   const [prevProfile, setPrevProfile] = React.useState<SettingProfileData>({
     email: "",
     nickname: "",
     desc: "",
-    profile: '',
+    profile: "",
   });
-  
-  const { values, setValues, errors, isLoading, handleChange, handleSubmit, interpretMessage } =
-    useForm<SettingProfileData>({
-      initValues: { email: "", nickname: "", desc: "", profile: '' },
-      onSubmit: async (values: SettingProfileData) => {
-        // if (!values.password) return;
 
-        const res = await changeProfile(values);
-        console.log(res);
-        if (res && res.success) {
-          sessionUpdate({ nickname: values.nickname, profile: values.profile });
-          setPrevProfile({ ...values });
-          return;
-        }
+  const {
+    values,
+    setValues,
+    errors,
+    isLoading,
+    handleChange,
+    handleSubmit,
+    interpretMessage,
+  } = useForm<SettingProfileData>({
+    initValues: { email: "", nickname: "", desc: "", profile: "" },
+    onSubmit: async (values: SettingProfileData) => {
+      // if (!values.password) return;
 
-        interpretMessage(res);
-      },
-      validate: null,
-    });
+      const res = await changeProfile(values);
+      console.log(res);
+      if (res && res.success) {
+        sessionUpdate({ nickname: values.nickname, profile: values.profile });
+        setPrevProfile({ ...values });
+        return;
+      }
 
+      interpretMessage(res);
+    },
+    validate: null,
+  });
 
   const initUserData = async () => {
     if (!session || !session.user.id) return;
     await getUser(session.user.id)
-      .then(res => {
+      .then((res) => {
         const prf = {
           nickname: res.user.user_nickname,
           email: res.user.user_email,
@@ -64,15 +70,16 @@ const SettingProfile = () => {
         setPrevProfile(prf);
         setValues(prf);
       })
-      .catch(err => router.replace("/"));
+      .catch((err) => router.replace("/"));
   };
 
   React.useEffect(() => {
     initUserData();
   }, [session]);
-  
 
-  const handleAddImages = async (event: React.ChangeEvent<HTMLInputElement>) => {
+  const handleAddImages = async (
+    event: React.ChangeEvent<HTMLInputElement>
+  ) => {
     const imageLists = event.target.files;
 
     if (imageLists == null || imageLists.length !== 1) {
@@ -120,17 +127,35 @@ const SettingProfile = () => {
         <Label htmlFor="nickname" $require>
           이름
         </Label>
-        <Input id="nickname" placeholder="닉네임" name="nickname" value={values.nickname} onChange={handleChange} />
+        <Input
+          id="nickname"
+          placeholder="닉네임"
+          name="nickname"
+          value={values.nickname}
+          onChange={handleChange}
+        />
       </InputGroup>
       <InputGroup>
         <Label htmlFor="email" $require>
           이메일
         </Label>
-        <Input id="email" placeholder="이메일" name="email" value={values.email} onChange={handleChange} />
+        <Input
+          id="email"
+          placeholder="이메일"
+          name="email"
+          value={values.email}
+          onChange={handleChange}
+        />
       </InputGroup>
       <InputGroup>
         <Label htmlFor="desc">소개</Label>
-        <Textarea id="desc" placeholder="자기소개" name="desc" value={values.desc} onChange={handleChange} />
+        <Textarea
+          id="desc"
+          placeholder="자기소개"
+          name="desc"
+          value={values.desc}
+          onChange={handleChange}
+        />
       </InputGroup>
       <InputGroup>
         <Label htmlFor="phone">번호</Label>

@@ -2,7 +2,7 @@ import React from "react";
 
 import { ProfileImg } from "./ProfileImg";
 import { ProfileLink, ProfileName } from "./Profile.styled";
-import { isAliveUser, userNickname } from "@/utils/validate";
+import { isAliveUser, userNickname } from "@utils/validate";
 
 export type ProfileLinkProps = {
   size?: number;
@@ -33,14 +33,22 @@ const Profile = ({
       $direction={$direction}
       $marginRight={$marginRight}
     >
-      <ProfileImg className="profile-img" src={profile_url} alt="profile" size={size} />
+      <ProfileImg
+        className="profile-img"
+        src={profile_url}
+        alt="profile"
+        size={size}
+      />
       {nickname && (
-        <ProfileName className="profile-nickname" $nicknameMargin={$nicknameMargin}>
+        <ProfileName
+          className="profile-nickname"
+          $nicknameMargin={$nicknameMargin}
+        >
           {userNickname(nickname)}
         </ProfileName>
       )}
     </ProfileLink>
   );
-}; 
+};
 
 export default Profile;
