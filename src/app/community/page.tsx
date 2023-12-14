@@ -3,20 +3,30 @@ import Link from "next/link";
 import Image from "next/image";
 
 import Post from "@components/community/Post";
-import { DefaultLayout } from "@components/layout"; 
+import { DefaultLayout } from "@components/layout";
 import { Button } from "@components/common/button";
-import { IconAlertSquareRounded,  IconNotes, IconQuestionMark } from "@tabler/icons-react"; 
+import {
+  IconAlertSquareRounded,
+  IconNotes,
+  IconQuestionMark,
+} from "@tabler/icons-react";
 
 import { getPosts } from "@utils/apis/api/post";
-import { getPostsProcess } from "@utils/apis/services/post"; 
+import { getPostsProcess } from "@utils/apis/services/post";
 
-import { MenuBlock, Menu, MenuIcon, PostHeader, Advertisement } from "./page.styled";
+import {
+  MenuBlock,
+  Menu,
+  MenuIcon,
+  PostHeader,
+  Advertisement,
+} from "./page.styled";
 
 export const dynamic = "force-dynamic";
 
 const Community = async () => {
   const res = await getPosts();
-  const posts = getPostsProcess(res.posts); 
+  const posts = getPostsProcess(res.posts);
 
   return (
     <DefaultLayout className="mg-t-3">
@@ -57,13 +67,14 @@ const Community = async () => {
               <Button>글 작성</Button>
             </Link>
           </div>
-          {posts.map(post => (
+          {posts.map((post) => (
             <Post post={post} key={`post-${post.id}`} />
           ))}
         </div>
         <div className="col-md-3">
           <Advertisement href="/">
-            <Image className="ad-img" src="/img/base_profile.png" alt="ad-img" fill/>
+            {/* Image 쓰려다가 광고 이미지면 외부 이미지 일듯 싶어서 일단 보류 */}
+            <img className="ad-img" src="/img/base_profile.png" alt="ad-img" />
           </Advertisement>
         </div>
       </div>

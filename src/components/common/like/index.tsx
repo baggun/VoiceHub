@@ -1,6 +1,6 @@
 "use client";
 
-import React from "react";
+import React, { useEffect } from "react";
 import styled from "styled-components";
 import { useRouter } from "next/navigation";
 import { IconHeart, IconHeartFilled } from "@tabler/icons-react";
@@ -48,11 +48,15 @@ const Like = ({ target_id, likers, type }: LikeProps) => {
   const { data: session } = useSession();
 
   const [curLikers, setLikers] = React.useState<number>(likers.length);
-  const [isLike, setIsLike] = React.useState<boolean>(() => {
-    if (likers.some((item) => item.id === session?.user.id)) return true;
-    return false;
-  });
+  const [isLike, setIsLike] = React.useState<boolean>(false);
   const { Wrapper, likeController, styled } = Type(type);
+
+  useEffect(() => {
+    setIsLike(() => {
+      if (likers.some((item) => item.id === session?.user.id)) return true;
+      return false;
+    });
+  }, [session?.user]);
 
   const likeHandler = async (e: React.MouseEvent<HTMLSpanElement>) => {
     e.preventDefault();

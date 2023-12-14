@@ -10,10 +10,19 @@ import { Button } from "@common/button";
 import Issue from "@components/notice/Issue";
 import Checkbox from "@common/input/Checkbox";
 import { DefaultLayout } from "@components/layout";
-import { IconCategory, IconHeadset, IconQuote, IconTrash, IconUser } from "@tabler/icons-react";
+import {
+  IconCategory,
+  IconHeadset,
+  IconQuote,
+  IconTrash,
+  IconUser,
+} from "@tabler/icons-react";
 
 import { getNotificationsProcess } from "@utils/apis/services/notification";
-import { deleteNotification, getNotifications } from "@utils/apis/api/notification";
+import {
+  deleteNotification,
+  getNotifications,
+} from "@utils/apis/api/notification";
 import { IssueFilterType, IssueType } from "@type/issue";
 
 type FilterMenuType = {
@@ -25,7 +34,13 @@ type FilterMenuType = {
 const filterMenus: FilterMenuType[] = [
   {
     name: "전체",
-    type: ["follow", "comment-post", "comment-voice", "like-post", "like-voice"],
+    type: [
+      "follow",
+      "comment-post",
+      "comment-voice",
+      "like-post",
+      "like-voice",
+    ],
     icon: <IconCategory strokeWidth={1} className="icon icon-md" />,
   },
   {
@@ -50,23 +65,26 @@ const Notification = () => {
   const { data: session } = useSession();
 
   const [issues, setIssues] = React.useState<IssueType[]>([]);
-  const [filterType, setFilterType] = React.useState<IssueFilterType[]>(filterMenus[0].type);
-  const [checkedItems, setCheckedItems] = React.useState<Set<string>>(new Set());
+  const [filterType, setFilterType] = React.useState<IssueFilterType[]>(
+    filterMenus[0].type
+  );
+  const [checkedItems, setCheckedItems] = React.useState<Set<string>>(
+    new Set()
+  );
   const [isAllChecked, setIsAllChecked] = React.useState<boolean>(false);
 
   const initNotifications = async () => {
     if (!session) return;
     const res = await getNotifications();
-    console.log(res);
     setIssues(getNotificationsProcess(session.user?.id, res.notification));
   };
 
   React.useEffect(() => {
     initNotifications();
-  }, []);
+  }, [session]);
 
   React.useEffect(() => {
-    setCheckedItems(prev => {
+    setCheckedItems((prev) => {
       const newSet = new Set(prev);
       newSet.clear();
       return newSet;
@@ -79,7 +97,7 @@ const Notification = () => {
       setCheckedItems(new Set(getFilteredIssues().map(({ id }) => id)));
       setIsAllChecked(true);
     } else {
-      setCheckedItems(prev => {
+      setCheckedItems((prev) => {
         const newSet = new Set(prev);
         newSet.clear();
         return newSet;
@@ -90,13 +108,13 @@ const Notification = () => {
 
   const checkedItemHandler = (id: string, isChecked: boolean) => {
     if (isChecked) {
-      setCheckedItems(prev => {
+      setCheckedItems((prev) => {
         const newSet = new Set(prev);
         newSet.add(id);
         return newSet;
       });
     } else if (!isChecked && checkedItems.has(id)) {
-      setCheckedItems(prev => {
+      setCheckedItems((prev) => {
         const newSet = new Set(prev);
         newSet.delete(id);
         return newSet;
@@ -104,13 +122,15 @@ const Notification = () => {
     }
   };
 
-  const getFilteredIssues = (): IssueType[] => issues.filter(i => filterType.includes(i.type));
+  const getFilteredIssues = (): IssueType[] =>
+    issues.filter((i) => filterType.includes(i.type));
 
   const removeIssues = async (noti_id: string[]) => {
     const res = await deleteNotification(noti_id);
-    console.log(res);
+
     if (res && res.success) {
-      setIssues(issues.filter(i => !noti_id.includes(i.id)));
+      setIssues(issues.filter((i) => !noti_id.includes(i.id)));
+      setCheckedItems(new Set());
     }
   };
 
@@ -119,25 +139,34 @@ const Notification = () => {
       <Card>
         <div className="row">
           {/* 필터 메뉴 */}
-          <div className="col-lg-2">
+          <div className="col-lg-3">
             <ul>
-              {filterMenus.map(m => (
+              {filterMenus.map((m) => (
                 <IssueMenu $active={m.type === filterType} key={m.name}>
-                  <Button width="100%" variant="transparent" onClick={() => setFilterType(m.type)} $withIcon={true}>
+                  <Button
+                    width="100%"
+                    variant="transparent"
+                    onClick={() => setFilterType(m.type)}
+                    $withIcon={true}
+                  >
                     {m.icon} {m.name}
                   </Button>
                 </IssueMenu>
               ))}
             </ul>
           </div>
-          <div className="col-lg-10">
+          <div className="col-lg-9">
             <IssueTable>
               {/* 이슈 헤더 */}
               <IssueHeader>
                 <Checkbox
                   checked={isAllChecked}
-                  onChange={e => allCheckedHandler(!isAllChecked)}
-                  label={checkedItems.size > 0 ? `${checkedItems.size} 개 선택` : "전체 선택"}
+                  onChange={(e) => allCheckedHandler(!isAllChecked)}
+                  label={
+                    checkedItems.size > 0
+                      ? `${checkedItems.size} 개 선택`
+                      : "전체 선택"
+                  }
                 />
                 {checkedItems.size > 0 && (
                   <Button
@@ -147,14 +176,19 @@ const Notification = () => {
                     $padding="0.25rem 0.5rem"
                     onClick={() => removeIssues(Array.from(checkedItems))}
                   >
-                    <IconTrash className="icon" strokeWidth={1.25} width="1.25rem" height="1.25rem" />
+                    <IconTrash
+                      className="icon"
+                      strokeWidth={1.25}
+                      width="1.25rem"
+                      height="1.25rem"
+                    />
                     삭제
                   </Button>
                 )}
               </IssueHeader>
               {/* 이슈 리스트 */}
               <ul>
-                {getFilteredIssues().map(issue => {
+                {getFilteredIssues().map((issue) => {
                   return (
                     <Issue
                       key={issue.id}
@@ -199,7 +233,7 @@ const IssueMenu = styled.li<{ $active?: boolean }>`
   button {
     font-weight: 300;
   }
-  ${props =>
+  ${(props) =>
     props.$active &&
     css`
       border-left: 2px solid var(--primaryColor);

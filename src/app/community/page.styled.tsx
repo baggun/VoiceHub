@@ -9,6 +9,9 @@ import Link from "next/link";
 export const MenuBlock = styled.div`
   background-color: white;
   border-radius: 1rem;
+  ${({ theme }) => theme.devices.max_tablet} {
+    margin-bottom: 2rem;
+  }
 `;
 export const Menu = styled.div`
   display: flex;
@@ -33,7 +36,7 @@ export const MenuIcon = styled.div`
   justify-content: center;
   align-items: center;
   color: white;
-  ${props =>
+  ${(props) =>
     props.color &&
     css`
       background-color: ${props.color};
@@ -67,8 +70,11 @@ export const ContentBlock = styled.div``;
 export const Advertisement = styled(Link)`
   display: block;
   border-radius: 1rem;
-  background-color: tomato;
   overflow: hidden;
+
+  ${({ theme }) => theme.devices.max_tablet} {
+    display: none;
+  }
   .ad-img {
     width: 100%;
     border-radius: 1rem;

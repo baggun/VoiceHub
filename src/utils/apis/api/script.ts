@@ -7,9 +7,16 @@ import { ErrorMsg } from "@utils/error";
  * @param {number} limit 한계
  * @returns 성공 여부
  */
-export const getScripts = async (tag: string = "", skip: number = 0, limit: number = 0) => {
+export const getScripts = async (
+  tag: string = "",
+  skip: number = 0,
+  limit: number = 0
+) => {
   try {
-    const res = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/script?tag=${tag}&skip=${skip}&limit=${limit}`, { cache: 'no-store'});
+    const res = await fetch(
+      `${process.env.NEXT_PUBLIC_API_URL}/script?tag=${tag}&skip=${skip}&limit=${limit}`,
+      { cache: "no-store" }
+    );
     if (!res.ok) throw new Error("Failed to fetch data");
     return res.json();
   } catch (err) {
@@ -24,8 +31,11 @@ export const getScripts = async (tag: string = "", skip: number = 0, limit: numb
  */
 export const getScript = async (script_oid: string) => {
   try {
-    const res = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/script/${script_oid}`);
+    const res = await fetch(
+      `${process.env.NEXT_PUBLIC_API_URL}/script/${script_oid}`
+    );
     const data = await res.json();
+    console.log(data);
     return { ok: res.ok, ...data };
   } catch (err) {
     throw ErrorMsg(err);
@@ -39,7 +49,11 @@ export const getScript = async (script_oid: string) => {
  * @param {string[]} tags 관련 태그
  * @returns 성공 여부
  */
-export const postScript = async (title: string, script: string, tags: string[]) => {
+export const postScript = async (
+  title: string,
+  script: string,
+  tags: string[]
+) => {
   try {
     const res = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/script`, {
       method: "POST",

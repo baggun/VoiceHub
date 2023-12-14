@@ -2,14 +2,24 @@ import { IssueFilterType, IssueType } from "@type/issue";
 import { NotificationResponseData } from "@type/response/res_notification";
 import { UserPureResData } from "@type/response/res_user";
 
-export const getNotificationsProcess = (user_id: string, data: NotificationResponseData[]): IssueType[] => {
-  const getMsgWithLink = (noticeType: IssueFilterType, target: UserPureResData, message: string): string[] => {
+export const getNotificationsProcess = (
+  user_id: string,
+  data: NotificationResponseData[]
+): IssueType[] => {
+  const getMsgWithLink = (
+    noticeType: IssueFilterType,
+    target: UserPureResData | null,
+    message: string
+  ): string[] => {
     let msg = "";
     let link = "";
+
+    if (!target) target = { _id: "", user_id: "", user_nickname: "(알수없음)" };
+
     switch (noticeType) {
       case "comment-post":
         msg = `${target.user_nickname}님이 게시글에 댓글을 남겼습니다.`;
-        link = `/post/${message}`;
+        link = `/community/${message}`;
         break;
       case "comment-voice":
         msg = `${target.user_nickname}님이 ${message} 목소리에 댓글을 남겼습니다.`;
@@ -31,16 +41,19 @@ export const getNotificationsProcess = (user_id: string, data: NotificationRespo
     return [msg, link];
   };
 
-  return data.map(({ _id, noticeType, target, message, date, $isRead }): IssueType => {
-    const [msg, link] = getMsgWithLink(noticeType, target, message);
-    return {
-      id: _id,
-      type: noticeType,
-      target,
-      message: msg,
-      date: new Date(date),
-      link: link,
-      $isRead,
-    };
-  });
+  return data.map(
+    ({ _id, noticeType, target, message, date, $isRead }): IssueType => {
+      const [msg, link] = getMsgWithLink(noticeType, target, message);
+
+      return {
+        id: _id,
+        type: noticeType,
+        target,
+        message: msg,
+        date: new Date(date),
+        link: link,
+        $isRead,
+      };
+    }
+  );
 };
