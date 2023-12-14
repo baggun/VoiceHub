@@ -16,7 +16,6 @@ export const getVoicesProcess = (data: VoiceResponseData[]): VoiceInfo[] => {
 };
 
 export const getVoiceProcess = (data: VoiceResponseData): VoiceInfo => {
-  // console.log('123123', data);
   return {
     id: data._id,
     url: data.voice_src,

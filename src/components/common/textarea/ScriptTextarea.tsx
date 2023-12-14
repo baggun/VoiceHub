@@ -9,9 +9,14 @@ export type ScriptTextareaProps = {
   id?: string;
   disabled?: boolean;
 };
-const ScriptTextarea = ({ id, value, onChange, disabled = false }: ScriptTextareaProps) => {
+const ScriptTextarea = ({
+  id,
+  value,
+  onChange,
+  disabled = false,
+}: ScriptTextareaProps) => {
   return (
-    <ScriptBlock>
+    <ScriptBlock disabled={disabled}>
       <TextareaStyled
         id={id}
         className="scroll"
@@ -32,5 +37,5 @@ const TextareaStyled = styled(Textarea)<{ disabled: boolean }>`
   background: transparent;
   resize: vertical;
   width: 100%;
-  ${props => props.disabled && `color: ${props.theme.colors.grey};`}
+  ${(props) => props.disabled && `color: ${props.theme.colors.grey};`}
 `;

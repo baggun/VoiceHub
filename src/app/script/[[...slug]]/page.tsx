@@ -104,25 +104,6 @@ const Script = async ({ params }: { params: PageProps }) => {
     if (res.voices) relationTracks = getVoicesProcess(res.voices);
   }
 
-  // const relationTracks: RelationType[] = [
-  //   {
-  //     id: "1",
-  //     ownerID: "asdf",
-  //     ownerName: "가나다",
-  //     ownerProfile: "",
-  //     title: "Hello .. - Voice (Clarinet) & Piano",
-  //     url: "https://api.twilio.com//2010-04-01/Accounts/AC25aa00521bfac6d667f13fec086072df/Recordings/RE6d44bc34911342ce03d6ad290b66580c.mp3",
-  //   },
-  //   {
-  //     id: "0",
-  //     ownerID: "aaa",
-  //     ownerName: "xvxvxv",
-  //     ownerProfile: "",
-  //     title: "Brahms: St Anthony Chorale - Theme, Two Pianos Op.56b",
-  //     url: "https://www.mfiles.co.uk/mp3-downloads/franz-schubert-standchen-serenade.mp3",
-  //   },
-  // ];
-
   return (
     <>
       {script_id && curScript && (

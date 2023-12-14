@@ -2,7 +2,10 @@ import { getTags } from "@utils/apis/api/tag";
 import dynamic from "next/dynamic";
 import React from "react";
 // import AsyncCreatableSelect from "react-select/async-creatable";
-const AsyncCreatableSelect = dynamic(() => import("react-select/async-creatable"), { ssr: false });
+const AsyncCreatableSelect = dynamic(
+  () => import("react-select/async-creatable"),
+  { ssr: false }
+);
 
 export interface OptionType {
   readonly label: string;
@@ -31,7 +34,7 @@ const Selector = ({ id, value, setValue }: SelectorProps) => {
   });
 
   const promiseOptions = async (inputValue: string) => {
-    return new Promise<OptionType[]>(resolve => {
+    return new Promise<OptionType[]>((resolve) => {
       clearTimeout(timer);
 
       const newTimer = setTimeout(async () => {
@@ -43,16 +46,20 @@ const Selector = ({ id, value, setValue }: SelectorProps) => {
     });
   };
 
-  const keyDownHandler = (event: React.KeyboardEvent<HTMLDivElement>) => {
-    if (!inputValue) return;
-    switch (event.key) {
-      case " ":
-      case "Enter":
-      case "Tab":
-        setValue(prev => [...prev, createOption(inputValue)]);
-        setInputValue("");
-        event.preventDefault();
-    }
+  // const keyDownHandler = (event: React.KeyboardEvent<HTMLDivElement>) => {
+  //   if (!inputValue) return;
+  //   switch (event.key) {
+  //     case " ":
+  //     case "Enter":
+  //     case "Tab":
+  //       // setValue((prev) => [...prev, createOption(inputValue)]);
+  //       setInputValue("");
+  //       event.preventDefault();
+  //   }
+  // };
+
+  const onChangeHandler = (newValue: any) => {
+    setValue(newValue);
   };
 
   return (
@@ -63,29 +70,29 @@ const Selector = ({ id, value, setValue }: SelectorProps) => {
       placeholder=""
       inputValue={inputValue}
       isMulti
-      onKeyDown={keyDownHandler}
+      // onKeyDown={keyDownHandler}
       options={tagOptions}
-      value={value}
-      // onChange={(newValue) => setValue(newValue)}
-      onInputChange={newValue => setInputValue(newValue)}
-      formatCreateLabel={input => `"${input}"를 추가합니다.`}
+      // value={value}
+      onChange={onChangeHandler}
+      onInputChange={(newValue) => setInputValue(newValue)}
+      formatCreateLabel={(input) => `"${input}"를 추가합니다.`}
       loadOptions={promiseOptions}
       styles={{
         control: (baseStyles, state) => ({
           ...baseStyles,
-          outline: "none",
-          boxShadow: "none",
-          borderColor: "var(--lightGreyColor)",
-          "&:hover": "var(--lightGreyColor)",
+          // outline: "none",
+          // boxShadow: "none",
+          // borderColor: "var(--lightGreyColor)",
+          // "&:hover": "var(--lightGreyColor)",
         }),
         indicatorSeparator: (baseStyles, state) => ({
           ...baseStyles,
-          background: "none",
+          // background: "none",
         }),
         menu: (baseStyles, state) => ({
           ...baseStyles,
-          fontSize: "0.75rem",
-          fontWeight: "300",
+          // fontSize: "0.75rem",
+          // fontWeight: "300",
         }),
       }}
     />

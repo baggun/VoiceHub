@@ -23,12 +23,14 @@ import useStage from "@hooks/useStage";
 import { postVoice } from "@utils/apis/api/voice";
 import { getScript, postScript } from "@utils/apis/api/script";
 import { VoiceInfo } from "@type/voice";
+import SwitchCheckbox from "@common/checkbox/SwitchCheckbox";
 
 const VoiceUpload = () => {
   const router = useRouter();
   const { data: session } = useSession();
   const searchParams = useSearchParams();
   const script: string | null = searchParams.get("script");
+  const [scriptEnable, setScriptEnable] = React.useState<boolean>(false);
 
   const [voiceData, setVoiceData] = React.useState<VoiceInfo>({
     id: "",
@@ -36,7 +38,7 @@ const VoiceUpload = () => {
     ownerName: "", // Upload 때는 항상 공란이어야 함.
     ownerProfile: "",
     title: "",
-    url: "https://api.twilio.com//2010-04-01/Accounts/AC25aa00521bfac6d667f13fec086072df/Recordings/RE6d44bc34911342ce03d6ad290b66580c.mp3",
+    url: "test_voice4.m4a",
     script: "",
     tags: [],
   });
@@ -61,9 +63,13 @@ const VoiceUpload = () => {
     let script_id = script || "";
 
     if (!script) {
+      let scriptContent: string = voiceData.script || "";
+      if (scriptContent.replace(/\s/g, "").length === 0 || !scriptEnable)
+        scriptContent = "";
+
       const scriptRes = await postScript(
         voiceData.title,
-        voiceData.script || "",
+        scriptContent,
         voiceTags
       );
       if (scriptRes && scriptRes.success) script_id = scriptRes.data;
@@ -129,9 +135,7 @@ const VoiceUpload = () => {
                   <FormGroup>
                     <Label>목소리</Label>
                     <AudioWave
-                      audioSrc={
-                        "https://www.mfiles.co.uk/mp3-downloads/franz-schubert-standchen-serenade.mp3"
-                      }
+                      audioSrc={voiceData.url}
                       info={{
                         ...voiceData,
                         ownerName: session?.user.nickname || "",
@@ -140,18 +144,33 @@ const VoiceUpload = () => {
                     />
                   </FormGroup>
                   <FormGroup>
-                    <Label htmlFor="inputScript">대사</Label>
-                    <ScriptTextarea
-                      id="inputScript"
-                      value={voiceData.script}
-                      onChange={(e) =>
-                        setVoiceData({
-                          ...voiceData,
-                          script: e.target.value,
-                        })
-                      }
-                      disabled={script !== null}
-                    />
+                    <Label
+                      htmlFor="inputScript"
+                      style={{ display: "flex", gap: "1rem" }}
+                    >
+                      대사
+                      <SwitchCheckbox
+                        size="sm"
+                        id="n0"
+                        checked={scriptEnable}
+                        onChange={setScriptEnable}
+                      ></SwitchCheckbox>
+                    </Label>
+                    {scriptEnable ? (
+                      <ScriptTextarea
+                        id="inputScript"
+                        value={voiceData.script}
+                        onChange={(e) =>
+                          setVoiceData({
+                            ...voiceData,
+                            script: e.target.value,
+                          })
+                        }
+                        disabled={!scriptEnable}
+                      />
+                    ) : (
+                      <p>대사가 존재한다면 켜주세요!</p>
+                    )}
                   </FormGroup>
                 </div>
                 <div className="col-lg-5" {...ifStage("detail")}>

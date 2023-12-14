@@ -41,8 +41,7 @@ const SettingProfile = () => {
     interpretMessage,
   } = useForm<SettingProfileData>({
     initValues: { email: "", nickname: "", desc: "", profile: "" },
-    onSubmit: async (values: SettingProfileData) => {
-      // if (!values.password) return;
+    onSubmit: async (values: SettingProfileData) => { 
 
       const res = await changeProfile(values);
       console.log(res);

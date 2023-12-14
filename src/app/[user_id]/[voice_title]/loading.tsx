@@ -3,7 +3,7 @@ import { RecommendH3 } from "@common/Heading";
 import { Container, ContainerFluid } from "@common/Grid"; 
 import ScriptBlock from "@components/script/ScriptBlock"; 
 
-import { VoiceTitle, VoiceBG, VoiceFooter, Commet } from "./page.styled";
+import { VoiceBG } from "./page.styled";
 
 export default function Loading() {
   return (

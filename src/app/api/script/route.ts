@@ -90,11 +90,18 @@ export async function GET(request: NextRequest) {
 export async function POST(request: NextRequest) {
   const { title, script, tags } = await request.json();
 
+  if (script == "") {
+    return Response.json({
+      success: true,
+      message: "대사 없음",
+    });
+  }
+
   try {
     await dbConnect();
     const newScript = new Script({
       title,
-      script: script || " ",
+      script: script ? script : null,
       tags,
     });
     const scriptStatus = await newScript.save();

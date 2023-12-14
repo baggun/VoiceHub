@@ -11,21 +11,18 @@ export const userSchema = new Schema({
     required: true,
     unique: true,
   },
-
   // 닉네임
   user_nickname: {
     type: String,
     required: true,
     unique: true,
   },
-
   // 이메일
   user_email: {
     type: String,
     required: true,
     unique: true,
   },
-
   // 비밀번호
   user_pw: {
     type: String,

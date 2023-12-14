@@ -1,16 +1,14 @@
 import React from "react";
 import styled, { css } from "styled-components";
 
-type LabelProps = {
-  htmlFor?: string;
-  children?: React.ReactNode;
+interface LabelProps extends React.ComponentProps<"label"> {
   $require?: boolean;
-};
+}
 
-const Label = ({ htmlFor, children, $require = false }: LabelProps) => {
+const Label = ({ $require = false, ...props }: LabelProps) => {
   return (
-    <LabelStyled htmlFor={htmlFor} $require={$require}>
-      {children}
+    <LabelStyled {...props} $require={$require}>
+      {props.children}
     </LabelStyled>
   );
 };
@@ -22,7 +20,7 @@ const LabelStyled = styled.label<{ $require: boolean }>`
   margin-bottom: 0.5rem;
   font-weight: 500;
 
-  ${props =>
+  ${(props) =>
     props.$require &&
     css`
       &:after {

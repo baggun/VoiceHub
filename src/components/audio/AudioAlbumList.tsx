@@ -71,7 +71,7 @@ export default AudioAlbumList;
 
 export const AudioAlbumListSkeleton = () => {
   return (
-    <SkeletonWrapper $overflow>
+    <SkeletonWrapper $overflow $gap="2rem">
       {Array.from({ length: 6 }, (v, index) => (
         <SkeletonGroup key={index}>
           <Skeleton

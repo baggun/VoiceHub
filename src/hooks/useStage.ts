@@ -9,6 +9,7 @@ const useStage = ({ stages, endEvent }: useStageProps) => {
   const [stage, setStage] = useState<number>(0);
 
   const nextStage = () => {
+    console.log("1");
     let curStage = stage + 1;
     if (curStage >= stages.length) {
       endEvent();

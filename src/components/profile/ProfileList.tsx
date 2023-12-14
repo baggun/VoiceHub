@@ -62,7 +62,7 @@ export default ProfileList;
 
 export const ProfileListSkeleton = () => {
   return (
-    <SkeletonWrapper $overflow>
+    <SkeletonWrapper $overflow $gap="1.25rem">
       {Array.from({ length: 10 }, (v, index) => (
         <SkeletonGroup key={index} $align="center">
           <Skeleton

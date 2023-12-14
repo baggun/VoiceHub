@@ -22,24 +22,22 @@ const BannerCarousel = () => {
       id: 1,
       title: "OOO 방송국 성우 공채",
       content: "25번째 성우 공채 지금 지원하기",
-      image:
-        "https://cdn.inflearn.com/public/main_sliders/dd5c29ab-6be1-4bc2-b347-29e0c9388e99/%5B%E1%84%8B%E1%85%B5%E1%84%87%E1%85%A6%E1%86%AB%E1%84%90%E1%85%B3%5D%E1%84%82%E1%85%A1%E1%84%82%E1%85%B3%E1%86%AB%E1%84%8E%E1%85%A9%E1%84%87%E1%85%A9%E1%84%83%E1%85%A12_main_521.png",
+      image: "/img/icon.png",
       color: "#5806f0",
     },
     {
       id: 2,
       title: "OOO 방송국 성우 공채",
       content: "25번째 성우 공채 지금 지원하기",
-      image: "https://grepp-programmers.s3.amazonaws.com/production/file_resource/1989/2022-SCHOOL-commulearning-7.png",
+      image: "/img/icon.png",
       color: "#3e4683",
     },
     {
       id: 3,
       title: "OOO 방송국 성우 공채",
       content: "25번째 성우 공채 지금 지원하기",
-      image:
-        "https://cdn.inflearn.com/public/main_sliders/04081c01-4aee-40ad-a500-5260f1cfd508/main_521_%EC%9D%B8%ED%94%84%EB%9F%B0%EC%86%8C%EA%B0%9C.png",
-      color: "#59cf93",
+      image: "/img/icon.png",
+      color: "#7386f9",
     },
   ];
 
@@ -62,7 +60,7 @@ const BannerCarousel = () => {
 
   return (
     <CustomSlider {...settings}>
-      {slides.map(slide => (
+      {slides.map((slide) => (
         <SliderProvider
           key={slide.id}
           color={slide.color}
@@ -88,7 +86,7 @@ const BannerCarousel = () => {
 };
 
 const SliderProvider = styled.div<{ color: string }>`
-  background-color: ${props => props.color};
+  background-color: ${(props) => props.color};
   cursor: pointer;
 `;
 const CustomSlider = styled(Slider)`
@@ -203,7 +201,7 @@ const SliderContent = styled.div`
   }
 `;
 
-// TODO : 외부 이미지 사용말고 나중에 자체 이미지 사용으로 바꿀떄 next/image 로 변경 
+// TODO : 외부 이미지 사용말고 나중에 자체 이미지 사용으로 바꿀떄 next/image 로 변경
 const SliderImage = styled.img`
   height: 80%;
   width: auto;

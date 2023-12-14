@@ -90,7 +90,7 @@ export interface CustomButtonProps extends StyledButtonProps {
   variant?: "primary" | "secondary" | "grey" | "black" | "transparent";
   outline?: boolean;
   $withIcon?: boolean;
-};
+}
 export const Button = ({
   variant = "primary",
   $borderRadius,
@@ -105,6 +105,7 @@ export const Button = ({
   disabled,
   className,
   children,
+  ...props
 }: CustomButtonProps) => {
   const $variantStyle = outline ? VARIANTS_OUTLINE[variant] : VARIANTS[variant];
 
@@ -121,13 +122,14 @@ export const Button = ({
       $float={$float}
       $customStyle={$customStyle}
       $withIcon={$withIcon}
+      {...props}
     >
       {children}
     </StyledButton>
   );
 };
 
-interface StyledButtonProps extends React.ComponentProps<'button'>  {
+interface StyledButtonProps extends React.ComponentProps<"button"> {
   $borderRadius?: string;
   width?: string;
   height?: string;
@@ -135,7 +137,7 @@ interface StyledButtonProps extends React.ComponentProps<'button'>  {
   $margin?: string;
   $customStyle?: any;
   $float?: "left" | "right";
-};
+}
 
 const StyledButton = styled.button<
   {
@@ -144,7 +146,7 @@ const StyledButton = styled.button<
   } & StyledButtonProps
 >`
   border: none;
-  border-radius: ${props => props.$borderRadius || "0.125rem"};
+  border-radius: ${(props) => props.$borderRadius || "0.125rem"};
   padding: 0.5rem 1rem;
   color: white;
   font-size: 1rem;
@@ -156,14 +158,15 @@ const StyledButton = styled.button<
     background: ${({ theme }) => theme.colors.grey};
     border-color: ${({ theme }) => theme.colors.grey};
   }
-  ${props => props.$variantStyle}
-  ${props => props.width && `width: ${props.width};`}
-    ${props => props.height && `height: ${props.height};`}
-    ${props => props.$padding && `padding: ${props.$padding};`}
-    ${props => props.$margin && `margin: ${props.$margin};`}
-    ${props => props.$customStyle}
-    ${props => props.$float && `float: ${props.$float};`}
-    ${props => props.$withIcon && `display: inline-flex; align-items: center;`}
+  ${(props) => props.$variantStyle}
+  ${(props) => props.width && `width: ${props.width};`}
+    ${(props) => props.height && `height: ${props.height};`}
+    ${(props) => props.$padding && `padding: ${props.$padding};`}
+    ${(props) => props.$margin && `margin: ${props.$margin};`}
+    ${(props) => props.$customStyle}
+    ${(props) => props.$float && `float: ${props.$float};`}
+    ${(props) =>
+    props.$withIcon && `display: inline-flex; align-items: center;`}
     .icon.icon-sm {
     margin-right: 0.25rem;
   }

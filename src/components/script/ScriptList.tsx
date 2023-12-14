@@ -28,7 +28,7 @@ export default ScriptList;
 
 export const ScriptListSkeleton = () => {
   return (
-    <SkeletonWrapper $overflow>
+    <SkeletonWrapper $overflow $gap="1rem">
       {Array.from({ length: 4 }, (v, index) => (
         <SkeletonGroup key={index} $align="center">
           <Skeleton
