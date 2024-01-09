@@ -16,6 +16,7 @@
     "@types/graceful-fs": "^4.1.9",
     "@types/multer": "^1.4.10",
     "@types/multer-s3": "^3.0.2",
+    "@vercel/analytics": "^1.1.1",
     "bcrypt": "^5.1.1",
     "cross-env": "^7.0.3",
     "dotenv": "^16.3.1",

@@ -1,6 +1,7 @@
+import FooterPlayer from "@components/audio/FooterPlayer";
 import Provider from "@components/layout/Provider";
 import { GlobalStyle } from "@styles/GlobalStyle";
-import FooterPlayer from "@components/audio/FooterPlayer";
+import { Analytics } from "@vercel/analytics/react";
 import { Noto_Sans_KR } from "next/font/google";
 
 export const metadata = {
@@ -28,6 +29,8 @@ export default function RootLayout({
           <FooterPlayer />
           {/* </RecoilRoot> */}
         </Provider>
+
+        <Analytics />
       </body>
     </html>
   );
